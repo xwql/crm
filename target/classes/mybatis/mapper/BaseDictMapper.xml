@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.crm.mapper.BaseDictMapper" >
+
+  <resultMap id="BaseResultMap" type="cn.crm.bean.BaseDict">
+    <id column="dict_id" jdbcType="VARCHAR" property="dictId" />
+    <result column="dict_type_code" jdbcType="VARCHAR" property="dictTypeCode" />
+    <result column="dict_type_name" jdbcType="VARCHAR" property="dictTypeName" />
+    <result column="dict_item_name" jdbcType="VARCHAR" property="dictItemName" />
+    <result column="dict_item_code" jdbcType="VARCHAR" property="dictItemCode" />
+    <result column="dict_sort" jdbcType="INTEGER" property="dictSort" />
+    <result column="dict_enable" jdbcType="CHAR" property="dictEnable" />
+    <result column="dict_memo" jdbcType="VARCHAR" property="dictMemo" />
+  </resultMap>
+  
+  <select id="selectByTypecode" resultType="cn.crm.bean.BaseDict" parameterType="String" >
+    select *
+      from base_dict
+	 where dict_type_code = #{typecode}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultType="cn.crm.bean.BaseDict" parameterType="java.lang.String" >
+    select *
+      from base_dict
+     where dict_id = #{dictId}
+  </select>
+</mapper>

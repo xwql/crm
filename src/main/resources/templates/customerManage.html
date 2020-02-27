@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="head::htmlhead">
+</head>
+<body>
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">客户名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="cust_name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系人</label>
+        <div class="layui-input-block">
+            <input type="text" name="cust_linkman"  placeholder="请输入标题" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">负责人</label>
+        <div class="layui-input-block">
+            <input type="text" name="cust_user_id"   placeholder="请输入标题" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">固定电话</label>
+        <div class="layui-input-block">
+            <input type="text" name="cust_phone"  placeholder="请输入标题" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机</label>
+        <div class="layui-input-block">
+            <input type="text" name="cust_mobile" placeholder="请输入标题" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮政编码</label>
+        <div class="layui-input-block">
+            <input type="text" name="cust_zipcode"  placeholder="请输入标题" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="cust_address"  placeholder="请输入标题" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">客户来源</label>
+        <div class="layui-input-block">
+            <select  name="cust_source">
+                <option value=""></option>
+                <option value="0">北京</option>
+                <option value="1">上海</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">客户所属行业</label>
+        <div class="layui-input-block">
+            <select  name="cust_industry">
+                <option value=""></option>
+                <option value="0">北京</option>
+                <option value="1">上海</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">客户级别</label>
+        <div class="layui-input-block">
+            <select  name="cust_level">
+                <option value=""></option>
+                <option value="0">北京</option>
+                <option value="1">上海</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item ">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form,layer = layui.layer,$=layui.jquery;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            /*layer.msg(JSON.stringify(data.field));
+            return false;*/
+            $.ajax({
+                url:"/saveCustomer",
+                data:data.field,
+                dataType:'JSON',
+                type:'POST',
+                success :function (result) {
+                    layer.alert(result.msg,{
+                        closeBtn: 0, btn: ['确认'], no: function () {
+                            layer.closeAll();
+                        }
+                    });
+                }
+            })
+        });
+    });
+</script>
+</div>
+</body>
+</html>

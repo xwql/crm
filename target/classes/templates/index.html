@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>客户管理分析系统</title>
+    <link rel="stylesheet" href="/layui/css/layui.css"/>
+    <script src="/layui/layui.js"></script>
+    <script src="/layui/lay/modules/jquery.js"></script>
+    <script>
+        layui.use('element', function () {
+            var element = layui.element;
+
+            //一些事件监听
+            element.on('tab(demo)', function (data) {
+                console.log(data);
+            });
+        });
+    </script>
+   <!-- <script>
+        $(document).ready(function(){
+            $("dd>a").click(function (e) {
+                e.preventDefault();
+                $("#iframeMain").attr("src",$(this).attr("href"));
+            });
+        });
+    </script>-->
+</head>
+<body class="layui-layout-body">
+
+    <!--<ul class="layui-nav layui-nav-tree" lay-filter="test">-->
+        <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+        <ul class="layui-nav layui-nav-tree layui-nav-side ">
+        <li class="layui-nav-item layui-nav-itemed">
+            <a href="javascript:;">客户管理</a>
+            <dl class="layui-nav-child">
+                <dd><a href="customerManage.html" target="iframeMain">客户信息管理</a></dd>
+                <dd><a href="javascript:;">客户跟进</a></dd>
+                <dd><a href="">项目管理</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">客户分析</a>
+            <dl class="layui-nav-child">
+                <dd><a href="analyse.html" target="iframeMain">客户活跃度分析</a></dd>
+                <dd><a href="">统计分析</a></dd>
+                <dd><a href="">电商平台</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item"><a href="">系统设置</a></li>
+        <li class="layui-nav-item"><a href="">其它</a></li>
+    </ul>
+    <div style="margin-right: 1px">
+        <iframe name="iframeMain" src="" style="margin-left: 200px; height:1000px;width:1000px;padding-top: 20px;padding-right: 20px"></iframe>
+    </div>
+</body>
+</html>
