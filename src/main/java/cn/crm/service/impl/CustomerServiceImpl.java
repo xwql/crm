@@ -1,8 +1,10 @@
 package cn.crm.service.impl;
 
+import cn.crm.bean.CustomerStatus;
 import cn.crm.mapper.BaseDictMapper;
 import cn.crm.mapper.CustomerMapper;
 import cn.crm.bean.Customer;
+import cn.crm.mapper.CustomerStatusMapper;
 import cn.crm.service.CustomerService;
 import cn.crm.utils.Page;
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +30,8 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerMapper customerDao;
 	@Autowired
 	private BaseDictMapper baseDictDao;
+	@Autowired
+    private CustomerStatusMapper customerStatusMapper;
 
 	public CustomerServiceImpl() {
 	}
@@ -83,12 +88,23 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public void deleteCustomer(Long id) {
+	public void deleteCustomerWithData(Long id) {
 		customerDao.deleteCustomer(id);
 	}
 
 	@Override
-	public void  saveCustomer(Customer customer){
+    public void deleteCustomer2(Long id,String deletereason,String remark) {
+        CustomerStatus customerStatus = new CustomerStatus();
+        customerStatus.setCustId(id);
+        customerStatus.setCustStatus("无效客户");
+        customerStatus.setRemark(remark);
+        customerStatus.setDeletetime(new Date());
+        customerStatusMapper.updateByPrimaryKey(customerStatus);
+    }
+
+	@Override
+	public void  saveCustomer(Customer customer) {
+		customer.setCust_createtime(new Date());
 		customerDao.insertCustomer(customer);
 	}
 }

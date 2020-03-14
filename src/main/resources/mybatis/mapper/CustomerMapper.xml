@@ -76,6 +76,11 @@
 			WHERE
 				dict_type_code = '006'
 		) d ON a.cust_level = d.dict_id
+		join (
+		select customer_status.cust_id id
+		from customer_status
+		where cust_status &lt;&gt; '无效客户' or cust_status IS NULL
+		) s on a.cust_id = s.id
 		<include refid="selectCustomerListWhere"/>
 		<if test="start !=null and rows != null">
 			limit #{start},#{rows}
@@ -83,7 +88,12 @@
 	</select>
 	<select id="selectCustomerListCount" parameterType="cn.crm.bean.Customer" resultType="int">
 		select count(*)
-		from customer
+		from customer a
+		join (
+		select customer_status.cust_id id
+		from customer_status
+		where cust_status &lt;&gt; '无效客户' or cust_status IS NULL
+		) s on a.cust_id = s.id
 		<include refid="selectCustomerListWhere"/>
 	</select>	
 	

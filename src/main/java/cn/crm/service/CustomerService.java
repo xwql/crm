@@ -14,7 +14,15 @@ public interface CustomerService {
 
 	public void updateCustomer(Customer customer);
 
-	public void deleteCustomer(Long id);
+	public void deleteCustomerWithData(Long id);
+
+	/**
+	 * 不删除数据
+	 * @param id
+	 * @param deletereason
+	 * @param remark
+	 */
+	public void deleteCustomer2(Long id,String deletereason,String remark);
 
 	public void saveCustomer(Customer customer);
 }

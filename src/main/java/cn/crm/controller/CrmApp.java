@@ -17,8 +17,23 @@ public class CrmApp {
         return new ModelAndView("analyse");
     }
 
-    @RequestMapping(value = "/customerManage.html", method = RequestMethod.GET)
-    public String show2(){
+    @RequestMapping(value = "/customerManage1.html", method = RequestMethod.GET)
+    public String customerManage(){
         return "customerManage";
+    }
+
+    @RequestMapping(value = "/customerAdd.html", method = RequestMethod.GET)
+    public String show2(){
+        return "customerAdd";
+    }
+
+    @RequestMapping(value = "/customerDelete.html", method = RequestMethod.GET)
+    public String deleteCustomer(){
+        return "customerDelete";
+    }
+
+    @RequestMapping(value = "/edit.html", method = RequestMethod.GET)
+    public String editTest(){
+        return "page/table/edit";
     }
 }
