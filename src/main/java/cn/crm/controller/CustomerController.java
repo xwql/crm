@@ -50,12 +50,16 @@ public class CustomerController {
     public Map saveCustomer(Customer customer) {
         HashMap<String, String> map = new HashMap<>();
         Customer customerById = customerService.getCustomerById(customer.getCust_id());
-        if(customerById!=null) {
-            customerService.updateCustomer(customer);
-            map.put("msg","修改成功");
-        }else {
-            customerService.saveCustomer(customer);
-            map.put("msg", "添加成功");
+        try {
+            if (customerById != null) {
+                customerService.updateCustomer(customer);
+                map.put("msg", "修改成功");
+            } else {
+                customerService.saveCustomer(customer);
+                map.put("msg", "添加成功");
+            }
+        }catch (Exception e){
+            map.put("msg","操作失败，请查看数据填写是否正确");
         }
         return map;
     }

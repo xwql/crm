@@ -36,4 +36,19 @@ public class CrmApp {
     public String editTest(){
         return "page/table/edit";
     }
+
+    @RequestMapping(value = "/message.html", method = RequestMethod.GET)
+    public String message(){
+        return "message/message";
+    }
+
+    @RequestMapping(value = "/page/404.html", method = RequestMethod.GET)
+    public String to404(){
+        return "page/404";
+    }
+
+    @RequestMapping(value = "customerAnalyse.html", method = RequestMethod.GET)
+    public String getCustomerAnalyse(){
+        return "analyse/customerAnalyse";
+    }
 }

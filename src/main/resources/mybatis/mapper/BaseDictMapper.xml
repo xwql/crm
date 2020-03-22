@@ -3,25 +3,85 @@
 <mapper namespace="cn.crm.mapper.BaseDictMapper" >
 
   <resultMap id="BaseResultMap" type="cn.crm.bean.BaseDict">
-    <id column="dict_id" jdbcType="VARCHAR" property="dictId" />
-    <result column="dict_type_code" jdbcType="VARCHAR" property="dictTypeCode" />
-    <result column="dict_type_name" jdbcType="VARCHAR" property="dictTypeName" />
-    <result column="dict_item_name" jdbcType="VARCHAR" property="dictItemName" />
-    <result column="dict_item_code" jdbcType="VARCHAR" property="dictItemCode" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type_code" jdbcType="VARCHAR" property="typeCode" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
     <result column="dict_sort" jdbcType="INTEGER" property="dictSort" />
-    <result column="dict_enable" jdbcType="CHAR" property="dictEnable" />
-    <result column="dict_memo" jdbcType="VARCHAR" property="dictMemo" />
+    <result column="dict_enable" jdbcType="INTEGER" property="dictEnable" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   
   <select id="selectByTypecode" resultType="cn.crm.bean.BaseDict" parameterType="String" >
     select *
       from base_dict
-	 where dict_type_code = #{typecode}
+	 where type_code = #{typecode}
+	 ORDER BY type_code ,dict_sort
   </select>
   
-  <select id="selectByPrimaryKey" resultType="cn.crm.bean.BaseDict" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultType="cn.crm.bean.BaseDict" parameterType="java.lang.Long" >
     select *
       from base_dict
-     where dict_id = #{dictId}
+     where id = #{dictId}
+     ORDER BY type_code ,dict_sort
   </select>
+
+    <select id="selectDictList" resultType="cn.crm.bean.BaseDict" parameterType="cn.crm.bean.BaseDict">
+        select *
+        from base_dict
+      <include refid="selectBaseDictListWhere"/>
+      ORDER BY type_code ,dict_sort
+      <if test="start !=null and rows != null">
+        limit #{start},#{rows}
+      </if>
+    </select>
+  <sql id="selectBaseDictListWhere">
+    <where>
+      <if test="type_code != null" >
+        type_code like "%"#{type_code}"%"
+      </if>
+      <if test="type_name != null" >
+        and type_name like "%"#{type_name}"%"
+      </if>
+    </where>
+  </sql>
+  <select id="selectDictListCount" parameterType="cn.crm.bean.BaseDict" resultType="int">
+    select count(*)
+		from base_dict
+    <include refid="selectBaseDictListWhere"/>
+    ORDER BY type_code ,dict_sort
+  </select>
+  <select id="selectAllTypeName" parameterType="cn.crm.bean.BaseDict" resultType="cn.crm.bean.BaseDict">
+    SELECT DISTINCT type_code,type_name
+    from base_dict
+  </select>
+
+  <update id="updateBaseDictById" parameterType="cn.crm.bean.BaseDict">
+    update base_dict
+    <set>
+      <if test="item_name!=null and item_name!=''">
+        item_name=#{item_name},
+      </if>
+      <if test="dict_sort!=null">
+        dict_sort=#{dict_sort},
+      </if>
+      <if test="dict_enable!=null">
+        dict_enable=#{dict_enable},
+      </if>
+      <if test="remark!=null">
+        remark=#{remark},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <insert id="insertBaseDict" parameterType="cn.crm.bean.BaseDict">
+		insert into base_dict(type_code,type_name,item_name,dict_sort,dict_enable,remark)
+		values (#{type_code},
+		#{type_name},
+		#{item_name},
+		#{dict_sort},
+		1,
+		#{remark})
+	</insert>
 </mapper>

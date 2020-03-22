@@ -5,11 +5,11 @@
   "homeInfo": {
     "title": "首页",
     "icon": "fa fa-home",
-    "href": "page/welcome-1.html?t=1"
+    "href": "message.html"
   },
   "logoInfo": {
     "title": "CRMA",
-    "image": "images/logo.png",
+    "image": "images/crmlogo.png",
     "href": ""
   },
   "menuInfo": {
@@ -17,12 +17,6 @@
       "title": "常规管理",
       "icon": "fa fa-address-book",
       "child": [
-        {
-          "title": "首页",
-          "href": "",
-          "icon": "fa fa-home",
-          "target": "_self"
-        },
         {
           "title": "客户信息管理",
           "href": "customerManage.html",
@@ -57,7 +51,7 @@
             },
             {
               "title": "跟进过程",
-              "href": "",
+              "href": "followStatus",
               "icon": "fa",
               "target": "_self"
             },
@@ -77,19 +71,19 @@
         },
         {
           "title": "系统字典",
-          "href": "page/setting.html",
+          "href": "dictionary.html",
           "icon": "fa fa-gears",
           "target": "_self",
           "child": [
             {
               "title": "字典管理",
-              "href": "",
+              "href": "dictionary.html",
               "icon": "fa fa-file-text",
               "target": "_self"
             },
             {
-              "title": "跟进过程",
-              "href": "",
+              "title": "添加字典项",
+              "href": "baseDictAdd.html",
               "icon": "fa",
               "target": "_self"
             }
@@ -102,13 +96,25 @@
           "target": "_self",
           "child": [
             {
-              "title": "普通表单",
-              "href": "page/form.html",
+              "title": "客户总体分析",
+              "href": "customerAnalyse.html",
               "icon": "fa fa-list-alt",
               "target": "_self"
             },
             {
-              "title": "分步表单",
+              "title": "跟进分析",
+              "href": "page/form-step.html",
+              "icon": "fa fa-navicon",
+              "target": "_self"
+            },
+            {
+              "title": "评价分析",
+              "href": "page/form-step.html",
+              "icon": "fa fa-navicon",
+              "target": "_self"
+            },
+            {
+              "title": "项目分析",
               "href": "page/form-step.html",
               "icon": "fa fa-navicon",
               "target": "_self"

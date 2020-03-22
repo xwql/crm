@@ -3,75 +3,89 @@ package cn.crm.bean;
 import java.io.Serializable;
 
 public class BaseDict implements Serializable {
-	private String dict_id;
-	private String dict_type_code;
-	private String dict_type_name;
-	private String dict_item_name;
-	private String dict_item_code;
-	private Integer dict_sort;
-	private String dict_enable;
-	private String dict_memo;
-	private Integer start;
-	private Integer rows;
-	public String getDict_id() {
-		return dict_id;
-	}
-	public void setDict_id(String dict_id) {
-		this.dict_id = dict_id;
-	}
-	public Integer getStart() {
-		return start;
-	}
-	public void setStart(Integer start) {
-		this.start = start;
-	}
-	public Integer getRows() {
-		return rows;
-	}
-	public void setRows(Integer rows) {
-		this.rows = rows;
-	}
-	public String getDict_type_code() {
-		return dict_type_code;
-	}
-	public void setDict_type_code(String dict_type_code) {
-		this.dict_type_code = dict_type_code;
-	}
-	public String getDict_type_name() {
-		return dict_type_name;
-	}
-	public void setDict_type_name(String dict_type_name) {
-		this.dict_type_name = dict_type_name;
-	}
-	public String getDict_item_name() {
-		return dict_item_name;
-	}
-	public void setDict_item_name(String dict_item_name) {
-		this.dict_item_name = dict_item_name;
-	}
-	public String getDict_item_code() {
-		return dict_item_code;
-	}
-	public void setDict_item_code(String dict_item_code) {
-		this.dict_item_code = dict_item_code;
-	}
-	public Integer getDict_sort() {
-		return dict_sort;
-	}
-	public void setDict_sort(Integer dict_sort) {
-		this.dict_sort = dict_sort;
-	}
-	public String getDict_enable() {
-		return dict_enable;
-	}
-	public void setDict_enable(String dict_enable) {
-		this.dict_enable = dict_enable;
-	}
-	public String getDict_memo() {
-		return dict_memo;
-	}
-	public void setDict_memo(String dict_memo) {
-		this.dict_memo = dict_memo;
-	}
-	
+    private Long id;
+
+    private String type_code;
+
+    private String type_name;
+
+    private String item_name;
+
+    private Integer dict_sort;
+
+    private Integer dict_enable;
+
+    private String remark;
+
+    private Integer start;
+    private Integer rows;
+    public Integer getStart() {
+        return start;
+    }
+    public void setStart(Integer start) {
+        this.start = start;
+    }
+    public Integer getRows() {
+        return rows;
+    }
+    public void setRows(Integer rows) {
+        this.rows = rows;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getType_code() {
+        return type_code;
+    }
+
+    public String getType_name() {
+        return type_name;
+    }
+
+    public String getItem_name() {
+        return item_name;
+    }
+
+    public Integer getDict_sort() {
+        return dict_sort;
+    }
+
+    public Integer getDict_enable() {
+        return dict_enable;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setType_code(String type_code) {
+        this.type_code = type_code;
+    }
+
+    public void setType_name(String type_name) {
+        this.type_name = type_name;
+    }
+
+    public void setItem_name(String item_name) {
+        this.item_name = item_name;
+    }
+
+    public void setDict_sort(Integer dict_sort) {
+        this.dict_sort = dict_sort;
+    }
+
+    public void setDict_enable(Integer dict_enable) {
+        this.dict_enable = dict_enable;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 }
+

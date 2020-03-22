@@ -40,9 +40,9 @@
 			cust_name,
 			cust_user_id,
 			cust_create_id,
-			b.dict_item_name cust_source,
-			c.dict_item_name cust_industry,
-			d.dict_item_name cust_level,
+			b.item_name cust_source,
+			c.item_name cust_industry,
+			d.item_name cust_level,
 			cust_linkman,
 			cust_phone,
 			cust_mobile,
@@ -51,35 +51,35 @@
 			customer a
 		LEFT JOIN (
 			SELECT
-				dict_id,
-				dict_item_name
+				id,
+				item_name
 			FROM
 				base_dict
 			WHERE
-				dict_type_code = '002'
-		) b ON a.cust_source = b.dict_id
+				type_code = '002'
+		) b ON a.cust_source = b.id
 		LEFT JOIN (
 			SELECT
-				dict_id,
-				dict_item_name
+				id,
+				item_name
 			FROM
 				base_dict
 			WHERE
-				dict_type_code = '001'
-		) c ON a.cust_industry = c.dict_id
+				type_code = '001'
+		) c ON a.cust_industry = c.id
 		LEFT JOIN (
 			SELECT
-				dict_id,
-				dict_item_name
+				id,
+				item_name
 			FROM
 				base_dict
 			WHERE
-				dict_type_code = '006'
-		) d ON a.cust_level = d.dict_id
+				type_code = '006'
+		) d ON a.cust_level = d.id
 		join (
-		select customer_status.cust_id id
-		from customer_status
-		where cust_status &lt;&gt; '无效客户' or cust_status IS NULL
+			select customer_status.cust_id id
+			from customer_status
+			where cust_status &lt;&gt; '无效客户' or cust_status IS NULL
 		) s on a.cust_id = s.id
 		<include refid="selectCustomerListWhere"/>
 		<if test="start !=null and rows != null">

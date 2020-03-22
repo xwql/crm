@@ -12,7 +12,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="icon" href="images/favicon.ico">
+    <link rel="icon" href="images/logo.ico">
     <link rel="stylesheet" href="lib/layui-v2.5.5/css/layui.css" media="all">
     <link rel="stylesheet" href="css/layuimini.css" media="all">
     <link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
@@ -103,10 +103,10 @@
 </div>
 
 <!--百度统计代码-开始 正式使用请删除-->
-<script>
+<!--<script>
     var _hmt = _hmt || [];
     (function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?d97abf6d61c21d773f97835defbdef4e";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm, s);})();
-</script>
+</script>-->
 <!--百度统计代码-结束-->
 
 <script src="lib/layui-v2.5.5/layui.js?v=1.0.4" charset="utf-8"></script>
@@ -117,13 +117,24 @@
             element = layui.element,
             layer = layui.layer;
 
+        var config = {
+            urlHashLocation: true,  // URL地址hash定位
+            urlSuffixDefault: true, // URL后缀
+            BgColorDefault: 3,      // 默认皮肤（0开始）
+            checkUrlDefault: true  // 是否判断URL有效
+        };
+
+        layuimini.config(config); //不知为何在这里配置无效
         layuimini.init('api/init.json');
+
 
         $('.login-out').on("click", function () {
             layer.msg('退出登录成功', function () {
                 window.location = '/page/login-1.html';
             });
         });
+
+
     });
 </script>
 </body>

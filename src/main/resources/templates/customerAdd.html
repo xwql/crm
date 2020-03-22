@@ -36,7 +36,7 @@
                 <!--</div>
                 <div class="layui-form-item">-->
                 <div class="layui-inline">
-                    <label class="layui-form-label">负责人</label>
+                    <label class="layui-form-label">负责人ID</label>
                     <div class="layui-input-block">
                         <input type="text" id="cust_user_id" name="cust_user_id" placeholder="请输入负责人" autocomplete="off"
                                class="layui-input">
@@ -85,10 +85,12 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-form-item layui-inline">
+            <div class="layui-form-item ">
+                <div class="layui-inline">
                 <label class="layui-form-label">邮政编码</label>
                 <div class="layui-input-block">
                     <input type="text" id="cust_zipcode" name="cust_zipcode" placeholder="请输入邮政编码" autocomplete="off" class="layui-input">
+                </div>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -120,7 +122,7 @@
             success:function(result){
                 console.log(result);   //{cust_industry: {…}, cust_level: {…}, cust_source: {…}}
                 for(var p in result){
-                    //console.log(p);  //p的值为cust_source，result[p]为cust_source的对应json字符窜
+                    console.log(p);  //p的值为cust_source，result[p]为cust_source的对应json字符窜
                     var type = result[p];
                     var cust_type = document.getElementById(p); //server为select定义的id，p："cust_industry"
                     for (var id in type){
@@ -171,9 +173,12 @@
                     console.log("添加成功");
                     layer.alert(data.msg, {
                         closeBtn: 0, btn: ['确认'], no: function () {
-                            layer.closeAll();
+                            //layer.closeAll();
                         }
                     });
+                },
+                error: function(XMLHttpRequest,textStatus, errorThrown) {
+                    alert(XMLHttpRequest.responseText+'--------'+textStatus+'++++++'+errorThrown+'------'+"异常信息，稍后重试");
                 }
             });
             return false;

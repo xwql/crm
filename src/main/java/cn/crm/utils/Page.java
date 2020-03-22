@@ -6,7 +6,7 @@ public class Page<T> {
     
 	private int total;//总记录数
 	private int page;//当前页码
-	private int size;//页数
+	private int size;//页数(每页行数)
     private List<T> rows;
 	public int getTotal() {
 		return total;

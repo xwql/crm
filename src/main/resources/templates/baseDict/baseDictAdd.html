@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="head::htmlhead">
+</head>
+<body>
+<div class="layuimini-container ">
+    <div class="layuimini-main">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>输入字典信息</legend>
+        </fieldset>
+        <form class="layui-form" action="">
+            <input style="display: none" id="id" name="id">
+            <div class="layui-form-item" style="">
+                <div class="layui-inline">
+                    <label class="layui-form-label">字典类别</label>
+                    <div class="layui-input-block">
+                        <select id="type_name" name="type_name" lay-filter="type_name">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">类别编号</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="type_code" name="type_code" placeholder="请先选择字典类别" autocomplete="off"
+                               class="layui-input" readonly="readonly">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item ">
+                <div class="layui-inline">
+                    <label class="layui-form-label">字典类别选项</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="item_name" name="item_name" placeholder="请输入新选项" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">序号</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="dict_sort" name="dict_sort" placeholder="显示顺序(默认顺序排序)"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-block">
+                    <textarea id="remark" name="remark" class="layui-textarea" placeholder="请输入备注信息"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item ">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="DictForm">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use('form', function () {
+        var form = layui.form, layer = layui.layer, $ = layui.jquery;
+        //console.log(parent.layer.index)
+        $.ajax({
+            url: "getAllTypeName",
+            type: "get",
+            success: function (result) {
+                //console.log(result);
+                var type_name = document.getElementById("type_name");
+                for (var i = 0; i < result.length; i++) {
+                    var option = document.createElement("option");
+                    option.setAttribute("value",result[i].type_code);
+                    option.innerText=result[i].type_name;
+                    type_name.appendChild(option);
+                }
+                form.render("select");
+
+                if(getQueryString('id')!=null){
+                    var id=getQueryString('id');
+                    $("#id").val(id);
+                    $("#type_code").val(getQueryString('type_code'));
+                    $("#type_name").val(getQueryString('type_code'));
+                    $("#item_name").val(getQueryString('item_name'));
+                    $("#dict_sort").val(getQueryString('dict_sort'));
+                    $("#remark").val(getQueryString('remark'));
+                    form.render();
+                    //console.log(document.getElementById('id').value);
+                }
+            }
+        });
+
+        form.on('select(type_name)', function(data){
+
+            $("#type_code").val(data.value)
+            //console.log($("#type_name").find("option:selected").text())
+
+        });
+        form.on('submit(DictForm)', function (data) {
+            /*layer.msg(JSON.stringify(data.field));
+            return false;*/
+            $.ajax({
+                url: "/saveDict",
+                data: {"id":data.field.id
+                    ,"type_code":data.field.type_code
+                ,"type_name":$("#type_name").find("option:selected").text()
+                ,"item_name":data.field.item_name
+                ,"dict_sort":data.field.dict_sort
+                ,"remark":data.field.remark},
+                //dataType: 'JSON',
+                type: 'POST',
+                success: function (data) {
+                    //console.log("添加成功");
+                    layer.alert(data.msg, {
+                        closeBtn: 0, btn: ['确认'], no:function () {
+                            //layer.closeAll();
+                            parent.layer.close(parent.layer.index)
+                        },time:1000
+                    });
+
+                },
+                error: function(XMLHttpRequest,textStatus, errorThrown) {
+                    alert(XMLHttpRequest.responseText+'--------'+textStatus+'++++++'+errorThrown+'------'+"异常信息，稍后重试");
+                }
+            });
+            return false;
+        });
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            //if (r != null) return unescape(r[2]);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+    });
+</script>
+</body>
+</html>
