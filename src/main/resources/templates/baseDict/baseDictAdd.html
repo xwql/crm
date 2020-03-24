@@ -103,29 +103,33 @@
         form.on('submit(DictForm)', function (data) {
             /*layer.msg(JSON.stringify(data.field));
             return false;*/
-            $.ajax({
-                url: "/saveDict",
-                data: {"id":data.field.id
-                    ,"type_code":data.field.type_code
-                ,"type_name":$("#type_name").find("option:selected").text()
-                ,"item_name":data.field.item_name
-                ,"dict_sort":data.field.dict_sort
-                ,"remark":data.field.remark},
-                //dataType: 'JSON',
-                type: 'POST',
-                success: function (data) {
-                    //console.log("添加成功");
-                    layer.alert(data.msg, {
-                        closeBtn: 0, btn: ['确认'], no:function () {
-                            //layer.closeAll();
-                            parent.layer.close(parent.layer.index)
-                        },time:1000
-                    });
-
-                },
-                error: function(XMLHttpRequest,textStatus, errorThrown) {
-                    alert(XMLHttpRequest.responseText+'--------'+textStatus+'++++++'+errorThrown+'------'+"异常信息，稍后重试");
-                }
+            layer.confirm("是否提交",function () {
+                $.ajax({
+                    url: "/saveDict",
+                    data: {
+                        "id": data.field.id
+                        , "type_code": data.field.type_code
+                        , "type_name": $("#type_name").find("option:selected").text()
+                        , "item_name": data.field.item_name
+                        , "dict_sort": data.field.dict_sort
+                        , "remark": data.field.remark
+                    },
+                    //dataType: 'JSON',
+                    type: 'POST',
+                    success: function (data) {
+                        //console.log("添加成功");
+                        layer.msg(data.msg,  {
+                            icon: 1,
+                            time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                        },  function () {
+                                //layer.closeAll();
+                                parent.layer.close(parent.layer.index)
+                            })
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(XMLHttpRequest.responseText + '--------' + textStatus + '++++++' + errorThrown + '------' + "异常信息，稍后重试");
+                    }
+                });
             });
             return false;
         });

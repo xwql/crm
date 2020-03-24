@@ -209,9 +209,10 @@
                     curr: 1
                 }
             });
-            layer.alert(result, {
+            layer.msg("数据正在加载",{icon:6,time:1000});
+            /*layer.alert(result, {
                 title: '最终的搜索信息'
-            });
+            });*/
             return false;
         });
 
@@ -247,13 +248,13 @@
                     type:'post',
                     //datatype:'json',
                     success:function (result) {
-                        layer.alert(result.msg+","+"即将自动刷新全表",{time:1000});
+                        layer.msg(result.msg+","+"即将自动刷新全表",{time:1000});
                         layer.close(index);
                         table.reload('currentTableId', {
                             method: 'post'
-                            , page: {
+                            /*, page: {
                                 curr: 1
-                            }
+                            }*/
                         });
                     }
                 });
@@ -315,11 +316,16 @@
                             url:"deleteCustomer",
                             success: function (data) {
                                     //layer.alert();
+                                layer.msg(data.msg,  {
+                                    icon: 1,
+                                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                                },  function () {
+                                    //layer.closeAll();
                                     obj.del();
                                     layer.close(index);
+                                })
                             }
                         });
-                        layer.close(x);
                     });
                     return false;
                 });

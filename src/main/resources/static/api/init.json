@@ -44,14 +44,14 @@
           "target": "_self",
           "child": [
             {
-              "title": "跟进状态",
-              "href": "",
+              "title": "客户跟进状态",
+              "href": "followStatus.html",
               "icon": "fa fa-file-text",
               "target": "_self"
             },
             {
-              "title": "跟进过程",
-              "href": "followStatus",
+              "title": "跟进客户",
+              "href": "following.html",
               "icon": "fa",
               "target": "_self"
             },

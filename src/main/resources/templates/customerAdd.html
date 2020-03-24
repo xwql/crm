@@ -144,9 +144,10 @@
                         url:"editCustomer",
                         data:{"id":id},
                         success:function(data) {
-                            console.log(data.cust_industry);
+                            //console.log(data.cust_industry);
                             $("#cust_id").val(data.cust_id);
                             $("#cust_name").val(data.cust_name);
+                            $("#cust_user_id").val(data.cust_user_id);
                             $("#cust_source").val(data.cust_source);
                             $("#cust_industry").val(data.cust_industry);
                             $("#cust_level").val(data.cust_level);
@@ -164,6 +165,7 @@
         form.on('submit(formDemo)', function (data) {
             /*layer.msg(JSON.stringify(data.field));
             return false;*/
+            layer.confirm("是否提交当前数据",function () {
             $.ajax({
                 url: "/saveCustomer",
                 data: data.field,
@@ -171,16 +173,20 @@
                 type: 'POST',
                 success: function (data) {
                     console.log("添加成功");
-                    layer.alert(data.msg, {
-                        closeBtn: 0, btn: ['确认'], no: function () {
-                            //layer.closeAll();
-                        }
-                    });
+                    layer.msg(data.msg,  {
+                        icon: 1,
+                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                    },  function () {
+                        //layer.closeAll();
+                        parent.layer.close(parent.layer.index);
+                        parent.layui.table.reload('currentTableId',{});
+                    })
                 },
                 error: function(XMLHttpRequest,textStatus, errorThrown) {
                     alert(XMLHttpRequest.responseText+'--------'+textStatus+'++++++'+errorThrown+'------'+"异常信息，稍后重试");
                 }
             });
+        })
             return false;
         });
         //console.log('cust_name='+getQueryString('cust_name'));

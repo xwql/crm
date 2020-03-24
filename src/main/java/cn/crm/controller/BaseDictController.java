@@ -6,10 +6,7 @@ import cn.crm.utils.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -136,4 +133,31 @@ public class BaseDictController {
         }
         return map;
     }
+    //跟进状态字典
+    @GetMapping("getFollowDict")
+    @ResponseBody
+    public Map getFollowDict(){
+        List<BaseDict> custType = systemService.findBaseDictListByType("005");
+        List<BaseDict> businessType = systemService.findBaseDictListByType("007");
+        List<BaseDict> propertyType = systemService.findBaseDictListByType("003");
+        HashMap<String, Map> map = new HashMap<>();
+        HashMap<Long, String> custMap = new HashMap<>();
+        HashMap<Long, String> businessMap = new HashMap<>();
+        HashMap<Long, String> propertyMap = new HashMap<>();
+        for (BaseDict b: custType) {
+
+            custMap.put(b.getId(),b.getItem_name());
+        }
+        for(BaseDict b: businessType){
+            businessMap.put(b.getId(),b.getItem_name());
+        }
+        for(BaseDict b: propertyType){
+            propertyMap.put(b.getId(),b.getItem_name());
+        }
+        map.put("cust_status",custMap);
+        map.put("business_status",businessMap);
+        map.put("cust_property",propertyMap);
+        return map;
+    }
+
 }

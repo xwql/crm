@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.crm.mapper.FollowStatusMapper">
+  <resultMap id="BaseResultMap" type="cn.crm.bean.FollowStatus">
+    <id column="cust_id" jdbcType="BIGINT" property="cust_id" />
+    <result column="cust_status" jdbcType="VARCHAR" property="cust_status" />
+    <result column="business_status" jdbcType="VARCHAR" property="business_status" />
+    <result column="follow_status" jdbcType="INTEGER" property="follow_status" />
+    <result column="cust_property" jdbcType="VARCHAR" property="cust_property" />
+    <result column="times" jdbcType="BIGINT" property="times" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cust_id, cust_status, business_status, follow_status, cust_property, times
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from follow_status
+    where cust_id = #{cust_id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from follow_status
+    where cust_id = #{cust_id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.crm.bean.FollowStatus">
+    insert into follow_status (cust_id, cust_status, business_status, 
+      follow_status, cust_property, times, createtime
+      )
+    values (#{cust_id,jdbcType=BIGINT}, #{cust_status,jdbcType=VARCHAR}, #{business_status,jdbcType=VARCHAR},
+      #{follow_status,jdbcType=INTEGER}, #{cust_property,jdbcType=VARCHAR}, #{times,jdbcType=BIGINT}, #{createtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.crm.bean.FollowStatus">
+    insert into follow_status
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cust_id != null">
+        cust_id,
+      </if>
+      <if test="cust_status != null">
+        cust_status,
+      </if>
+      <if test="business_status != null">
+        business_status,
+      </if>
+      <if test="follow_status != null">
+        follow_status,
+      </if>
+      <if test="cust_property != null">
+        cust_property,
+      </if>
+      <if test="times != null">
+        times,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cust_id != null">
+        #{cust_id,jdbcType=BIGINT},
+      </if>
+      <if test="cust_status != null">
+        #{cust_status,jdbcType=VARCHAR},
+      </if>
+      <if test="business_status != null">
+        #{business_status,jdbcType=VARCHAR},
+      </if>
+      <if test="follow_status != null">
+        #{follow_status,jdbcType=INTEGER},
+      </if>
+      <if test="cust_property != null">
+        #{cust_property,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.crm.bean.FollowStatus">
+    update follow_status
+    <set>
+      <if test="cust_status != null">
+        cust_status = #{cust_status,jdbcType=VARCHAR},
+      </if>
+      <if test="business_status != null">
+        business_status = #{business_status,jdbcType=VARCHAR},
+      </if>
+      <if test="follow_status != null">
+        follow_status = #{follow_status,jdbcType=INTEGER},
+      </if>
+      <if test="cust_property != null">
+        cust_property = #{cust_property,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        times = #{times,jdbcType=BIGINT},
+      </if>
+    </set>
+    where cust_id = #{cust_id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.crm.bean.FollowStatus">
+    update follow_status
+    set cust_status = #{cust_status,jdbcType=VARCHAR},
+      business_status = #{business_status,jdbcType=VARCHAR},
+      follow_status = #{follow_status,jdbcType=INTEGER},
+      cust_property = #{cust_property,jdbcType=VARCHAR},
+      times = #{times,jdbcType=BIGINT}
+    where cust_id = #{cust_id,jdbcType=BIGINT}
+  </update>
+
+  <sql id="selectFollowListWhere">
+    <where>
+      <if test="cust_user_name != null">
+         f.sys_user_name like "%"#{cust_user_name}"%"
+      </if>
+      <if test="cust_property != null" >
+        and cust_property = #{cust_property}
+      </if>
+      <if test="business_status != null" >
+        and cust_industry = #{cust_industry}
+      </if>
+      <if test="cust_status != null" >
+        and cust_status = #{cuse_status}
+      </if>
+      <if test="follow_status != null" >
+        and follow_status = #{follow_status}
+      </if>
+    </where>
+  </sql>
+  <select id="selectFollowStatusList" parameterType="cn.crm.bean.FollowStatus" resultType="cn.crm.bean.FollowStatus">
+    SELECT
+    cust_id,
+    b.item_name cust_status,
+    c.item_name business_status,
+    d.item_name cust_property,
+    f.cust_name cust_name,
+    f.sys_user_name cust_user_name,
+    f.cust_linkman cust_linkman,
+    follow_status
+    FROM
+    follow_status a
+    LEFT JOIN (
+    SELECT
+    id,
+    item_name
+    FROM
+    base_dict
+    WHERE
+    type_code = '005'
+    ) b ON a.cust_status = b.id
+    LEFT JOIN (
+    SELECT
+    id,
+    item_name
+    FROM
+    base_dict
+    WHERE
+    type_code = '007'
+    ) c ON a.business_status = c.id
+    LEFT JOIN (
+    SELECT
+    id,
+    item_name
+    FROM
+    base_dict
+    WHERE
+    type_code = '003'
+    ) d ON a.cust_property = d.id
+    JOIN (
+    SELECT
+    g.cust_id cid,
+    cust_name,
+    cust_linkman,
+    cust_user_id,
+    e.sys_user_name sys_user_name
+    FROM
+    customer g
+    LEFT JOIN (
+    SELECT
+    id,
+    sys_user_name
+    FROM
+    admin_user
+    ) e ON g.cust_user_id = e.id
+    <if test="cust_name != null">
+        where g.cust_name like "%"#{cust_name}"%"
+    </if>
+    ) f ON a.cust_id = f.cid
+    <include refid="selectFollowListWhere"/>
+    ORDER BY createtime DESC
+    <if test="start !=null and rows != null">
+      limit #{start},#{rows}
+    </if>
+  </select>
+  <select id="selectFollowListCount" parameterType="cn.crm.bean.Customer" resultType="int">
+    select count(*)
+    from follow_status a
+    JOIN (
+    SELECT
+    g.cust_id cid,
+    cust_name,
+    cust_linkman,
+    cust_user_id,
+    e.sys_user_name sys_user_name
+    FROM
+    customer g
+    LEFT JOIN (
+    SELECT
+    id,
+    sys_user_name
+    FROM
+    admin_user
+    ) e ON g.cust_user_id = e.id
+    <if test="cust_name != null">
+      where g.cust_name like "%"#{cust_name}"%"
+    </if>
+    ) f ON a.cust_id = f.cid
+
+    <include refid="selectFollowListWhere"/>
+  </select>
+</mapper>
