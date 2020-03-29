@@ -2,90 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>客户跟进</title>
+    <title>跟进新客户</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <link rel="stylesheet" href="lib/layui-v2.5.5/css/layui.css" media="all">
-    <link rel="stylesheet" href="css/layuimini.css">
+    <link rel="stylesheet" href="lib/layui-v2.5.5/css/layui.css">
+    <!--<link rel="stylesheet" href="css/layuimini.css">-->
     <link rel="stylesheet" href="css/public.css" media="all">
-
 </head>
 <body>
-<div class="layuimini-container">
+<div class="layuimini-container ">
     <div class="layuimini-main">
         <fieldset class="table-search-fieldset">
             <legend>搜索信息</legend>
-            <form id="followSearchForm" class="layui-form layui-form-pane" action="">
+            <form id="searchList" class="layui-form layui-form-pane" action="">
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <label class="layui-form-label">客户名称</label>
+                        <label class="layui-form-label">客户ID</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="cust_name" autocomplete="off" class="layui-input">
+                            <input type="text" id="cust_id" name="cust_id" autocomplete="off" class="layui-input"
+                                   onkeyup="this.value=this.value.replace(/[, ]/g,'')">
                         </div>
                     </div>
                     <div class="layui-inline">
-                        <label class="layui-form-label">负责人</label>
+                        <label class="layui-form-label">开始时间</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="cust_user_name" autocomplete="off" class="layui-input">
-                        </div>
-                        <div class="layui-input-inline" pane>
-                            <input type="checkbox" name="follow_status" lay-skin="switch" lay-text="跟进中|未跟进"
-                                   lay-filter="switchFollow" checked>
+                            <input type="text" name="startTime" id="=startTime" class="layui-input datetime">
                         </div>
                     </div>
-
+                    <div class="layui-inline">
+                        <label class="layui-form-label">终止时间</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="endTime" id="endTime" class="layui-input datetime">
+                        </div>
+                    </div>
                     <div class="layui-inline">
                         <a class="layui-btn layui-btn-primary" lay-submit lay-filter="data-search-btn"><i
                                 class="layui-icon"></i> 搜 索</a>
                     </div>
+
                 </div>
-
             </form>
-
         </fieldset>
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
                 <!--<button class="layui-btn layui-btn-sm data-add-btn" > 添加跟进客户 </button>-->
-                <a href="javascript:;" class="layui-btn layui-btn-sm" data-iframe-tab="followAdd.html"
+                <a href="javascript:;" class="layui-btn layui-btn-sm" data-iframe-tab="following.html"
                    data-title="添加跟进" data-icon="fa fa-gears">
-                    <i class="layui-icon ">&#xe624;</i>添加跟进客户</a>
+                    <i class="layui-icon ">&#xe624;</i>添加跟进记录</a>
                 <!--<button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn"> 删除客户 </button>-->
             </div>
         </script>
-
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
-
         <script type="text/html" id="currentTableBar">
             <a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-            <a  data-title="添加跟进"
-               class="layui-btn layui-btn-xs layui-btn-warm data-count-follow" lay-event="follow">跟进</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">停止跟进</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
         </script>
     </div>
+
 </div>
 <script src="lib/layui-v2.5.5/layui.all.js" charset="utf-8"></script>
 <!--tab跳转需要layuimini-->
 <script src="js/lay-module/layuimini/layuimini.js" charset="utf-8"></script>
 <script>
-    layui.use(['form', 'table'], function () {
+    layui.use(['form', 'table', 'laydate', 'util'], function () {
         var $ = layui.jquery,
             form = layui.form,
             table = layui.table,
+            util = layui.util,
+            laydate = layui.laydate,
             layuimini = layui.layuimini;
-        var statusTpl = function (d) { // 参数d是当前行数据
-            if (d.follow_status == 1) {
-                return '<input disabled type="checkbox" lay-skin="switch" lay-text="跟进中|未跟进" checked> ';
-            } else {
-                return '<input disabled type="checkbox" lay-skin="switch" lay-text="跟进中|未跟进"> ';
-            }
-        };
-
+        $('.datetime').each(function () {
+            laydate.render({
+                elem: this       //使用this指向当前元素,不能使用class名, 否则只有第一个有效
+                , type: 'datetime'
+            });
+        });
         <!--表格-->
         var tableIns = table.render({
             elem: '#currentTableId',
-            url: 'followStatusList',
+            url: 'followRecordList',
             method: 'post',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
@@ -109,14 +105,13 @@
             },
             cols: [
                 [
-                    {field: 'cust_id', width: 90, title: '客户ID', sort: true},
-                    {field: 'cust_name', width: 150, title: '客户名称'},
-                    {field: 'cust_status', width: 120, title: '客户状态'},
-                    {field: 'business_status', width: 120, title: '商机状态'},
-                    {field: 'cust_property', title: '客户性质', width: 120},
-                    {field: 'cust_linkman', width: 120, title: '联系人'},
-                    {field: 'cust_user_name', width: 120, title: '负责人'},
-                    {field: 'follow_status', width: 120, title: '跟进状态', templet: statusTpl},
+                    {field: 'id', width: 100, title: 'ID', sort: true},
+                    {field: 'cust_id', width: 100, title: '客户ID', sort: true},
+                    {field: 'user_id', width: 150, title: '负责人ID'},
+                    {field: 'way', width: 150, title: '跟进方式'},
+                    {field: 'record', width: 150, title: '跟进信息'},
+                    {field: 'remark', title: '备注', width: 150},
+                    {field: 'record_time', width: 160, title: '记录时间',templet : "<div>{{layui.util.toDateString(d.record_time, 'yyyy-MM-dd HH:mm')}}</div>", sort: true},
                     {title: '操作', minWidth: 50, templet: '#currentTableBar', align: "center"}
                 ]
             ],
@@ -124,25 +119,15 @@
             limit: 10,
             page: true
         });
-        //console.log(tableIns.config);
-        //监听搜索框开关
-        var follow_status = 1;
-        form.on("switch(switchFollow)", function (data) {
-            if (data.elem.checked) {
-                follow_status = 1;
-            } else {
-                follow_status = 0;
-            }
-        });
         form.on('submit(data-search-btn)', function (data) {
             var result = JSON.stringify(data.field);
             var text = JSON.parse(result);
             table.reload('currentTableId', {
                 method: 'post'
                 , where: {  //text  //搜索框里的各个参数,通过这个实现搜索功能，table同一数据接口
-                    "cust_name": text.cust_name,
-                    "cust_user_name": text.cust_user_name,
-                    "follow_status": follow_status
+                    "cust_id": text.cust_id,
+                    "startTime": text.startTime,
+                    "endTime": text.endTime
                 }
                 , page: {
                     curr: 1
@@ -157,56 +142,42 @@
             console.log(data);
             if (obj.event === 'edit') {
                 var index = layer.open({
-                    title: '编辑状态',
+                    title: '编辑跟进记录',
                     type: 2,
                     shade: 0.2,
                     maxmin: true,
                     resize: false,
                     shadeClose: true,
                     area: ['60%', '70%'],
-                    //content: ['customerAdd.html'+ '#cust_id'+'#cust_name'],
-                    content: 'followAdd.html?edit=1&cust_id=' + data.cust_id
+                    content: 'followRecordEdit.html?edit=1&id=' + data.id
                 });
                 /* $(window).on("resize", function () {
                      layer.full(index);
                  });*/
                 return false;
             } else if (obj.event === 'delete') {
-                layer.confirm('确定停止跟进客户'+data.cust_name+'吗？', function (x) {
+                layer.confirm('确定要删除该记录吗？', function (x) {
                     $.ajax({
                         type: "post",
-                        data: {"id":data.cust_id},
-                        url: "stopFollowing",
+                        data: {"id": data.id},
+                        url: "deleteRecord",
                         success: function (data) {
                             //layer.alert();
-                            layer.msg(data.msg,  {
+                            layer.msg(data.msg, {
                                 icon: 6,
                                 time: 2000 //2秒关闭（如果不配置，默认是3秒）
-                            },  function () {
+                            }, function () {
                                 layer.close(index);
-                                table.reload('currentTableId',{});
+                                table.reload('currentTableId', {});
                             });
 
                         }
                     });
                     layer.close(x);
                 });
-            }else if (obj.event === 'follow'){
-                if(data.follow_status == 1){
-                    layer.msg("已经在跟进列表中",{
-                        icon: 1,
-                        time: 1000
-                    })
-                } else {
-                    layer.alert("点击编辑再提交就能重新加入跟进列表",  {
-                        icon: 6
-                    });
-                }
             }
-        });
-
-    })
-
+        })
+    });
 </script>
 </body>
 </html>

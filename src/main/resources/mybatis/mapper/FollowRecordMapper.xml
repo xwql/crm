@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.crm.bean.FollowRecord">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="cust_id" jdbcType="BIGINT" property="cust_id" />
+    <result column="user_id" jdbcType="BIGINT" property="user_id" />
     <result column="way" jdbcType="VARCHAR" property="way" />
     <result column="record" jdbcType="VARCHAR" property="record" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -11,7 +12,7 @@
     <result column="visible" jdbcType="INTEGER" property="visible" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, cust_id, way, record, remark, record_time, visible
+    id, cust_id, user_id, way, record, remark, record_time, visible
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -24,12 +25,12 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="cn.crm.bean.FollowRecord">
-    insert into follow_record (id, cust_id, way, 
-      record, remark, record_time, 
-      visible)
-    values (#{id,jdbcType=BIGINT}, #{cust_id,jdbcType=BIGINT}, #{way,jdbcType=VARCHAR}, 
-      #{record,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{record_time,jdbcType=TIMESTAMP}, 
-      #{visible,jdbcType=INTEGER})
+    insert into follow_record (id, cust_id, user_id, 
+      way, record, remark, 
+      record_time, visible)
+    values (#{id,jdbcType=BIGINT}, #{cust_id,jdbcType=BIGINT}, #{user_id,jdbcType=BIGINT}, 
+      #{way,jdbcType=VARCHAR}, #{record,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{record_time,jdbcType=TIMESTAMP}, #{visible,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.crm.bean.FollowRecord">
     insert into follow_record
@@ -39,6 +40,9 @@
       </if>
       <if test="cust_id != null">
         cust_id,
+      </if>
+      <if test="user_id != null">
+        user_id,
       </if>
       <if test="way != null">
         way,
@@ -63,6 +67,9 @@
       <if test="cust_id != null">
         #{cust_id,jdbcType=BIGINT},
       </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=BIGINT},
+      </if>
       <if test="way != null">
         #{way,jdbcType=VARCHAR},
       </if>
@@ -86,6 +93,9 @@
       <if test="cust_id != null">
         cust_id = #{cust_id,jdbcType=BIGINT},
       </if>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=BIGINT},
+      </if>
       <if test="way != null">
         way = #{way,jdbcType=VARCHAR},
       </if>
@@ -107,6 +117,7 @@
   <update id="updateByPrimaryKey" parameterType="cn.crm.bean.FollowRecord">
     update follow_record
     set cust_id = #{cust_id,jdbcType=BIGINT},
+      user_id = #{user_id,jdbcType=BIGINT},
       way = #{way,jdbcType=VARCHAR},
       record = #{record,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
@@ -114,4 +125,50 @@
       visible = #{visible,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <sql id="selectFollowRecordListWhere">
+    <where>
+      <if test="cust_id != null" >
+        cust_id = #{cust_id}
+      </if>
+      <if test="startTime != null " >
+        and record_time &gt; #{startTime}
+      </if>
+      <if test="endTime != null " >
+        and record_time &lt; #{endTime}
+      </if>
+      <if  test="visible != null">
+        and visible = #{visible}
+      </if>
+    </where>
+  </sql>
+  <select id="selectFollowRecordList" parameterType="cn.crm.bean.FollowRecord" resultType="cn.crm.bean.FollowRecord">
+    select a.id id,
+    cust_id,
+    user_id,
+    b.item_name way,
+    record,
+    remark,
+    record_time
+    from
+    follow_record a
+    left join
+    (select id,item_name
+    from base_dict
+    where type_code = "011"
+    ) b on a.way=b.id
+    <include refid="selectFollowRecordListWhere"/>
+    order by record_time desc
+    <if test="start !=null and rows != null">
+      limit #{start},#{rows}
+    </if>
+  </select>
+  <select id="selectFollowRecordListCount" parameterType="cn.crm.bean.FollowRecord" resultType="int">
+    select count(*)
+    from follow_record
+    <include refid="selectFollowRecordListWhere"/>
+    <if test="start !=null and rows != null">
+      limit #{start},#{rows}
+    </if>
+  </select>
 </mapper>

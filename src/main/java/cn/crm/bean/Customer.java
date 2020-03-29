@@ -13,7 +13,7 @@ public class Customer implements Serializable {
 	private String cust_level;
 	private String cust_linkman;
 	private String cust_phone;
-	private String cust_mobile;
+	private String cust_email;
 	private String cust_zipcode;
 	private String cust_address;
 	private Date cust_createtime;
@@ -97,11 +97,11 @@ public class Customer implements Serializable {
 	public void setCust_phone(String cust_phone) {
 		this.cust_phone = cust_phone;
 	}
-	public String getCust_mobile() {
-		return cust_mobile;
+	public String getCust_email() {
+		return cust_email;
 	}
-	public void setCust_mobile(String cust_mobile) {
-		this.cust_mobile = cust_mobile;
+	public void setCust_email(String cust_mobile) {
+		this.cust_email = cust_mobile;
 	}
 	public Date getCust_createtime() {
 		return cust_createtime;

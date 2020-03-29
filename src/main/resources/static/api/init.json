@@ -44,7 +44,7 @@
           "target": "_self",
           "child": [
             {
-              "title": "客户跟进状态",
+              "title": "客户状态",
               "href": "followStatus.html",
               "icon": "fa fa-file-text",
               "target": "_self"
@@ -56,8 +56,8 @@
               "target": "_self"
             },
             {
-              "title": "跟进记录",
-              "href": "",
+              "title": "客户跟进记录",
+              "href": "followRecord.html",
               "icon": "fa fa-file-text",
               "target": "_self"
             }
@@ -65,9 +65,43 @@
         },
         {
           "title": "项目管理",
-          "href": "page/menu.html",
+          "href": "",
           "icon": "fa fa-window-maximize",
-          "target": "_self"
+          "target": "_self",
+          "child": [
+            {
+              "title": "添加合同记录",
+              "href": "contractAdd.html",
+              "icon": "fa fa-file-text",
+              "target": "_self"
+            },
+            {
+              "title": "合同记录",
+              "href": "contract.html",
+              "icon": "fa",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "客户评价",
+          "href": "",
+          "icon": "fa fa-gears",
+          "target": "_self",
+          "child": [
+            {
+              "title": "添加评价",
+              "href": "evaluationAdd.html",
+              "icon": "fa",
+              "target": "_self"
+            },
+            {
+              "title": "评价记录",
+              "href": "evaluation.html",
+              "icon": "fa fa-file-text",
+              "target": "_self"
+            }
+          ]
         },
         {
           "title": "系统字典",

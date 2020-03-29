@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>编辑跟进记录</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="css/layuimini.css">
+    <link rel="stylesheet" href="css/public.css" media="all">
+</head>
+<body>
+<form class="layui-form" id="editRecord">
+    <input id="id" name="id" style="display: none">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">客户ID</label>
+            <div class="layui-input-block">
+                <input type="text" id="cust_id" name="cust_id" placeholder="" autocomplete="off"
+                       class="layui-input" readonly="readonly">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">负责人ID</label>
+            <div class="layui-input-block">
+                <input type="text" id="cust_user_id" name="cust_user_id" placeholder=""
+                       autocomplete="off"
+                       class="layui-input" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                       onafterpaste="this.value=this.value.replace(/\D/g,'')">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">跟进方式</label>
+            <div class="layui-input-block">
+                <select id="way" name="way">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">记录信息</label>
+        <div class="layui-input-block">
+                    <textarea type="text" id="record" name="record" placeholder="" autocomplete="off"
+                              class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+                    <textarea type="text" id="remark" name="remark" placeholder="" autocomplete="off"
+                              class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item ">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="editForm">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+<script src="lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+        //form.render();
+        var layer = layui.layer;
+
+        var $ = layui.jquery;
+        <!--表单下拉选择-->
+        $.ajax({
+            url: "getFollowWayDict",
+            type: "GET",
+            datatype: "json",
+            success: function (result) {
+                //console.log(result);   //{cust_industry: {…}, cust_level: {…}, cust_source: {…}}
+                for (var p in result) {
+                    //console.log(p);  //p的值为cust_source，result[p]为cust_source的对应json字符窜
+                    var type = result[p];
+                    var cust_type = document.getElementById(p); //server为select定义的id，p："cust_industry"
+                    for (var id in type) {
+                        //console.log(result[p]);  //{1: "教育培训 ", 2: "电子商务", 3: "对外贸易", 4: "酒店旅游", 5: "房地产"}
+                        //console.log(id);       //id
+                        //console.log(type[id]);//值
+                        var option = document.createElement("option");  // 创建添加option属性
+                        option.setAttribute("value", id); // 给option的value添加值
+                        option.innerText = type[id];     // 打印option对应的纯文本
+                        cust_type.appendChild(option);           //给select添加option子标签
+                        form.render("select");            // 刷性select，显示出数据
+                    }
+                }
+                if (getQueryString("id") != null) {
+                    var id = getQueryString("id");
+                    $.ajax({
+                        type: "get",
+                        data: {"id": id},
+                        url: "getOneRecord",
+                        success: function (data) {
+                            $("#id").val(data.id);
+                            $("#cust_id").val(data.cust_id);
+                            $("#user_id").val(data.user_id);
+                            $("#way").val(parseInt(data.way));
+                            $("#record").val(data.record);
+                            $("#remark").val(data.remark);
+                            form.render();
+                        }
+                    });
+                }
+            }
+        });
+        form.on('submit(editForm)', function (data) {
+            //console.log("编辑提交的信息");
+            //console.log(data);
+            //console.log(data.field);
+            layer.confirm('确定提交吗', function (x) {
+                $.ajax({
+                    type: "post",
+                    data: data.field,
+                    url: "saveFollowRecord",
+                    success: function (data) {
+                        //layer.alert();
+                        layer.msg(data.msg, {
+                            icon: 1,
+                            time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                        }, function () {
+                            //layer.closeAll();
+                            parent.layer.close(parent.layer.index);
+                            parent.layui.table.reload("currentTableId", {})
+                        })
+                    }
+                });
+            });
+            return false;
+        });
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            //if (r != null) return unescape(r[2]);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+    })
+</script>
+</body>
+</html>

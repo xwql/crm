@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.crm.mapper.EvaluationMapper">
+  <resultMap id="BaseResultMap" type="cn.crm.bean.Evaluation">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="cust_id" jdbcType="BIGINT" property="cust_id" />
+    <result column="user_id" jdbcType="BIGINT" property="user_id" />
+    <result column="to_object" jdbcType="VARCHAR" property="to_object" />
+    <result column="score" jdbcType="VARCHAR" property="score" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="visible" jdbcType="INTEGER" property="visible" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cust_id, user_id, to_object, score, content, createtime, visible
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from evaluation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from evaluation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.crm.bean.Evaluation">
+    insert into evaluation (id, cust_id, user_id, 
+      to_object, score, content, 
+      createtime, visible)
+    values (#{id,jdbcType=INTEGER}, #{cust_id,jdbcType=BIGINT}, #{user_id,jdbcType=BIGINT}, 
+      #{to_object,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{visible,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.crm.bean.Evaluation">
+    insert into evaluation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cust_id != null">
+        cust_id,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="to_object != null">
+        to_object,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="visible != null">
+        visible,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cust_id != null">
+        #{cust_id,jdbcType=BIGINT},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=BIGINT},
+      </if>
+      <if test="to_object != null">
+        #{to_object,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visible != null">
+        #{visible,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.crm.bean.Evaluation">
+    update evaluation
+    <set>
+      <if test="cust_id != null">
+        cust_id = #{cust_id,jdbcType=BIGINT},
+      </if>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=BIGINT},
+      </if>
+      <if test="to_object != null">
+        to_object = #{to_object,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visible != null">
+        visible = #{visible,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.crm.bean.Evaluation">
+    update evaluation
+    set cust_id = #{cust_id,jdbcType=BIGINT},
+      user_id = #{user_id,jdbcType=BIGINT},
+      to_object = #{to_object,jdbcType=VARCHAR},
+      score = #{score,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      visible = #{visible,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectEvaluationList" parameterType="cn.crm.bean.Evaluation" resultType="cn.crm.bean.Evaluation">
+    select id, a.cust_id cust_id,
+    b.cust_name cust_name,user_id,
+      to_object, score, content,
+      createtime, visible
+      from evaluation a
+      join (select cust_id,cust_name
+      from customer
+      <if test="cust_name != null">
+        where cust_name like "%"#{cust_name}"%"
+      </if>
+      ) b on a.cust_id=b.cust_id
+    <include refid="selectEvaluationListWhere"/>
+    order by createtime desc
+    <if test="start !=null and rows != null">
+      limit #{start},#{rows}
+    </if>
+  </select>
+  <select id="selectEvaluationListCount" parameterType="cn.crm.bean.Evaluation" resultType="int">
+    select count(*)
+    from evaluation a
+    join (select cust_id,cust_name
+    from customer
+    <if test="cust_name != null">
+      where cust_name like "%"#{cust_name}"%"
+    </if>
+    ) b on a.cust_id=b.cust_id
+    <include refid="selectEvaluationListWhere"/>
+  </select>
+  <sql id="selectEvaluationListWhere">
+    <where>
+      <if test="visible != null">
+        visible = #{visible}
+      </if>
+      <if test="to_object != null" >
+        and to_object = #{to_object}
+      </if>
+    </where>
+  </sql>
+</mapper>

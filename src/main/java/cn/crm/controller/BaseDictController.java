@@ -160,4 +160,18 @@ public class BaseDictController {
         return map;
     }
 
+    //跟进方式字典getFollowWayDict(copy上面的)
+    @GetMapping("getFollowWayDict")
+    @ResponseBody
+    public Map getFollowWayDict(){
+        List<BaseDict> wayType = systemService.findBaseDictListByType("011");
+        HashMap<String, Map> map = new HashMap<>();
+        HashMap<Long, String> wayMap = new HashMap<>();
+        for (BaseDict b: wayType) {
+
+            wayMap.put(b.getId(),b.getItem_name());
+        }
+        map.put("way",wayMap);
+        return map;
+    }
 }

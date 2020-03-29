@@ -6,20 +6,300 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="lib/layui-v2.5.5/css/layui.css" media="all">
-    <link rel="stylesheet" href="css/layuimini.css">
+    <link rel="stylesheet" href="lib/layui-v2.5.5/css/layui.css">
+    <!--<link rel="stylesheet" href="css/layuimini.css">-->
     <link rel="stylesheet" href="css/public.css" media="all">
+    <link rel="stylesheet" href="css/card.css">
 </head>
 <body>
 <div class="layuimini-container ">
     <div class="layuimini-main">
-
-    </div>
-    <div class="layuimini-main">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md8">
+                <div class="layui-card">
+                    <div class="layui-card-header">客户联系信息</div>
+                    <div class="layui-card-body layui-text">
+                    <div class="layui-form-item layui-form-pane">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">客户名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="cust_name" name="cust_name" autocomplete="off"
+                                       placeholder="点击选择客户" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">客户ID</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="cust_id1" name="cust_id1" placeholder="" autocomplete="off"
+                                       class="layui-input" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">联系人</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="cust_linkman" name="cust_linkman" placeholder=""
+                                       autocomplete="off"
+                                       class="layui-input" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">负责人ID</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="cust_user_id1" name="cust_user_id1" placeholder=""
+                                       autocomplete="off"
+                                       class="layui-input" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                       onafterpaste="this.value=this.value.replace(/\D/g,'')" readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-pane">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">电话</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="cust_phone" name="cust_phone" placeholder="" autocomplete="off"
+                                       class="layui-input" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">邮箱</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="cust_email" name="cust_email" placeholder="" autocomplete="off"
+                                       class="layui-input" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">邮政编码</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="cust_zipcode" name="cust_zipcode" placeholder="" autocomplete="off"
+                                       class="layui-input" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">地址</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="cust_address" name="cust_address" placeholder=""
+                                       autocomplete="off"
+                                       class="layui-input" readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!--</div>
+                <div class="layui-col-md9">-->
+                <div class="layui-card">
+                    <div class="layui-card-header">添加跟进记录</div>
+                    <div class="layui-card-body">
+                    <form class="layui-form " action="">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">客户ID</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="cust_id" name="cust_id" placeholder="" autocomplete="off"
+                                           class="layui-input" readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="display: none">
+                                <label class="layui-form-label">负责人ID</label>
+                                <div class="layui-input-block">
+                                    <input type="text" id="cust_user_id" name="cust_user_id" placeholder=""
+                                           autocomplete="off"
+                                           class="layui-input" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                           onafterpaste="this.value=this.value.replace(/\D/g,'')" readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">跟进方式</label>
+                                <div class="layui-input-block">
+                                    <select id="way" name="way">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">记录信息</label>
+                            <div class="layui-input-block">
+                    <textarea type="text" id="record" name="record" placeholder="" autocomplete="off"
+                              class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">备注</label>
+                            <div class="layui-input-block">
+                    <textarea type="text" id="remark" name="remark" placeholder="" autocomplete="off"
+                              class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item ">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md4">
+                <div class="layui-card">
+                    <div class="layui-card-header">历史跟进记录</div>
+                    <div class="layui-card-body layui-text">
+                        还没有记录
+                        <ul class="layui-timeline">
+                            <li class="layui-timeline-item">
+                                <i class="layui-icon layui-timeline-axis"></i>
+                                <div class="layui-timeline-content layui-text">
+                                    <h3 class="layui-timeline-title">8月18日</h3>
+                                    <p>
+                                        layui 2.0 的一切准备工作似乎都已到位。发布之弦，一触即发。
+                                        <br>不枉近百个日日夜夜与之为伴。因小而大，因弱而强。
+                                        <br>无论它能走多远，抑或如何支撑？至少我曾倾注全心，无怨无悔 <i class="layui-icon"></i>
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="layui-timeline-item">
+                                <i class="layui-icon layui-timeline-axis"></i>
+                                <div class="layui-timeline-content layui-text">
+                                    <h3 class="layui-timeline-title">8月16日</h3>
+                                    <p>杜甫的思想核心是儒家的仁政思想，他有“<em>致君尧舜上，再使风俗淳</em>”的宏伟抱负。个人最爱的名篇有：</p>
+                                    <ul>
+                                        <li>《登高》</li>
+                                        <li>《茅屋为秋风所破歌》</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="layui-timeline-item">
+                                <i class="layui-icon layui-timeline-axis"></i>
+                                <div class="layui-timeline-content layui-text">
+                                    <h3 class="layui-timeline-title">8月15日</h3>
+                                    <p>
+                                        中国人民抗日战争胜利72周年
+                                        <br>常常在想，尽管对这个国家有这样那样的抱怨，但我们的确生在了最好的时代
+                                        <br>铭记、感恩
+                                        <br>所有为中华民族浴血奋战的英雄将士
+                                        <br>永垂不朽
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="layui-timeline-item">
+                                <i class="layui-icon layui-timeline-axis"></i>
+                                <div class="layui-timeline-content layui-text">
+                                    <div class="layui-timeline-title">过去</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script src="lib/layui-v2.5.5/layui.all.js" charset="utf-8"></script>
 <script src="js/lay-module/tableSelect/tableSelect.js"></script>
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+        //form.render();
+        var tableSelect = layui.tableSelect;
+        var $ = layui.jquery;
+        <!--表单下拉选择-->
+        $.ajax({
+            url: "getFollowWayDict",
+            type: "GET",
+            datatype: "json",
+            success: function (result) {
+                console.log(result);   //{cust_industry: {…}, cust_level: {…}, cust_source: {…}}
+                for (var p in result) {
+                    //console.log(p);  //p的值为cust_source，result[p]为cust_source的对应json字符窜
+                    var type = result[p];
+                    var cust_type = document.getElementById(p); //server为select定义的id，p："cust_industry"
+                    for (var id in type) {
+                        //console.log(result[p]);  //{1: "教育培训 ", 2: "电子商务", 3: "对外贸易", 4: "酒店旅游", 5: "房地产"}
+                        //console.log(id);       //id
+                        //console.log(type[id]);//值
+                        var option = document.createElement("option");  // 创建添加option属性
+                        option.setAttribute("value", id); // 给option的value添加值
+                        option.innerText = type[id];     // 打印option对应的纯文本
+                        cust_type.appendChild(option);           //给select添加option子标签
+                        form.render("select");            // 刷性select，显示出数据
+                    }
+                }
+
+            }
+        });
+        tableSelect.render({
+            elem: '#cust_name',
+            checkedKey: 'id',
+            searchKey: 'cust_name',	//搜索输入框的name值 默认keyword
+            searchPlaceholder: '客户名搜索',	//搜索输入框的提示文字 默认关键词搜索
+            table: {
+                url: 'customerList',
+                request: {
+                    pageName: 'page', //页码的参数名称，默认：pageNum
+                    limitName: 'pageSize' //每页数据量的参数名，默认：pageSize
+                },
+                parseData: function (res) { //res 即为原始返回的数据
+                    //res.code=0;
+                    console.log(res);
+                    return {
+                        "code": 0, //解析接口状态
+                        "msg": res.msg, //解析提示文本
+                        "count": res.total, //解析数据长度
+                        "data": res.rows //解析数据列表
+                    };
+                },
+                cols: [
+                    [
+                        {type: 'radio'},
+                        {field: 'cust_id', title: 'ID'},
+                        {field: 'cust_name', title: '客户名'},
+                        {field: 'cust_linkman', title: '联系人'},
+                        {field: "cust_user_id", title: '负责人'}
+                    ]
+                ]
+            },
+            done: function (elem, data) {
+                var NEWJSON = [];
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.cust_name);
+                    $("#cust_id").val(item.cust_id);
+                    $("#cust_id1").val(item.cust_id);
+                    $("#cust_user_id").val(item.cust_user_id);
+                    $("#cust_user_id1").val(item.cust_user_id);
+                    $("#cust_linkman").val(item.cust_linkman);
+                    $("#cust_phone").val(item.cust_phone);
+                    $("#cust_email").val(item.cust_email);
+                    $("#cust_address").val(item.cust_address);
+                    $("#cust_zipcode").val(item.cust_zipcode)
+                });
+                elem.val(NEWJSON.join(","))
+            }
+        });
+        form.on("submit(formDemo)",function (data) {
+            layer.confirm("是否提交",function () {
+                $.ajax({
+                    url: "saveFollowRecord",
+                    data: data.field,
+                    //dataType: 'JSON',
+                    type: 'post',
+                    success: function (data) {
+                        //console.log(data.msg);
+                        layer.msg(data.msg,  {
+                            icon: 1,
+                            time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                        },  function () {
+                            //layer.closeAll();
+                            parent.layer.close(parent.layer.index);
+                            parent.layui.table.reload('currentTableId',{});
+                        })
+                    }
+                });
+            });
+            return false;
+        })
+    })
+</script>
 </body>
 </html>

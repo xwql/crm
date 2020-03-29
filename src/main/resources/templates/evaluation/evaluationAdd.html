@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="head::htmlhead">
+</head>
+<body>
+<div class="layuimini-container " >
+    <div class="layuimini-main">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>输入评价</legend>
+        </fieldset>
+        <form class="layui-form" action="">
+            <input id="id" name="id" style="display: none">
+            <div class="layui-form-item" style="">
+                <div class="layui-inline">
+                    <label class="layui-form-label">客户名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="cust_name" name="cust_name" required lay-verify="required"
+                               placeholder="请选择"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">客户ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="cust_id" name="cust_id" placeholder="请先选择客户" autocomplete="off"
+                               class="layui-input" readonly="readonly" lay-verify="required">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">负责人ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="user_id" name="user_id" placeholder="输入负责人ID" autocomplete="off"
+                               class="layui-input" lay-verify="required" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                               onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item ">
+                <div class="layui-inline">
+                    <label class="layui-form-label">评价对象</label>
+                    <div class="layui-input-block">
+                        <select id="to_object" name="to_object">
+                            <option value="">--请选择--</option>
+                            <option value="公司对客户">公司对客户</option>
+                            <option value="客户对公司">客户对公司</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">评分</label>
+                    <div class="layui-input-block">
+                        <div class="layui-btn-group">
+                            <button type="button" class="layui-btn  layui-btn-primary " id="num_sub"><i
+                                    class="layui-icon layui-icon-subtraction"></i></button>
+                            <input type="button" class="layui-btn  layui-btn-primary " id="score" name="score" value="5">
+                            <button type="button" class="layui-btn  layui-btn-primary " id="num_add"><i
+                                    class="layui-icon layui-icon-addition"></i></button>
+                        </div>
+                </div>
+            </div>
+                <label class=" layui-text">(评分最大为10)</label>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">内容</label>
+                <div class="layui-input-block">
+                    <textarea id="content" name="content" class="layui-textarea" placeholder="请输入评价内容"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item ">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="evaluationForm">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="lib/layui-v2.5.5/layui.all.js" charset="utf-8"></script>
+<script src="js/lay-module/tableSelect/tableSelect.js"></script>
+<script>
+    layui.use('form', function () {
+        var form = layui.form, layer = layui.layer, $ = layui.jquery;
+        var tableSelect = layui.tableSelect;
+        if(getQueryString('id')!=null){
+            var id = getQueryString('id');
+            $.ajax({
+                type:"post",
+                url:"editEvaluation",
+                data:{"id":id},
+                success:function (data) {
+                    //console.log(data)
+                    $("#id").val(data.id);
+                    $("#cust_id").val(data.cust_id);
+                    $("#cust_name").val(data.cust_name);
+                    $("#user_id").val(data.user_id);
+                    $("#to_object").val(data.to_object);
+                    $("#score").val(data.score);
+                    $("#content").val(data.content);
+                    form.render();
+                }
+            })
+        }
+        tableSelect.render({
+            elem: '#cust_name',
+            checkedKey: 'id',
+            searchKey: 'cust_name',	//搜索输入框的name值 默认keyword
+            searchPlaceholder: '客户名搜索',	//搜索输入框的提示文字 默认关键词搜索
+            table: {
+                url: 'customerList',
+                request: {
+                    pageName: 'page', //页码的参数名称，默认：pageNum
+                    limitName: 'pageSize' //每页数据量的参数名，默认：pageSize
+                },
+                parseData: function (res) { //res 即为原始返回的数据
+                    //res.code=0;
+                    console.log(res);
+                    return {
+                        "code": 0, //解析接口状态
+                        "msg": res.msg, //解析提示文本
+                        "count": res.total, //解析数据长度
+                        "data": res.rows //解析数据列表
+                    };
+                },
+                cols: [
+                    [
+                        {type: 'radio'},
+                        {field: 'cust_id', title: 'ID'},
+                        {field: 'cust_name', title: '客户名'},
+                        {field: 'cust_linkman', title: '联系人'},
+                        {field: "cust_user_id", title: '负责人'}
+                    ]
+                ]
+            },
+            done: function (elem, data) {
+                var NEWJSON = [];
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.cust_name);
+                    $("#cust_id").val(item.cust_id);
+                    $("#user_id").val(item.cust_user_id);
+                });
+                elem.val(NEWJSON.join(","))
+            }
+        });
+        form.on("submit(evaluationForm)",function (data) {
+            //console.log(data);
+            layer.confirm("是否提交",function () {
+                $.ajax({
+                    url: "saveEvaluation",
+                    data: data.field,
+                    //dataType: 'JSON',
+                    type: 'post',
+                    success: function (data) {
+                        //console.log(data.msg);
+                        layer.msg(data.msg,  {
+                            icon: 1,
+                            time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                        },  function () {
+                            //layer.closeAll();
+                            parent.layer.close(parent.layer.index);
+                            parent.layui.table.reload('currentTableId',{});
+                        })
+                    }
+                });
+            });
+            return false;
+        });
+        //监听加减
+        $("#num_add").click(function () {
+            if (document.getElementById("score").value * 1 < 10) {
+                document.getElementById("score").value = document.getElementById("score").value * 1 + 1;
+            } else {
+                layer.msg("评分最大为10", {icon: 6, time: 2000})
+            }
+        });
+        $("#num_sub").click(function () {
+            if (document.getElementById("score").value * 1 > 0) {
+                document.getElementById("score").value = document.getElementById("score").value * 1 - 1;
+            } else {
+                layer.msg("评分最小为0", {icon: 5, time: 2000})
+            }
+        });
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            //if (r != null) return unescape(r[2]);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+    })
+
+</script>
+</body>
+</html>

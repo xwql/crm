@@ -12,7 +12,7 @@
 		<result column="cust_level" jdbcType="VARCHAR" property="custLevel" />
 		<result column="cust_linkman" jdbcType="VARCHAR" property="custLinkman" />
 		<result column="cust_phone" jdbcType="VARCHAR" property="custPhone" />
-		<result column="cust_mobile" jdbcType="VARCHAR" property="custMobile" />
+		<result column="cust_email" jdbcType="VARCHAR" property="custEmail" />
 		<result column="cust_zipcode" jdbcType="VARCHAR" property="custZipcode" />
 		<result column="cust_address" jdbcType="VARCHAR" property="custAddress" />
 		<result column="cust_createtime" jdbcType="TIMESTAMP" property="custCreatetime" />
@@ -45,7 +45,7 @@
 			d.item_name cust_level,
 			cust_linkman,
 			cust_phone,
-			cust_mobile,
+			cust_email,
 			cust_createtime
 		FROM
 			customer a
@@ -127,8 +127,8 @@
 			<if test="cust_phone!=null">
 				cust_phone=#{cust_phone},
 			</if>
-			<if test="cust_mobile!=null">
-				cust_mobile=#{cust_mobile},
+			<if test="cust_email!=null">
+				cust_email=#{cust_email},
 			</if>
 			<if test="cust_zipcode!=null">
 				cust_zipcode=#{cust_zipcode},
@@ -148,7 +148,7 @@
 
 	<insert id="insertCustomer" parameterType="cn.crm.bean.Customer">
 		insert into customer(cust_name,cust_user_id,cust_create_id,cust_source,cust_industry,cust_level,
-		cust_linkman,cust_phone,cust_mobile,cust_zipcode,cust_address,cust_createtime)
+		cust_linkman,cust_phone,cust_email,cust_zipcode,cust_address,cust_createtime)
 		values (#{cust_name},
 		#{cust_user_id},
 		#{cust_create_id},
@@ -157,7 +157,7 @@
 		#{cust_level},
 		#{cust_linkman},
 		#{cust_phone},
-		#{cust_mobile},
+		#{cust_email},
 		#{cust_zipcode},
 		#{cust_address},
 		#{cust_createtime})

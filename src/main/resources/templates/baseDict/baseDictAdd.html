@@ -83,11 +83,11 @@
                 if(getQueryString('id')!=null){
                     var id=getQueryString('id');
                     $("#id").val(id);
-                    $("#type_code").val(getQueryString('type_code'));
-                    $("#type_name").val(getQueryString('type_code'));
-                    $("#item_name").val(getQueryString('item_name'));
-                    $("#dict_sort").val(getQueryString('dict_sort'));
-                    $("#remark").val(getQueryString('remark'));
+                    if(getQueryString('type_code')!=null) $("#type_code").val(getQueryString('type_code'));
+                    if(getQueryString('type_name')!=null) $("#type_name").val(getQueryString('type_code'));
+                    if(getQueryString('item_name')!=null) $("#item_name").val(getQueryString('item_name'));
+                    if(getQueryString('dict_sort')!=null) $("#dict_sort").val(getQueryString('dict_sort'));
+                    if(getQueryString('remark')!=null) $("#remark").val(getQueryString('remark'));
                     form.render();
                     //console.log(document.getElementById('id').value);
                 }
@@ -123,7 +123,8 @@
                             time: 2000 //2秒关闭（如果不配置，默认是3秒）
                         },  function () {
                                 //layer.closeAll();
-                                parent.layer.close(parent.layer.index)
+                                parent.layer.close(parent.layer.index);
+                                parent.layui.table.reload('currentTableId',{})
                             })
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {

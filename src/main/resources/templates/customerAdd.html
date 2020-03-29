@@ -45,7 +45,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">固定电话</label>
+                    <label class="layui-form-label">电话</label>
                     <div class="layui-input-block">
                         <input type="text" id="cust_phone" name="cust_phone" placeholder="请输入电话" autocomplete="off" class="layui-input">
                     </div>
@@ -53,9 +53,9 @@
                 <!--</div>
                 <div class="layui-form-item">-->
                 <div class="layui-inline">
-                    <label class="layui-form-label">手机</label>
+                    <label class="layui-form-label">邮箱</label>
                     <div class="layui-input-block">
-                        <input type="text" id="cust_mobile" name="cust_mobile"  placeholder="请输入手机号" autocomplete="off"
+                        <input type="text" id="cust_email" name="cust_email"  placeholder="请输入手机号" autocomplete="off"
                                class="layui-input">
                     </div>
                 </div>
@@ -153,7 +153,7 @@
                             $("#cust_level").val(data.cust_level);
                             $("#cust_linkman").val(data.cust_linkman);
                             $("#cust_phone").val(data.cust_phone);
-                            $("#cust_mobile").val(data.cust_mobile);
+                            $("#cust_email").val(data.cust_email);
                             $("#cust_zipcode").val(data.cust_zipcode);
                             $("#cust_address").val(data.cust_address);
                             form.render();

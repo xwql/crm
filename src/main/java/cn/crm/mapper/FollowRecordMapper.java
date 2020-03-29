@@ -1,7 +1,11 @@
 package cn.crm.mapper;
 
 import cn.crm.bean.FollowRecord;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface FollowRecordMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +18,7 @@ public interface FollowRecordMapper {
     int updateByPrimaryKeySelective(FollowRecord record);
 
     int updateByPrimaryKey(FollowRecord record);
+
+    List<FollowRecord> selectFollowRecordList(FollowRecord record);
+    int selectFollowRecordListCount(FollowRecord record);
 }
