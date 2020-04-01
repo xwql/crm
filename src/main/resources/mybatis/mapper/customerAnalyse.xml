@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.crm.mapper.CustomerAnalyseMapper">
+    <sql id="betweenTime">
+        <where>
+            <if test="start_time != null and end_time != null">
+                cust_createtime BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+            </if>
+        </where>
+    </sql>
+    <resultMap id="getCustomerLineData"   type="HashMap">
+        <result property="month" column="month" jdbcType="VARCHAR" />
+        <result property="customernum" column="customernum" jdbcType="INTEGER"/>
+        <result property="decrease" column="decrease" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="customerLineData" resultMap="getCustomerLineData">
+        set @i = 0;
+        set @j = -1;
+        SELECT b.date month,IFNULL(a.customernum,0) customernum,IFNULL(c.decrease,0)  decrease
+        FROM
+        (SELECT DATE_FORMAT(cust_createtime,"%Y-%m") as month, COUNT(*) as customernum
+        from
+        customer c1
+        where cust_createtime BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        GROUP BY DATE_FORMAT(cust_createtime,"%Y-%m")
+        ) a RIGHT JOIN
+        (SELECT DATE_FORMAT(ADDDATE(#{start_time}, INTERVAL @j:=@j+1 MONTH),"%Y-%m") AS date FROM customer c2
+        HAVING ADDDATE(#{start_time}, INTERVAL @i:=@i+1 MONTH) &lt; #{end_time}
+        ) b on b.date = a.month
+        left JOIN(
+        select count(*) as decrease,DATE_FORMAT(deletetime,"%Y-%m") as month
+        from customer_status
+        where trim(cust_status) = '无效客户'
+        GROUP BY DATE_FORMAT(deletetime,"%Y-%m")
+        ) c on b.date = c.month
+        HAVING  b.date &lt; DATE_FORMAT(#{end_time},"%Y-%m")
+        order by month asc
+
+    </select>
+    <select id="selectCustomerCreateNum" resultType="java.lang.Integer">
+        SELECT  COUNT(*)
+        from
+        customer a
+        join (
+        select customer_status.cust_id id
+        from customer_status
+        where cust_status &lt;&gt; '无效客户' or cust_status IS NULL
+        ) s on a.cust_id = s.id
+        <include refid="betweenTime"/>
+    </select>
+    <select id="selectCustomerVipNum" resultType="java.lang.Integer">
+        SELECT  COUNT(*)
+        from
+        customer a
+        join (
+        select customer_status.cust_id id
+        from customer_status
+        where cust_status &lt;&gt; '无效客户' or cust_status IS NULL
+        ) s on a.cust_id = s.id
+        where cust_level = "23"
+        <if test="start_time != null and end_time != null">
+            and cust_createtime BETWEEN #{start_time} and #{end_time}
+        </if>
+    </select>
+    <resultMap id="CustomerPieData"   type="HashMap">
+        <result property="name" column="name" jdbcType="VARCHAR" />
+        <result property="value" column="value" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectCustomerSource" resultMap="CustomerPieData">
+        SELECT IFNULL(c.item_name ,"其它") as name, COUNT(*) as value
+        FROM customer a
+        join (
+        select customer_status.cust_id id
+        from customer_status
+        where cust_status &lt;&gt; '无效客户' or cust_status IS NULL
+        ) s on a.cust_id = s.id
+        LEFT JOIN (
+        SELECT
+        id,
+        item_name
+        FROM
+        base_dict
+        WHERE
+        type_code = '001'
+        ) c ON a.cust_industry = c.id
+        <include refid="betweenTime"/>
+        GROUP BY c.item_name
+    </select>
+    <select id="selectCustomerRecordNum" resultType="java.lang.Integer">
+    SELECT COUNT(DISTINCT cust_id) as num
+    FROM follow_record
+        <if test="start_time != null and end_time != null">
+            where record_time &gt;= #{start_time} and record_time &lt;= #{end_time}
+        </if>
+    </select>
+    <select id="selectCustomerContractNum" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT cust_id) as num
+        FROM contract
+        <if test="start_time != null and end_time != null">
+        where (start_time &lt;= #{start_time} and end_time &gt; #{start_time}) or (end_time &gt;= #{end_time} and start_time &lt; #{end_time}) or (start_time &gt; #{start_time} and end_time &lt; #{end_time})
+        </if>
+    </select>
+
+    <select id="selectDecrCustomerNum" resultType="java.lang.Integer">
+        select count(*)
+        from customer_status
+        where trim(cust_status) = '无效客户'
+        <if test="start_time != null and end_time != null">
+            and deletetime &gt;= #{start_time} and deletetime &lt;= #{end_time}
+        </if>
+    </select>
+
+</mapper>

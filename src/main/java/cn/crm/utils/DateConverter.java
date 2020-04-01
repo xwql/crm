@@ -9,6 +9,7 @@ import java.util.Date;
 public class DateConverter implements Converter<String, Date> {
     private static final String dateFormat = "yyyy-MM-dd HH:mm:ss";
     private static final String shortDateFormat = "yyyy-MM-dd";
+    private static final String monthFormat = "yyyy-MM";
     private static final String timeStampFormat = "^\\d+$";
 
     @Override
@@ -25,6 +26,8 @@ public class DateConverter implements Converter<String, Date> {
                 SimpleDateFormat formatter;
                 if (value.contains(":")) {
                     formatter = new SimpleDateFormat(dateFormat);
+                }else if(value.length() < 8){
+                    formatter = new SimpleDateFormat(monthFormat);
                 } else {
                     formatter = new SimpleDateFormat(shortDateFormat);
                 }
