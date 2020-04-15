@@ -24,7 +24,7 @@
                     <label class="layui-form-label">类别编号</label>
                     <div class="layui-input-block">
                         <input type="text" id="type_code" name="type_code" placeholder="请先选择字典类别" autocomplete="off"
-                               class="layui-input" readonly="readonly">
+                               class="layui-input" readonly="readonly" required lay-verify="required">
                     </div>
                 </div>
             </div>
@@ -82,13 +82,27 @@
 
                 if(getQueryString('id')!=null){
                     var id=getQueryString('id');
+
                     $("#id").val(id);
-                    if(getQueryString('type_code')!=null) $("#type_code").val(getQueryString('type_code'));
-                    if(getQueryString('type_name')!=null) $("#type_name").val(getQueryString('type_code'));
-                    if(getQueryString('item_name')!=null) $("#item_name").val(getQueryString('item_name'));
-                    if(getQueryString('dict_sort')!=null) $("#dict_sort").val(getQueryString('dict_sort'));
-                    if(getQueryString('remark')!=null) $("#remark").val(getQueryString('remark'));
-                    form.render();
+                    $.ajax({
+                       url:"getBaseDictById",
+                       data:{"id":id},
+                        type:"post",
+                       success:function (result) {
+                           $("#type_code").val(result.type_code);
+                           $("#type_name").val(result.type_code);
+                           $("#item_name").val(result.item_name);
+                           $("#dict_sort").val(result.dict_sort);
+                           $("#remark").val(result.remark);
+                           form.render();
+                       }
+                    });
+                    //if(getQueryString('type_code')!=null) $("#type_code").val(getQueryString('type_code'));
+                   // if(getQueryString('type_name')!=null) $("#type_name").val(getQueryString('type_code'));
+                    //if(getQueryString('item_name')!=null) $("#item_name").val(getQueryString('item_name'));
+                    //if(getQueryString('dict_sort')!=null) $("#dict_sort").val(getQueryString('dict_sort'));
+                    //if(getQueryString('remark')!=null) $("#remark").val(getQueryString('remark'));
+
                     //console.log(document.getElementById('id').value);
                 }
             }

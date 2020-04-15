@@ -175,10 +175,10 @@
             }
         });
         $("#num_sub").click(function () {
-            if (document.getElementById("score").value * 1 > 0) {
+            if (document.getElementById("score").value * 1 > 1) {
                 document.getElementById("score").value = document.getElementById("score").value * 1 - 1;
             } else {
-                layer.msg("评分最小为0", {icon: 5, time: 2000})
+                layer.msg("评分最小为1", {icon: 5, time: 2000})
             }
         });
         function getQueryString(name) {

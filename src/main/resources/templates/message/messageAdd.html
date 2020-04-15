@@ -54,11 +54,18 @@
                 type: 'POST',
                 success: function (data) {
                     console.log("添加成功");
-                    layer.alert(data.msg, {
+                    layer.confirm(data.msg,  {
+                        icon: 1,
+                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                    },  function () {
+                        //layer.closeAll();
+                        parent.layer.close(parent.layer.index);
+                    });
+                    /*layer.alert(data.msg, {
                         closeBtn: 0, btn: ['确认'], no: function () {
                             layer.closeAll();
                         }
-                    });
+                    });*/
                 }
             });
             return false;

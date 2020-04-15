@@ -103,6 +103,45 @@
             }
           ]
         },
+
+        {
+          "title": "客户分析",
+          "href": "",
+          "icon": "fa fa-calendar",
+          "target": "_self",
+          "child": [
+            {
+              "title": "客户总体分析",
+              "href": "customerAnalyse.html",
+              "icon": "fa fa-list-alt",
+              "target": "_self"
+            },
+            {
+              "title": "单客户分析",
+              "href": "oneCustomerAnalyse.html",
+              "icon": "fa fa-navicon",
+              "target": "_self"
+            },
+            {
+              "title": "跟进分析",
+              "href": "followAnalyse.html",
+              "icon": "fa fa-navicon",
+              "target": "_self"
+            },
+            {
+              "title": "评价分析",
+              "href": "evaluationAnalyse.html",
+              "icon": "fa fa-navicon",
+              "target": "_self"
+            },
+            {
+              "title": "合同分析",
+              "href": "contractAnalyse.html",
+              "icon": "fa fa-navicon",
+              "target": "_self"
+            }
+          ]
+        },
         {
           "title": "系统字典",
           "href": "dictionary.html",
@@ -119,52 +158,6 @@
               "title": "添加字典项",
               "href": "baseDictAdd.html",
               "icon": "fa",
-              "target": "_self"
-            }
-            ]
-        },
-        {
-          "title": "客户分析",
-          "href": "",
-          "icon": "fa fa-calendar",
-          "target": "_self",
-          "child": [
-            {
-              "title": "客户总体分析",
-              "href": "customerAnalyse.html",
-              "icon": "fa fa-list-alt",
-              "target": "_self"
-            },
-            {
-              "title": "跟进分析",
-              "href": "page/form-step.html",
-              "icon": "fa fa-navicon",
-              "target": "_self"
-            },
-            {
-              "title": "评价分析",
-              "href": "page/form-step.html",
-              "icon": "fa fa-navicon",
-              "target": "_self"
-            },
-            {
-              "title": "项目分析",
-              "href": "page/form-step.html",
-              "icon": "fa fa-navicon",
-              "target": "_self"
-            }
-          ]
-        },
-        {
-          "title": "异常页面",
-          "href": "",
-          "icon": "fa fa-home",
-          "target": "_self",
-          "child": [
-            {
-              "title": "404页面",
-              "href": "page/404.html",
-              "icon": "fa fa-hourglass-end",
               "target": "_self"
             }
           ]
@@ -206,10 +199,18 @@
                   "target": "_blank"
                 },
                 {
-                  "title": "登录-2",
-                  "href": "page/login-2.html",
-                  "icon": "fa fa-viacoin",
-                  "target": "_blank"
+                  "title": "异常页面",
+                  "href": "",
+                  "icon": "fa fa-home",
+                  "target": "_self",
+                  "child": [
+                    {
+                      "title": "404页面",
+                      "href": "page/404.html",
+                      "icon": "fa fa-hourglass-end",
+                      "target": "_self"
+                    }
+                  ]
                 }
               ]
             }

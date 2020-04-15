@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.crm.mapper.OneAnalyseMapper">
+    <select id="selectStatus" resultType="HashMap">
+select cu.cust_source,cu.cust_industry,cu.cust_level,
+follow.cust_status,follow.business_status,follow.cust_property
+FROM (SELECT b.item_name cust_source,c.item_name cust_industry,d.item_name cust_level
+FROM
+customer a
+LEFT JOIN
+(select id,item_name
+from base_dict
+where type_code="002"
+)b ON b.id = a.cust_source
+LEFT JOIN
+(select id,item_name
+from base_dict
+where type_code="001"
+)c ON c.id = a.cust_industry
+LEFT JOIN
+(select id,item_name
+from base_dict
+where type_code="006"
+)d ON d.id = a.cust_level
+WHERE a.cust_id = #{cust_id}
+) cu,
+(SELECT IFNULL(f.item_name,"无") cust_status,IFNULL(g.item_name,"无") business_status,IFNULL(h.item_name,"无") cust_property,count(*)
+FROM
+follow_status e
+LEFT JOIN
+(select id,item_name
+from base_dict
+where type_code="005"
+)f ON f.id = e.cust_status
+LEFT JOIN
+(select id,item_name
+from base_dict
+where type_code="007"
+)g ON g.id = e.business_status
+LEFT JOIN
+(select id,item_name
+from base_dict
+where type_code="003"
+)h ON h.id = e.cust_property
+WHERE  e.cust_id = #{cust_id}
+) follow
+    </select>
+    <resultMap id="EvaluationAvgAndNum" type="HashMap">
+        <result property="scoreAvg" column="scoreAvg" jdbcType="DOUBLE"/>
+        <result property="num" column="num" jdbcType="INTEGER"/>
+        <result property="to_object" column="to_object" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="selectEvaluationAvgAndNum" resultMap="EvaluationAvgAndNum">
+        SELECT AVG(score) scoreAvg,COUNT(*) num,to_object
+        from evaluation
+        where cust_id = #{cust_id}
+        <if test="start_time != null and end_time != null">
+            and createtime BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        </if>
+        GROUP BY to_object
+    </select>
+    <resultMap id="WayPieData" type="HashMap">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="value" column="value" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectWayPie" resultMap="WayPieData">
+        SELECT IFNULL(c.item_name,"其它") name,COUNT(*) value
+        from follow_record a
+        LEFT JOIN (
+        SELECT
+        id,
+        item_name
+        FROM
+        base_dict
+        WHERE
+        type_code = '011'
+        ) c ON a.way = c.id
+        WHERE cust_id = #{cust_id}
+        <if test="start_time != null and end_time != null">
+            and record_time BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        </if>
+        GROUP BY c.item_name
+    </select>
+    <select id="selectContractData" resultType="HashMap">
+    SELECT SUM(money) money,COUNT(*) contractNum
+    FROM contract
+    WHERE cust_id = #{cust_id}
+        <if test="start_time != null and end_time != null">
+            and start_time BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        </if>
+    </select>
+
+    <resultMap id="FollowFreBarData"   type="HashMap">
+        <result property="month" column="month" jdbcType="VARCHAR" />
+        <result property="fre" column="fre" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectFollowFreBar" resultMap="FollowFreBarData">
+        set @i = -1;
+        set @j = -1;
+        SELECT b.date as month ,ifnull(a.fre,0) as fre
+        FROM(
+        SELECT COUNT(*) fre ,DATE_FORMAT(record_time,"%Y-%m") as month
+        FROM follow_record
+        WHERE cust_id=#{cust_id}
+        GROUP BY
+        DATE_FORMAT(record_time,"%Y-%m")
+        ) a
+        RIGHT JOIN
+        (SELECT DATE_FORMAT(ADDDATE(#{start_time}, INTERVAL @j:=@j+1 MONTH),"%Y-%m") AS date FROM customer c2
+        HAVING ADDDATE(#{start_time}, INTERVAL @i:=@i+1 MONTH) &lt; #{end_time}
+        ) b on b.date = a.month
+        HAVING  b.date &lt; DATE_FORMAT(#{end_time},"%Y-%m")
+        order by month asc
+    </select>
+    <resultMap id="contractBarData" type="HashMap">
+        <result property="month" column="month" jdbcType="VARCHAR" />
+        <result property="money" column="money" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectContractBar" resultMap="contractBarData">
+        set @i = -1;
+        set @j = -1;
+        SELECT b.date as month ,ifnull(a.money,0) as money
+        FROM(
+        SELECT sum(money) money ,DATE_FORMAT(start_time,"%Y-%m") as month
+        FROM contract
+        WHERE cust_id=#{cust_id}
+        GROUP BY
+        DATE_FORMAT(start_time,"%Y-%m")
+        ) a
+        RIGHT JOIN
+        (SELECT DATE_FORMAT(ADDDATE(#{start_time}, INTERVAL @j:=@j+1 MONTH),"%Y-%m") AS date FROM customer c2
+        HAVING ADDDATE(#{start_time}, INTERVAL @i:=@i+1 MONTH) &lt; #{end_time}
+        ) b on b.date = a.month
+        HAVING  b.date &lt; DATE_FORMAT(#{end_time},"%Y-%m")
+        order by month asc
+    </select>
+</mapper>

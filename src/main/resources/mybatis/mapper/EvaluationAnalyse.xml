@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.crm.mapper.EvaluationAnalyseMapper">
+    <select id="selectEvaluationAvg" resultType="HashMap">
+    SELECT a.toCustomer companyToCustomer,b.customerTo customerToCompany
+    FROM(
+    SELECT Avg(score) toCustomer
+    FROM evaluation
+    where to_object='公司对客户'
+        <if test="start_time != null and end_time != null">
+            and createtime BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        </if>
+        )a,
+    (SELECT Avg(score) customerTo
+    FROM evaluation
+    where to_object='客户对公司'
+        <if test="start_time != null and end_time != null">
+            and createtime BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        </if>
+        )b
+    </select>
+    <select id="selectMaxEvaluation" resultType="cn.crm.bean.Evaluation">
+    SELECT *
+    from evaluation
+    WHERE score=(
+    select Max(score+0)
+    from evaluation
+        where to_object='客户对公司'
+        <if test="start_time != null and end_time != null">
+            and createtime BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        </if>
+    )
+        <if test="start_time != null and end_time != null">
+            and createtime BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        </if>
+        and to_object='客户对公司'
+    ORDER BY createtime desc
+    </select>
+    <select id="selectMinEvaluation" resultType="cn.crm.bean.Evaluation">
+        SELECT *
+        from evaluation
+        WHERE score=(
+        select min(score+0)
+        from evaluation
+        where to_object='客户对公司'
+        <if test="start_time != null and end_time != null">
+            and createtime BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        </if>
+        )
+        <if test="start_time != null and end_time != null">
+            and createtime BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        </if>
+        and to_object='客户对公司'
+        ORDER BY createtime desc
+    </select>
+
+    <resultMap id="EvaluationLineData" type="HashMap">
+        <result property="score" column="score" jdbcType="INTEGER" />
+        <result property="num" column="num" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectEvaluationLine" resultMap="EvaluationLineData">
+        SELECT b.x score,IFNULL(a.num,0) num
+        from(
+        SELECT count(*) num,CAST(score AS SIGNED) as score
+        FROM evaluation
+        <if test="start_time != null and end_time != null">
+            where createtime BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        </if>
+        GROUP BY score
+        )a RIGHT JOIN
+        (select 1 x UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10
+        )b on a.score = b.x
+        ORDER BY score ASC
+    </select>
+</mapper>

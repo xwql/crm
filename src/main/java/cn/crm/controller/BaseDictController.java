@@ -174,4 +174,10 @@ public class BaseDictController {
         map.put("way",wayMap);
         return map;
     }
+
+    @PostMapping("getBaseDictById")
+    @ResponseBody
+    public BaseDict getBaseDictById(Long id){
+        return systemService.findBaseDictById(id);
+    }
 }

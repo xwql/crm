@@ -12,18 +12,18 @@
 <body>
 <div class="layui-col-md8">
     <div class="layui-card">
-        <div class="layui-card-header">
+        <div class="layui-card-body">
             <form class="layui-form">
             <div class="layui-inline">
                 <label class="layui-form-label">开始月份</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="start_time" id="=start_time" class="layui-input datetime" placeholder="(包含此月)" required="required">
+                    <input type="text" name="start_time" id="=start_time" class="layui-input datetime" placeholder="(包含此月)" required lay-verify="required">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">终止月份</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="end_time" id="end_time" class="layui-input datetime" placeholder="(不包含此月)" required="required">
+                    <input type="text" name="end_time" id="end_time" class="layui-input datetime" placeholder="(包含此月)" required lay-verify="required">
                 </div>
             </div>
             <div class="layui-inline">
@@ -129,7 +129,7 @@
             <div class="layui-card">
                 <div class="layui-card-header"><i class="fa fa-users icon"></i>现有客户总数</div>
                 <div class="layui-card-body " style="color: rgb(102,102,102);">
-                    <h1 id="allCustomerNum">23456</h1>
+                    <h1 id="allCustomerNum">0</h1>
                     <small>vip客户数：<span id="allCustomerVIPPer"> 48</span>%</small>
                 </div>
             </div>
@@ -138,7 +138,7 @@
             <div class="layui-card">
                 <div class="layui-card-header"><i class="fa fa-user-times icon"></i>已删客户总数</div>
                 <div class="layui-card-body" style="color: rgb(102,102,102);">
-                    <h1 id="allDecrCustomerNum">23456</h1>
+                    <h1 id="allDecrCustomerNum">0</h1>
                     <br/><!-- <small>vip客户数：<span> 48%</span></small>-->
                 </div>
             </div>
@@ -211,7 +211,7 @@
                         data:data,
                         url:"customerLineData",
                         success:function (result) {
-                            console.log(result);
+                            //console.log(result);
                             var incr = result.increase;
                             increaseData.length = 0;
                             decreaseData.length = 0;
@@ -245,7 +245,7 @@
                         data:data,
                         url:"customerPieData",
                         success:function (result) {
-                            console.log(result);
+                            //console.log(result);
                             myChart1.setOption({
                                 legend: {
                                     data: result.content
@@ -270,7 +270,7 @@
     // 指定图表的配置项和数据
     var option = {
         title: {
-            text: '折线图堆叠'
+            text: '客户变化'
         },
         tooltip: {
             trigger: 'axis'
@@ -327,7 +327,7 @@
     // 指定图表的配置项和数据
     var option1 = {
         title: {
-            text: '客户来源',
+            text: '客户所属行业',
             //subtext: '纯属虚构',
             left: 'center'
         },

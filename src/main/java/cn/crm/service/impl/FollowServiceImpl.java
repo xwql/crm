@@ -6,6 +6,7 @@ import cn.crm.bean.FollowStatus;
 import cn.crm.mapper.CustomerMapper;
 import cn.crm.mapper.FollowRecordMapper;
 import cn.crm.mapper.FollowStatusMapper;
+import cn.crm.service.CustomerService;
 import cn.crm.service.FollowService;
 import cn.crm.utils.DateUtils;
 import cn.crm.utils.Page;
@@ -22,6 +23,8 @@ public class FollowServiceImpl implements FollowService {
     @Autowired
     FollowStatusMapper followStatusMapper;
     @Autowired
+    CustomerService customerService;
+    @Autowired
     CustomerMapper customerMapper;
     @Autowired
     FollowRecordMapper followRecordMapper;
@@ -32,6 +35,7 @@ public class FollowServiceImpl implements FollowService {
         FollowStatus primaryKey = followStatusMapper.selectByPrimaryKey(followStatus.getCust_id());
         if (primaryKey == null) {
             followStatus.setCreatetime(new Date());
+            followStatus.setTimes(0L);
             followStatusMapper.insert(followStatus);
         } else {
             followStatus.setFollow_status(1);

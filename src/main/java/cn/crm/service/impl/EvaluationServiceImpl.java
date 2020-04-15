@@ -4,6 +4,7 @@ import cn.crm.bean.Customer;
 import cn.crm.bean.Evaluation;
 import cn.crm.mapper.CustomerMapper;
 import cn.crm.mapper.EvaluationMapper;
+import cn.crm.service.CustomerService;
 import cn.crm.service.EvaluationService;
 import cn.crm.utils.Page;
 import org.apache.commons.lang3.StringUtils;
@@ -18,6 +19,8 @@ public class EvaluationServiceImpl implements EvaluationService {
 
     @Autowired
     EvaluationMapper evaluationMapper;
+    @Autowired
+    CustomerService customerService;
     @Autowired
     CustomerMapper customerMapper;
 

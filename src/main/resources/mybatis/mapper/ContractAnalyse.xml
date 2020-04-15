@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.crm.mapper.ContractAnalyseMapper">
+    <sql id="betweenTime">
+        <where>
+            <if test="start_time != null and end_time != null">
+               start_time BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+            </if>
+        </where>
+    </sql>
+    <select id="selectAllSingleData" resultType="HashMap">
+        select w.num as num,x.cust_name mostNumCust,y.cust_name oneRichCust,z.cust_name sumRichCust
+        FROM
+        (SELECT COUNT(DISTINCT cust_id) num
+        FROM contract a
+        where a.start_time BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        )w,
+        (SELECT COUNT(b.cust_id) num,c.cust_name
+        from contract b
+        LEFT JOIN customer c ON c.cust_id =b.cust_id
+        where b.start_time BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        GROUP BY b.cust_id
+        ORDER BY num desc
+        LIMIT 1)x,
+        (SELECT d.cust_name
+        FROM contract e
+        LEFT JOIN customer d on d.cust_id = e.cust_id
+        WHERE money=(
+        SELECT MAX(money)
+        FROM contract) and e.start_time BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01"))y,
+        (SELECT SUM(money) money,g.cust_name
+        FROM contract f
+        LEFT JOIN customer g on f.cust_id=g.cust_id
+        where f.start_time BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        GROUP BY f.cust_id
+        ORDER BY money desc
+        LIMIT 1)z
+    </select>
+
+    <resultMap id="contractBarData" type="HashMap">
+        <result property="month" column="month" jdbcType="VARCHAR" />
+        <result property="money" column="money" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectContractBar" resultMap="contractBarData">
+        set @i = -1;
+        set @j = -1;
+        SELECT b.date as month ,ifnull(a.money,0) as money
+        FROM(
+        SELECT sum(money) money ,DATE_FORMAT(start_time,"%Y-%m") as month
+        FROM contract
+        GROUP BY
+        DATE_FORMAT(start_time,"%Y-%m")
+        ) a
+        RIGHT JOIN
+        (SELECT DATE_FORMAT(ADDDATE(#{start_time}, INTERVAL @j:=@j+1 MONTH),"%Y-%m") AS date FROM customer c2
+        HAVING ADDDATE(#{start_time}, INTERVAL @i:=@i+1 MONTH) &lt; #{end_time}
+        ) b on b.date = a.month
+        HAVING  b.date &lt; DATE_FORMAT(#{end_time},"%Y-%m")
+        order by month asc
+    </select>
+
+</mapper>

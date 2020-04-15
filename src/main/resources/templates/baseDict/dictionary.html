@@ -154,8 +154,8 @@
                     shadeClose: true,
                     area: ['60%', '90%'],
                     //content: ['customerAdd.html'+ '#cust_id'+'#cust_name'],
-                    content: 'baseDictAdd.html?edit=1&id=' + data.id + '&type_code='+ data.type_code
-                    + '&type_name=' + data.type_name + '&item_name=' + data.item_name + '&dict_sort=' + data.dict_sort + '&remark=' + data.remark
+                    content: 'baseDictAdd.html?edit=1&id=' + data.id //+ '&type_code='+ data.type_code
+                   // + '&type_name=' + data.type_name + '&item_name=' + data.item_name + '&dict_sort=' + data.dict_sort + '&remark=' + data.remark
 
                 });
                 /* $(window).on("resize", function () {
@@ -163,7 +163,7 @@
                  });*/
                 return false;
             } else if (obj.event === 'delete') {
-                layer.msg("该选项正在使用中，不能禁用")
+                layer.msg("此功能暂不开放，不能禁用")
             }
         });
         $(".data-add-btn").on("click", function () {

@@ -132,7 +132,8 @@
     f.cust_name cust_name,
     f.sys_user_name cust_user_name,
     f.cust_linkman cust_linkman,
-    follow_status
+    follow_status,
+    times
     FROM
     follow_status a
     LEFT JOIN (

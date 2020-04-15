@@ -51,4 +51,24 @@ public class CrmApp {
     public String getCustomerAnalyse(){
         return "analyse/customerAnalyse";
     }
+
+    @RequestMapping(value = "contractAnalyse.html", method = RequestMethod.GET)
+    public String getContractAnalyse(){
+        return "analyse/contractAnalyse";
+    }
+
+    @RequestMapping(value = "followAnalyse.html", method = RequestMethod.GET)
+    public String getFollowAnalyse(){
+        return "analyse/followAnalyse";
+    }
+
+    @RequestMapping(value = "evaluationAnalyse.html", method = RequestMethod.GET)
+    public String getEvaluationAnalyse(){
+        return "analyse/evaluationAnalyse";
+    }
+
+    @RequestMapping(value = "oneCustomerAnalyse.html", method = RequestMethod.GET)
+    public String oneCustomerAnalyse(){
+        return "analyse/oneCustomerAnalyse";
+    }
 }

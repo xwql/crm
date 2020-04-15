@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="lib/layui-v2.5.5/css/layui.css">
+    <title>跟进分析</title>
+    <link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="css/public.css" media="all">
+    <link rel="stylesheet" href="css/card.css">
+</head>
+<body>
+
+<div class="layui-col-md12">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <form class="layui-form">
+                <div class="layui-inline">
+                    <label class="layui-form-label">开始月份</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="start_time" id="=start_time" class="layui-input datetime"
+                               placeholder="(包含此月)" required lay-verify="required">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">终止月份</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="end_time" id="end_time" class="layui-input datetime"
+                               placeholder="(不包含此月)" required lay-verify="required">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <a class="layui-btn layui-btn-primary" lay-submit lay-filter="data-search-btn"><i
+                            class="layui-icon">&#xe666;</i> 重载数据</a>
+                </div>
+                <label class=" layui-text">(初始数据默认一年内,不包括当前所在月份)</label>
+            </form>
+        </div>
+        <div class="layui-card-body">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-row layui-col-md8">
+                    <!--echarts-->
+                    <div class="layui-col-md12">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><i class="fa fa-line-chart icon"></i>跟进频率直方图</div>
+                            <div class="layui-card-body">
+                                <div id="main" style="width: 100%;height:400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-row ">
+                        <div class="layui-col-xs6">
+                            <div class="layui-card">
+                                <div class="layui-card-header"><i class="fa fa-users icon"></i>跟进总客户数(当前)</div>
+                                <div class="layui-card-body " style="color: rgb(102,102,102);">
+                                    <h1 id="follow">--</h1>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs6">
+                            <div class="layui-card">
+                                <div class="layui-card-header"><i class="fa fa-user-times icon"></i>停止跟进数(当前)</div>
+                                <div class="layui-card-body" style="color: rgb(102,102,102);">
+                                    <h1 id="notFollow">--</h1>
+                                    <br/><!-- <small>vip客户数：<span> 48%</span></small>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs12">
+                            <div class="layui-card">
+                                <div class="layui-card-header"><i class="fa fa-pie-chart icon"></i>跟进方式饼状图</div>
+                                <div class="layui-card-body">
+                                    <div id="wayPie" style="width: 100%;min-height: 140px">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs12">
+                            <div class="layui-card">
+                                <div class="layui-card-header"><i class="fa fa-pie-chart icon"></i>商机状态(当前)</div>
+                                <div class="layui-card-body">
+                                    <div id="businessPie" style="width: 100%;min-height: 140px">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'layer', 'laydate','echarts'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            layer = layui.layer,
+            echarts = layui.echarts,
+            laydate = layui.laydate;
+
+        $('.datetime').each(function () {
+            laydate.render({
+                elem: this       //使用this指向当前元素,不能使用class名, 否则只有第一个有效
+                , type: 'month'
+            });
+        });
+        getData();
+        form.on("submit(data-search-btn)",function (data) {
+            getData(data);
+        });
+
+        function getData(data) {
+            if(data!=null) data = data.field;
+            $.ajax({
+                type:"post",
+                data:data,
+                url:"followAnalyse/getFollowNumAndNot",
+                success:function (result) {
+                    //console.log(result);
+                    $("#follow").html(result.follow);
+                    $("#notFollow").html(result.notFollow);
+                }
+            });
+            $.ajax({
+                type:"post",
+                data:data,
+                url:"followAnalyse/getFollowBar",
+                success:function (result) {
+                    //console.log(result);
+                    var xAxisData = [];
+                    var followFreData = [];
+                    var followFreBar = result.followFreBar;
+                    for(var i in followFreBar){
+                        xAxisData.push(i);
+                        followFreData.push(followFreBar[i])
+                    }
+                    myChart.setOption({
+                        xAxis: {
+                            data: xAxisData
+                        },
+                        series: [{
+                            // 根据名字对应到相应的系列
+                            name: '跟进频率',
+                            data: followFreData
+                        }
+                        ]
+                    });
+                }
+            });
+            $.ajax({
+                type:"post",
+                data:data,
+                url:"followAnalyse/getPieData",
+                success:function (result) {
+                    //console.log(result);
+                    wayPieChart.setOption({
+                        legend: {
+                            data: result.wayPie.content
+                        },
+                        series: [{
+                            // 根据名字对应到相应的系列
+                            name: '跟进方式',
+                            data: result.wayPie.pieData
+                        }
+                        ]
+                    });
+                    businessPieChart.setOption({
+                        legend: {
+                            data: result.businessPie.content
+                        },
+                        series: [{
+                            // 根据名字对应到相应的系列
+                            name: '客户来源',
+                            data: result.businessPie.pieData
+                        }
+                        ]
+                    });
+                    layer.msg("数据加载中",{time:1000});
+                }
+            });
+        }
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            color: ['#3398DB'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ["2019-04","2019-05","2019-06","2019-07","2019-08","2019-09","2019-10","2019-11","2019-12","2020-01","2020-02","2020-03"],
+                    axisTick: {
+                        alignWithLabel: true
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '跟进频率',
+                    type: 'bar',
+                    barWidth: '60%',
+                    data: [120,10,0,10,170,230,15,110,13,50,100,101]
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+
+        var wayPieChart = echarts.init(document.getElementById('wayPie'));
+        // 指定图表的配置项和数据
+        var option1 = {
+            title: {
+                text: '跟进方式',
+                //subtext: '纯属虚构',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['电话', '电子邮件', '实际走访', '信件']
+            },
+            series: [
+                {
+                    name: '跟进方式',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: [
+                        {value: 235, name: '电话'},
+                        {value: 130, name: '电子邮件'},
+                        {value: 124, name: '实际走访'},
+                        {value: 35, name: '信件'}
+                    ],
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        wayPieChart.setOption(option1);
+
+        var businessPieChart = echarts.init(document.getElementById('businessPie'));
+        // 指定图表的配置项和数据
+        var option2 = {
+            title: {
+                text: '商机状态',
+                //subtext: '纯属虚构',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['意向客户', '初步沟通', '深度沟通', '签订合同']
+            },
+            series: [
+                {
+                    name: '客户商机状态',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: [
+                        {value: 35, name: '意向客户'},
+                        {value: 10, name: '初步沟通'},
+                        {value: 34, name: '深度沟通'},
+                        {value: 5, name: '签订合同'}
+                    ],
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        businessPieChart.setOption(option2);
+
+    });
+</script>
+</body>
+</html>

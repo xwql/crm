@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.crm.mapper.FollowAnalyseMapper">
+    <select id="selectFollowNumAndNot" resultType="HashMap">
+    select ifnull(a.num,0) follow, ifnull(b.num,0) notFollow
+from
+(SELECT COUNT(*) num
+FROM follow_status
+WHERE follow_status=1)a,
+(SELECT COUNT(*) num
+FROM follow_status
+WHERE follow_status=0)b
+    </select>
+
+    <resultMap id="FollowFreBarData"   type="HashMap">
+        <result property="month" column="month" jdbcType="VARCHAR" />
+        <result property="fre" column="fre" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectFollowFreBar" resultMap="FollowFreBarData">
+        set @i = -1;
+        set @j = -1;
+        SELECT b.date as month ,ifnull(a.fre,0) as fre
+        FROM(
+        SELECT COUNT(*) fre ,DATE_FORMAT(record_time,"%Y-%m") as month
+        FROM follow_record
+        GROUP BY
+        DATE_FORMAT(record_time,"%Y-%m")
+        ) a
+        RIGHT JOIN
+        (SELECT DATE_FORMAT(ADDDATE(#{start_time}, INTERVAL @j:=@j+1 MONTH),"%Y-%m") AS date FROM customer c2
+        HAVING ADDDATE(#{start_time}, INTERVAL @i:=@i+1 MONTH) &lt; #{end_time}
+        ) b on b.date = a.month
+        HAVING  b.date &lt; DATE_FORMAT(#{end_time},"%Y-%m")
+        order by month asc
+    </select>
+
+    <resultMap id="PieData" type="HashMap">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="value" column="value" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="selectWayPie" resultMap="PieData">
+        SELECT IFNULL(c.item_name,"其它") name,COUNT(*) value
+        from follow_record a
+        LEFT JOIN (
+        SELECT
+        id,
+        item_name
+        FROM
+        base_dict
+        WHERE
+        type_code = '011'
+        ) c ON a.way = c.id
+        <if test="start_time != null and end_time != null">
+            where record_time BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        </if>
+        GROUP BY c.item_name
+    </select>
+    <select id="selectBusinessPie" resultMap="PieData">
+        SELECT IFNULL(c.item_name,"其它") name,COUNT(*) value
+        from follow_status a
+        LEFT JOIN (
+        SELECT
+        id,
+        item_name
+        FROM
+        base_dict
+        WHERE
+        type_code = '007'
+        ) c ON a.business_status = c.id
+        <if test="start_time != null and end_time != null">
+            where createtime BETWEEN DATE_FORMAT(#{start_time},"%Y-%m-01") and DATE_FORMAT(#{end_time},"%Y-%m-01")
+        </if>
+        GROUP BY c.item_name
+    </select>
+
+</mapper>
