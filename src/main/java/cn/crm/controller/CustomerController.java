@@ -30,15 +30,15 @@ public class CustomerController {
     private SystemService systemService;
 
 
-    //@Value("${base_dict.source}")
+    //@Value("${baseDict.source}")
     @Value("002")
-    private String FROM_TYPE;
-    //@Value("${base_dict.industry}")
+    private String FROMTYPE;
+    //@Value("${baseDict.industry}")
     @Value("001")
-    private String INDUSTRY_TYPE;
-    //@Value("${base_dict.level}")
+    private String INDUSTRYTYPE;
+    //@Value("${baseDict.level}")
     @Value("006")
-    private String LEVEL_TYPE;
+    private String LEVELTYPE;
 
     /**
      * 添加或编辑
@@ -49,7 +49,7 @@ public class CustomerController {
     @ResponseBody
     public Map saveCustomer(Customer customer) {
         HashMap<String, String> map = new HashMap<>();
-        Customer customerById = customerService.getCustomerById(customer.getCust_id());
+        Customer customerById = customerService.getCustomerById(customer.getCustId());
         try {
             if (customerById != null) {
                 customerService.updateCustomer(customer);
@@ -74,7 +74,7 @@ public class CustomerController {
     // 客户列表
     @RequestMapping(value = "/customerManage.html")
     public String list(){
-        return "customerManage";
+        return "customer/customerManage";
     }
 
 
@@ -84,11 +84,11 @@ public class CustomerController {
         Page<Customer> customers = customerService.findCustomerList(page, rows, custName, custSource, custIndustry, custLevel);
         model.addAttribute("page", customers);
         //客户来源
-        List<BaseDict> fromType = systemService.findBaseDictListByType(FROM_TYPE);
+        List<BaseDict> fromType = systemService.findBaseDictListByType(FROMTYPE);
         //客户所属行业
-        List<BaseDict> industryType = systemService.findBaseDictListByType(INDUSTRY_TYPE);
+        List<BaseDict> industryType = systemService.findBaseDictListByType(INDUSTRYTYPE);
         //客户级别
-        List<BaseDict> levelType = systemService.findBaseDictListByType(LEVEL_TYPE);
+        List<BaseDict> levelType = systemService.findBaseDictListByType(LEVELTYPE);
         model.addAttribute("sourceList", fromType);
         model.addAttribute("industryList", industryType);
         model.addAttribute("levelList", levelType);
@@ -104,9 +104,9 @@ public class CustomerController {
     @RequestMapping(value = "/customerList1")
     @ResponseBody
     public Page getlist1(@RequestParam(defaultValue="1")Integer page, @RequestParam(defaultValue="10")Integer pageSize,
-                        String cust_name, String cust_source, String cust_industry, String cust_level) {
+                        String custName, String custSource, String custIndustry, String custLevel) {
 
-        Page<Customer> customers = customerService.findCustomerList(page, pageSize, cust_name, cust_source, cust_industry, cust_level);
+        Page<Customer> customers = customerService.findCustomerList(page, pageSize, custName, custSource, custIndustry, custLevel);
 
         return customers;
     }
@@ -116,17 +116,17 @@ public class CustomerController {
     public Page getlist(@RequestParam(defaultValue="1")Integer page, @RequestParam(defaultValue="10")Integer pageSize,
                         Customer customer) {
 
-        Page<Customer> customers = customerService.findCustomerList(page, pageSize, customer.getCust_name(),
-                customer.getCust_source(), customer.getCust_industry(), customer.getCust_level());
+        Page<Customer> customers = customerService.findCustomerList(page, pageSize, customer.getCustName(),
+                customer.getCustSource(), customer.getCustIndustry(), customer.getCustLevel());
 
         return customers;
     }
 
     @RequestMapping(value = "/deleteCustomer",method = RequestMethod.POST)
     @ResponseBody
-    public Map deleteCustomer(Long cust_id,String deletereason,String remark){
+    public Map deleteCustomer(Long custId,String deletereason,String remark){
         HashMap<String, String> map = new HashMap<>();
-        customerService.deleteCustomer2(cust_id,deletereason,remark);
+        customerService.deleteCustomer2(custId,deletereason,remark);
         map.put("msg","删除成功");
         return map;
     }
@@ -142,10 +142,10 @@ public class CustomerController {
     @ResponseBody
     public Map batchRemoveCustomer(String customer){
         HashMap<String, String> map = new HashMap<>();
-       // customerService.deleteCustomer2(cust_id,null,null);
+       // customerService.deleteCustomer2(custId,null,null);
         List<Customer> customers= JSON.parseArray(customer,Customer.class);
         for (Customer cust: customers) {
-            customerService.deleteCustomer2(cust.getCust_id(),null,null);
+            customerService.deleteCustomer2(cust.getCustId(),null,null);
         }
         map.put("msg","删除成功");
         return map;

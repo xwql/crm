@@ -20,20 +20,20 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">客户ID</label>
                         <div class="layui-input-inline">
-                            <input type="text" id="cust_id" name="cust_id" autocomplete="off" class="layui-input"
+                            <input type="text" id="custId" name="custId" autocomplete="off" class="layui-input"
                                    onkeyup="this.value=this.value.replace(/[, ]/g,'')">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">开始时间</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="start_time" id="=startTime" class="layui-input datetime" placeholder="此日期后生效">
+                            <input type="text" name="startTime" id="=startTime" class="layui-input datetime" placeholder="此日期后生效">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">终止时间</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="end_time" id="endTime" class="layui-input datetime" placeholder="此日期前终止">
+                            <input type="text" name="endTime" id="endTime" class="layui-input datetime" placeholder="此日期前终止">
                         </div>
                     </div>
                     <div class="layui-inline">
@@ -86,7 +86,7 @@
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
-                layEvent: 'LAYTABLE_TIPS',
+                layEvent: 'LAYTABLETIPS',
                 icon: 'layui-icon-tips'
             }],
             request: {
@@ -106,12 +106,12 @@
             cols: [
                 [
                     {field: 'id', width: 150, title: '合同编号', sort: true},
-                    {field: 'contract_name', width: 150, title: '合同名'},
-                    {field: 'cust_id', width: 150, title: '客户ID'},
+                    {field: 'contractName', width: 150, title: '合同名'},
+                    {field: 'custId', width: 150, title: '客户ID'},
                     {field: 'money', width: 150, title: '金额', sort: true},
                     {field: 'content', width: 150, title: '概述'},
-                    {field: 'start_time', title: '开始时间', width: 150,templet : "<div>{{layui.util.toDateString(d.start_time, 'yyyy-MM-dd HH:mm')}}</div>", sort: true},
-                    {field: 'end_time', width: 150, title: '结束时间',templet : "<div>{{layui.util.toDateString(d.end_time, 'yyyy-MM-dd HH:mm')}}</div>", sort: true},
+                    {field: 'startTime', title: '开始时间', width: 150,templet : "<div>{{layui.util.toDateString(d.startTime, 'yyyy-MM-dd HH:mm')}}</div>", sort: true},
+                    {field: 'endTime', width: 150, title: '结束时间',templet : "<div>{{layui.util.toDateString(d.endTime, 'yyyy-MM-dd HH:mm')}}</div>", sort: true},
                     {title: '操作', minWidth: 50, templet: '#currentTableBar', align: "center"}
                 ]
             ],
@@ -125,9 +125,9 @@
             table.reload('currentTableId', {
                 method: 'post'
                 , where: {  //text  //搜索框里的各个参数,通过这个实现搜索功能，table同一数据接口
-                    "cust_id": text.cust_id,
-                    "start_time": text.start_time,
-                    "end_time": text.end_time
+                    "custId": text.custId,
+                    "startTime": text.startTime,
+                    "endTime": text.endTime
                 }
                 , page: {
                     curr: 1

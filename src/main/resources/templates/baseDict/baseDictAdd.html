@@ -14,7 +14,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">字典类别</label>
                     <div class="layui-input-block">
-                        <select id="type_name" name="type_name" lay-filter="type_name">
+                        <select id="typeName" name="typeName" lay-filter="typeName">
                             <option value=""></option>
                         </select>
                     </div>
@@ -23,7 +23,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">类别编号</label>
                     <div class="layui-input-block">
-                        <input type="text" id="type_code" name="type_code" placeholder="请先选择字典类别" autocomplete="off"
+                        <input type="text" id="typeCode" name="typeCode" placeholder="请先选择字典类别" autocomplete="off"
                                class="layui-input" readonly="readonly" required lay-verify="required">
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">字典类别选项</label>
                     <div class="layui-input-block">
-                        <input type="text" id="item_name" name="item_name" placeholder="请输入新选项" autocomplete="off"
+                        <input type="text" id="itemName" name="itemName" placeholder="请输入新选项" autocomplete="off"
                                class="layui-input">
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">序号</label>
                     <div class="layui-input-block">
-                        <input type="text" id="dict_sort" name="dict_sort" placeholder="显示顺序(默认顺序排序)"
+                        <input type="text" id="dictSort" name="dictSort" placeholder="显示顺序(默认顺序排序)"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -71,12 +71,12 @@
             type: "get",
             success: function (result) {
                 //console.log(result);
-                var type_name = document.getElementById("type_name");
+                var typeName = document.getElementById("typeName");
                 for (var i = 0; i < result.length; i++) {
                     var option = document.createElement("option");
-                    option.setAttribute("value",result[i].type_code);
-                    option.innerText=result[i].type_name;
-                    type_name.appendChild(option);
+                    option.setAttribute("value",result[i].typeCode);
+                    option.innerText=result[i].typeName;
+                    typeName.appendChild(option);
                 }
                 form.render("select");
 
@@ -89,18 +89,18 @@
                        data:{"id":id},
                         type:"post",
                        success:function (result) {
-                           $("#type_code").val(result.type_code);
-                           $("#type_name").val(result.type_code);
-                           $("#item_name").val(result.item_name);
-                           $("#dict_sort").val(result.dict_sort);
+                           $("#typeCode").val(result.typeCode);
+                           $("#typeName").val(result.typeCode);
+                           $("#itemName").val(result.itemName);
+                           $("#dictSort").val(result.dictSort);
                            $("#remark").val(result.remark);
                            form.render();
                        }
                     });
-                    //if(getQueryString('type_code')!=null) $("#type_code").val(getQueryString('type_code'));
-                   // if(getQueryString('type_name')!=null) $("#type_name").val(getQueryString('type_code'));
-                    //if(getQueryString('item_name')!=null) $("#item_name").val(getQueryString('item_name'));
-                    //if(getQueryString('dict_sort')!=null) $("#dict_sort").val(getQueryString('dict_sort'));
+                    //if(getQueryString('typeCode')!=null) $("#typeCode").val(getQueryString('typeCode'));
+                   // if(getQueryString('typeName')!=null) $("#typeName").val(getQueryString('typeCode'));
+                    //if(getQueryString('itemName')!=null) $("#itemName").val(getQueryString('itemName'));
+                    //if(getQueryString('dictSort')!=null) $("#dictSort").val(getQueryString('dictSort'));
                     //if(getQueryString('remark')!=null) $("#remark").val(getQueryString('remark'));
 
                     //console.log(document.getElementById('id').value);
@@ -108,10 +108,10 @@
             }
         });
 
-        form.on('select(type_name)', function(data){
+        form.on('select(typeName)', function(data){
 
-            $("#type_code").val(data.value)
-            //console.log($("#type_name").find("option:selected").text())
+            $("#typeCode").val(data.value)
+            //console.log($("#typeName").find("option:selected").text())
 
         });
         form.on('submit(DictForm)', function (data) {
@@ -122,10 +122,10 @@
                     url: "/saveDict",
                     data: {
                         "id": data.field.id
-                        , "type_code": data.field.type_code
-                        , "type_name": $("#type_name").find("option:selected").text()
-                        , "item_name": data.field.item_name
-                        , "dict_sort": data.field.dict_sort
+                        , "typeCode": data.field.typeCode
+                        , "typeName": $("#typeName").find("option:selected").text()
+                        , "itemName": data.field.itemName
+                        , "dictSort": data.field.dictSort
                         , "remark": data.field.remark
                     },
                     //dataType: 'JSON',

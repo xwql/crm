@@ -13,7 +13,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">ID</label>
                     <div class="layui-input-block">
-                        <input type="text" id="cust_id" name="cust_id" placeholder="" autocomplete="off"
+                        <input type="text" id="custId" name="custId" placeholder="" autocomplete="off"
                                class="layui-input">
                     </div>
                 </div>
@@ -21,7 +21,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">客户名称</label>
                 <div class="layui-input-block">
-                    <input type="text" id="cust_name" name="cust_name" required lay-verify="required" placeholder="请输入客户名称"
+                    <input type="text" id="custName" name="custName" required lay-verify="required" placeholder="请输入客户名称"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -29,7 +29,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">联系人</label>
                     <div class="layui-input-block">
-                        <input type="text" id="cust_linkman" name="cust_linkman" placeholder="请输入联系人" autocomplete="off"
+                        <input type="text" id="custLinkman" name="custLinkman" placeholder="请输入联系人" autocomplete="off"
                                class="layui-input">
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">负责人ID</label>
                     <div class="layui-input-block">
-                        <input type="text" id="cust_user_id" name="cust_user_id" placeholder="请输入负责人" autocomplete="off"
+                        <input type="text" id="custUserId" name="custUserId" placeholder="请输入负责人" autocomplete="off"
                                class="layui-input">
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">电话</label>
                     <div class="layui-input-block">
-                        <input type="text" id="cust_phone" name="cust_phone" placeholder="请输入电话" autocomplete="off" class="layui-input">
+                        <input type="text" id="custPhone" name="custPhone" placeholder="请输入电话" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <!--</div>
@@ -55,7 +55,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">邮箱</label>
                     <div class="layui-input-block">
-                        <input type="text" id="cust_email" name="cust_email"  placeholder="请输入手机号" autocomplete="off"
+                        <input type="text" id="custEmail" name="custEmail"  placeholder="请输入手机号" autocomplete="off"
                                class="layui-input">
                     </div>
                 </div>
@@ -63,7 +63,7 @@
             <div class="layui-form-item layui-inline">
                 <label class="layui-form-label">客户来源</label>
                 <div class="layui-input-block">
-                    <select id="cust_source" name="cust_source">
+                    <select id="custSource" name="custSource">
                         <option value=""></option>
                     </select>
                 </div>
@@ -71,7 +71,7 @@
             <div class="layui-form-item layui-inline">
                 <label class="layui-form-label" >客户行业</label>
                 <div class="layui-input-block">
-                    <select id="cust_industry" name="cust_industry">
+                    <select id="custIndustry" name="custIndustry">
                         <option value=""></option>
                     </select>
                 </div>
@@ -79,7 +79,7 @@
             <div class="layui-form-item layui-inline">
                 <label class="layui-form-label">客户级别</label>
                 <div class="layui-input-block">
-                    <select id="cust_level" name="cust_level">
+                    <select id="custLevel" name="custLevel">
                         <option value=""></option>
 
                     </select>
@@ -89,14 +89,14 @@
                 <div class="layui-inline">
                 <label class="layui-form-label">邮政编码</label>
                 <div class="layui-input-block">
-                    <input type="text" id="cust_zipcode" name="cust_zipcode" placeholder="请输入邮政编码" autocomplete="off" class="layui-input">
+                    <input type="text" id="custZipcode" name="custZipcode" placeholder="请输入邮政编码" autocomplete="off" class="layui-input">
                 </div>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">地址</label>
                 <div class="layui-input-block">
-                    <input type="text" id="cust_address" name="cust_address" placeholder="请输入地址" autocomplete="off" class="layui-input">
+                    <input type="text" id="custAddress" name="custAddress" placeholder="请输入地址" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
@@ -120,11 +120,11 @@
             type:"GET",
             datatype: "json",
             success:function(result){
-                console.log(result);   //{cust_industry: {…}, cust_level: {…}, cust_source: {…}}
+                console.log(result);   //{custIndustry: {…}, custLevel: {…}, custSource: {…}}
                 for(var p in result){
-                    console.log(p);  //p的值为cust_source，result[p]为cust_source的对应json字符窜
+                    console.log(p);  //p的值为custSource，result[p]为custSource的对应json字符窜
                     var type = result[p];
-                    var cust_type = document.getElementById(p); //server为select定义的id，p："cust_industry"
+                    var custType = document.getElementById(p); //server为select定义的id，p："custIndustry"
                     for (var id in type){
                         //console.log(result[p]);  //{1: "教育培训 ", 2: "电子商务", 3: "对外贸易", 4: "酒店旅游", 5: "房地产"}
                         //console.log(id);       //id
@@ -132,30 +132,30 @@
                         var option = document.createElement("option");  // 创建添加option属性
                         option.setAttribute("value",id); // 给option的value添加值
                         option.innerText=type[id];     // 打印option对应的纯文本
-                        cust_type.appendChild(option);           //给select添加option子标签
+                        custType.appendChild(option);           //给select添加option子标签
                         form.render("select");            // 刷性select，显示出数据
                     }
                 }
                 //回显参数（iframe版本找不到）
-                if(getQueryString('cust_id')!=null){
-                    var id=getQueryString('cust_id');
+                if(getQueryString('custId')!=null){
+                    var id=getQueryString('custId');
                     $.ajax({
                         type:"get",
                         url:"editCustomer",
                         data:{"id":id},
                         success:function(data) {
-                            //console.log(data.cust_industry);
-                            $("#cust_id").val(data.cust_id);
-                            $("#cust_name").val(data.cust_name);
-                            $("#cust_user_id").val(data.cust_user_id);
-                            $("#cust_source").val(data.cust_source);
-                            $("#cust_industry").val(data.cust_industry);
-                            $("#cust_level").val(data.cust_level);
-                            $("#cust_linkman").val(data.cust_linkman);
-                            $("#cust_phone").val(data.cust_phone);
-                            $("#cust_email").val(data.cust_email);
-                            $("#cust_zipcode").val(data.cust_zipcode);
-                            $("#cust_address").val(data.cust_address);
+                            //console.log(data.custIndustry);
+                            $("#custId").val(data.custId);
+                            $("#custName").val(data.custName);
+                            $("#custUserId").val(data.custUserId);
+                            $("#custSource").val(data.custSource);
+                            $("#custIndustry").val(data.custIndustry);
+                            $("#custLevel").val(data.custLevel);
+                            $("#custLinkman").val(data.custLinkman);
+                            $("#custPhone").val(data.custPhone);
+                            $("#custEmail").val(data.custEmail);
+                            $("#custZipcode").val(data.custZipcode);
+                            $("#custAddress").val(data.custAddress);
                             form.render();
                         }
                     });
@@ -189,7 +189,7 @@
         })
             return false;
         });
-        //console.log('cust_name='+getQueryString('cust_name'));
+        //console.log('custName='+getQueryString('custName'));
 
         function getQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");

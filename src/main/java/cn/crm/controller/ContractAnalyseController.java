@@ -17,13 +17,13 @@ public class ContractAnalyseController {
     private ContractAnalyseService contractAnalyseService;
     @PostMapping("contract/getAllSingleData")
     @ResponseBody
-    public Map getAllSingleData(Date start_time, Date end_time){
+    public Map getAllSingleData(Date startTime, Date endTime){
 
-     return contractAnalyseService.findAllSingleData(start_time, end_time);
+     return contractAnalyseService.findAllSingleData(startTime, endTime);
     }
     @PostMapping("contract/getContractBar")
     @ResponseBody
-    public Map getContractBar(Date start_time,  Date end_time){
-        return contractAnalyseService.findContractBar(start_time, end_time);
+    public Map getContractBar(Date startTime,  Date endTime){
+        return contractAnalyseService.findContractBar(startTime, endTime);
     }
 }

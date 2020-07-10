@@ -6,9 +6,9 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="lib/layui-v2.5.5/css/layui.css" media="all">
-    <link rel="stylesheet" href="css/layuimini.css">
-    <link rel="stylesheet" href="css/public.css" media="all">
+    <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/layuimini.css">
+    <link rel="stylesheet" href="/css/public.css" media="all">
 </head>
 <body>
 <div class="layuimini-container">
@@ -22,13 +22,13 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">客户名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="cust_name" autocomplete="off" class="layui-input">
+                                <input type="text" name="custName" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">客户来源</label>
                             <div class="layui-input-block">
-                                <select id="cust_source" name="cust_source">
+                                <select id="custSource" name="custSource">
                                     <option value="">--请选择--</option>
                                 </select>
                             </div>
@@ -36,7 +36,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">客户所属行业</label>
                             <div class="layui-input-block">
-                                <select id="cust_industry" name="cust_industry">
+                                <select id="custIndustry" name="custIndustry">
                                     <option value="">--请选择--</option>
                                 </select>
                             </div>
@@ -44,7 +44,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">客户级别</label>
                             <div class="layui-input-block">
-                                <select id="cust_level" name="cust_level">
+                                <select id="custLevel" name="custLevel">
                                     <option value="">--请选择--</option>
                                 </select>
                             </div>
@@ -73,16 +73,16 @@
 
     </div>
     <!--删除客户-->
-    <form id="deleteCustomer" class="layer_self_wrap" style="display:none;">
+    <form id="deleteCustomer" class="layerSelfWrap" style="display:none;">
         <div class="layui-form layuimini-form">
             <div class="layui-form-item">
                 <label class="layui-form-label ">ID:</label>
-                <label id='delete_id' name="" class="layui-form-label ">用户名</label>
-                <input style="display: none" id="delete_cust_id" name="cust_id">
+                <label id='deleteId' name="" class="layui-form-label ">用户名</label>
+                <input style="display: none" id="deleteCustId" name="custId">
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label ">客户名称:</label>
-                <label id='delete_name' name="cust_name" class="layui-form-label ">用户名</label>
+                <label id='deleteName' name="custName" class="layui-form-label ">用户名</label>
             </div>
 
             <div class="layui-form-item">
@@ -106,9 +106,9 @@
         </div>
     </form>
 </div>
-<script src="lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <!--tab跳转需要layuimini-->
-<script src="js/lay-module/layuimini/layuimini.js" charset="utf-8"></script>
+<script src="/js/lay-module/layuimini/layuimini.js" charset="utf-8"></script>
 
 <!--表格数据-->
 <script>
@@ -123,11 +123,11 @@
                 type:"GET",
                 datatype: "json",
                 success:function(result){
-                    console.log(result);   //{cust_industry: {…}, cust_level: {…}, cust_source: {…}}
+                    console.log(result);   //{custIndustry: {…}, custLevel: {…}, custSource: {…}}
                     for(var p in result){
-                        //console.log(p);  //p的值为cust_source，result[p]为cust_source的对应json字符窜
+                        //console.log(p);  //p的值为custSource，result[p]为custSource的对应json字符窜
                         var type = result[p];
-                        var cust_type = document.getElementById(p); //server为select定义的id，p："cust_industry"
+                        var custType = document.getElementById(p); //server为select定义的id，p："custIndustry"
                         for (var id in type){
                             //console.log(result[p]);  //{1: "教育培训 ", 2: "电子商务", 3: "对外贸易", 4: "酒店旅游", 5: "房地产"}
                             //console.log(id);       //id
@@ -135,7 +135,7 @@
                             var option = document.createElement("option");  // 创建添加option属性
                             option.setAttribute("value",id); // 给option的value添加值
                             option.innerText=type[id];     // 打印option对应的纯文本
-                            cust_type.appendChild(option);           //给select添加option子标签
+                            custType.appendChild(option);           //给select添加option子标签
                             form.render("select");            // 刷性select，显示出数据
                         }
                     }
@@ -148,7 +148,7 @@
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
-                layEvent: 'LAYTABLE_TIPS',
+                layEvent: 'LAYTABLETIPS',
                 icon: 'layui-icon-tips'
             }],
             request: {
@@ -174,13 +174,13 @@
             cols: [
                 [
                 {type: "checkbox", width: 50, fixed: "left"},
-                    {field: 'cust_id',width: 90, title: 'ID', sort: true},
-                    {field: 'cust_name', width: 170, title: '客户名称'},
-                    {field: 'cust_source', width: 150, title: '客户来源'},
-                    {field: 'cust_industry', width: 150, title: '客户所属行业'},
-                    {field: 'cust_level', title: '客户级别', width: 120},
-                    {field: 'cust_phone', width: 150, title: '固定电话' },
-                    {field: 'cust_email', width: 170, title: '邮箱' },
+                    {field: 'custId',width: 90, title: 'ID', sort: true},
+                    {field: 'custName', width: 170, title: '客户名称'},
+                    {field: 'custSource', width: 150, title: '客户来源'},
+                    {field: 'custIndustry', width: 150, title: '客户所属行业'},
+                    {field: 'custLevel', title: '客户级别', width: 120},
+                    {field: 'custPhone', width: 150, title: '固定电话' },
+                    {field: 'custEmail', width: 170, title: '邮箱' },
                 {title: '操作', minWidth: 50, templet: '#currentTableBar',  align: "center"}
             ]
             ],
@@ -192,18 +192,18 @@
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
             var result = JSON.stringify(data.field);
-            var text = JSON.parse(result);   //{text.cust_name,cust_source。。。}
-            //var cust_source = $("#cust_source option:selected").val();
-            //var cust_industry = $("#cust_industry option:selected").val();
-            //var cust_level = $("#cust_level option:selected").val();
+            var text = JSON.parse(result);   //{text.custName,custSource。。。}
+            //var custSource = $("#custSource option:selected").val();
+            //var custIndustry = $("#custIndustry option:selected").val();
+            //var custLevel = $("#custLevel option:selected").val();
             table.reload('currentTableId', {
                 method: 'post'
                 , where: text  //搜索框里的各个参数,通过这个实现搜索功能，table同一数据接口
                 /*{
-                    'cust_name': text.cust_name,
-                    'cust_source': cust_source,
-                    'cust_industry': cust_industry,
-                    'cust_level':cust_level
+                    'custName': text.custName,
+                    'custSource': custSource,
+                    'custIndustry': custIndustry,
+                    'custLevel':custLevel
                 }*/
                 , page: {
                     curr: 1
@@ -281,8 +281,8 @@
                     resize :false,
                     shadeClose: true,
                     area: ['90%', '90%'],
-                    //content: ['customerAdd.html'+ '#cust_id'+'#cust_name'],
-                    content:'customerAdd.html?edit=1&cust_id='+data.cust_id //+'&cust_name='+data.cust_name
+                    //content: ['customerAdd.html'+ '#custId'+'#custName'],
+                    content:'customerAdd.html?edit=1&custId='+data.custId //+'&custName='+data.custName
 
                 });
                /* $(window).on("resize", function () {
@@ -291,9 +291,9 @@
                 return false;
             } else if (obj.event === 'delete') {
                 console.log(data);
-                $("#delete_id").html(data.cust_id);
-                $("#delete_name").html(data.cust_name);
-                $("#delete_cust_id").val(data.cust_id);
+                $("#deleteId").html(data.custId);
+                $("#deleteName").html(data.custName);
+                $("#deleteCustId").val(data.custId);
                 var index = layer.open({
                     title: '删除客户',
                     type: 1,

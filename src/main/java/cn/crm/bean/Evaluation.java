@@ -5,11 +5,11 @@ import java.util.Date;
 public class Evaluation {
     private Long id;
 
-    private Long cust_id;
+    private Long custId;
 
-    private Long user_id;
+    private Long userId;
 
-    private String to_object;
+    private String toObject;
 
     private String score;
 
@@ -18,7 +18,7 @@ public class Evaluation {
     private Date createtime;
 
     private Integer visible;
-    private String cust_name;
+    private String custName;
     private Integer start;
     private Integer rows;
 
@@ -38,12 +38,12 @@ public class Evaluation {
         this.rows = rows;
     }
 
-    public String getCust_name() {
-        return cust_name;
+    public String getCustName() {
+        return custName;
     }
 
-    public void setCust_name(String cust_name) {
-        this.cust_name = cust_name;
+    public void setCustName(String custName) {
+        this.custName = custName;
     }
 
     public Long getId() {
@@ -54,28 +54,28 @@ public class Evaluation {
         this.id = id;
     }
 
-    public Long getCust_id() {
-        return cust_id;
+    public Long getCustId() {
+        return custId;
     }
 
-    public void setCust_id(Long cust_id) {
-        this.cust_id = cust_id;
+    public void setCustId(Long custId) {
+        this.custId = custId;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getTo_object() {
-        return to_object;
+    public String getToObject() {
+        return toObject;
     }
 
-    public void setTo_object(String to_object) {
-        this.to_object = to_object == null ? null : to_object.trim();
+    public void setToObject(String toObject) {
+        this.toObject = toObject == null ? null : toObject.trim();
     }
 
     public String getScore() {

@@ -14,19 +14,19 @@ public class OneAnalyseController {
     private OneAnalyseService oneAnalyseService;
     @PostMapping("one/getAllSingleData")
     @ResponseBody
-    public Map getAllSingleData(Long cust_id, Date start_time, Date end_time){
-        Map allSingleData = oneAnalyseService.findAllSingleData(cust_id, start_time, end_time);
+    public Map getAllSingleData(Long custId, Date startTime, Date endTime){
+        Map allSingleData = oneAnalyseService.findAllSingleData(custId, startTime, endTime);
         return allSingleData;
     }
     @PostMapping("one/getOneBarData")
     @ResponseBody
-    public Map getOneBarData(Long cust_id, Date start_time, Date end_time){
-        return oneAnalyseService.findOneBarData(cust_id, start_time, end_time);
+    public Map getOneBarData(Long custId, Date startTime, Date endTime){
+        return oneAnalyseService.findOneBarData(custId, startTime, endTime);
     }
 
     @PostMapping("one/getWayPieData")
     @ResponseBody
-    public Map getWayPieData(Long cust_id, Date start_time, Date end_time){
-        return oneAnalyseService.findWayPieData(cust_id, start_time, end_time);
+    public Map getWayPieData(Long custId, Date startTime, Date endTime){
+        return oneAnalyseService.findWayPieData(custId, startTime, endTime);
     }
 }

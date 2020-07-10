@@ -14,18 +14,18 @@ public class ContractAnalyseServiceImpl implements ContractAnalyseService {
     private ContractAnalyseMapper contractAnalyseMapper;
 
     @Override
-    public Map findAllSingleData(Date start_time, Date end_time) {
+    public Map findAllSingleData(Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             end = new Date();
             instance.setTime(end);
             instance.add(Calendar.YEAR, -1);
             start = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
         Map<String, Object> allSingleData = contractAnalyseMapper.selectAllSingleData(start, end);
 
@@ -33,18 +33,18 @@ public class ContractAnalyseServiceImpl implements ContractAnalyseService {
     }
 
     @Override
-    public Map findContractBar(Date start_time, Date end_time) {
+    public Map findContractBar(Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             end = new Date();
             instance.setTime(end);
             instance.add(Calendar.YEAR, -1);
             start = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
         List<Map<String, Object>> contractBar = contractAnalyseMapper.selectContractBar(start, end);
         TreeMap<String, Integer> contractMap = new TreeMap<>();

@@ -3,9 +3,9 @@
 <mapper namespace="cn.crm.mapper.EvaluationMapper">
   <resultMap id="BaseResultMap" type="cn.crm.bean.Evaluation">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="cust_id" jdbcType="BIGINT" property="cust_id" />
-    <result column="user_id" jdbcType="BIGINT" property="user_id" />
-    <result column="to_object" jdbcType="VARCHAR" property="to_object" />
+    <result column="cust_id" jdbcType="BIGINT" property="custId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="to_object" jdbcType="VARCHAR" property="toObject" />
     <result column="score" jdbcType="VARCHAR" property="score" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
@@ -28,8 +28,8 @@
     insert into evaluation (id, cust_id, user_id, 
       to_object, score, content, 
       createtime, visible)
-    values (#{id,jdbcType=INTEGER}, #{cust_id,jdbcType=BIGINT}, #{user_id,jdbcType=BIGINT}, 
-      #{to_object,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{custId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
+      #{toObject,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
       #{createtime,jdbcType=TIMESTAMP}, #{visible,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.crm.bean.Evaluation">
@@ -38,13 +38,13 @@
       <if test="id != null">
         id,
       </if>
-      <if test="cust_id != null">
+      <if test="custId != null">
         cust_id,
       </if>
-      <if test="user_id != null">
+      <if test="userId != null">
         user_id,
       </if>
-      <if test="to_object != null">
+      <if test="toObject != null">
         to_object,
       </if>
       <if test="score != null">
@@ -64,14 +64,14 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="cust_id != null">
-        #{cust_id,jdbcType=BIGINT},
+      <if test="custId != null">
+        #{custId,jdbcType=BIGINT},
       </if>
-      <if test="user_id != null">
-        #{user_id,jdbcType=BIGINT},
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
       </if>
-      <if test="to_object != null">
-        #{to_object,jdbcType=VARCHAR},
+      <if test="toObject != null">
+        #{toObject,jdbcType=VARCHAR},
       </if>
       <if test="score != null">
         #{score,jdbcType=VARCHAR},
@@ -90,14 +90,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.crm.bean.Evaluation">
     update evaluation
     <set>
-      <if test="cust_id != null">
-        cust_id = #{cust_id,jdbcType=BIGINT},
+      <if test="custId != null">
+        cust_id = #{custId,jdbcType=BIGINT},
       </if>
-      <if test="user_id != null">
-        user_id = #{user_id,jdbcType=BIGINT},
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
-      <if test="to_object != null">
-        to_object = #{to_object,jdbcType=VARCHAR},
+      <if test="toObject != null">
+        to_object = #{toObject,jdbcType=VARCHAR},
       </if>
       <if test="score != null">
         score = #{score,jdbcType=VARCHAR},
@@ -116,9 +116,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.crm.bean.Evaluation">
     update evaluation
-    set cust_id = #{cust_id,jdbcType=BIGINT},
-      user_id = #{user_id,jdbcType=BIGINT},
-      to_object = #{to_object,jdbcType=VARCHAR},
+    set cust_id = #{custId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      to_object = #{toObject,jdbcType=VARCHAR},
       score = #{score,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
@@ -134,8 +134,8 @@
       from evaluation a
       join (select cust_id,cust_name
       from customer
-      <if test="cust_name != null">
-        where cust_name like "%"#{cust_name}"%"
+      <if test="custName != null">
+        where cust_name like "%"#{custName}"%"
       </if>
       ) b on a.cust_id=b.cust_id
     <include refid="selectEvaluationListWhere"/>
@@ -149,8 +149,8 @@
     from evaluation a
     join (select cust_id,cust_name
     from customer
-    <if test="cust_name != null">
-      where cust_name like "%"#{cust_name}"%"
+    <if test="custName != null">
+      where cust_name like "%"#{custName}"%"
     </if>
     ) b on a.cust_id=b.cust_id
     <include refid="selectEvaluationListWhere"/>
@@ -160,8 +160,8 @@
       <if test="visible != null">
         visible = #{visible}
       </if>
-      <if test="to_object != null" >
-        and to_object = #{to_object}
+      <if test="toObject != null" >
+        and to_object = #{toObject}
       </if>
     </where>
   </sql>

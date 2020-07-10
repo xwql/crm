@@ -22,7 +22,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">客户名称</label>
                     <div class="layui-input-block">
-                        <input type="text" id="cust_name" name="cust_name" required lay-verify="required"
+                        <input type="text" id="custName" name="custName" required lay-verify="required"
                                placeholder="请选择"
                                autocomplete="off" class="layui-input">
                     </div>
@@ -30,7 +30,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">客户ID</label>
                     <div class="layui-input-block">
-                        <input type="text" id="cust_id" name="cust_id" placeholder="" autocomplete="off"
+                        <input type="text" id="custId" name="custId" placeholder="" autocomplete="off"
                                class="layui-input" readonly="readonly">
                     </div>
                 </div>
@@ -39,14 +39,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">联系人</label>
                     <div class="layui-input-block">
-                        <input type="text" id="cust_linkman" name="cust_linkman" placeholder="" autocomplete="off"
+                        <input type="text" id="custLinkman" name="custLinkman" placeholder="" autocomplete="off"
                                class="layui-input" >
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">负责人ID</label>
                     <div class="layui-input-block">
-                        <input type="text" id="cust_user_id" name="cust_user_id" placeholder="" autocomplete="off"
+                        <input type="text" id="custUserId" name="custUserId" placeholder="" autocomplete="off"
                                class="layui-input" onkeyup="this.value=this.value.replace(/\D/g,'')"
                                onafterpaste="this.value=this.value.replace(/\D/g,'')">
                     </div>
@@ -55,7 +55,7 @@
             <div class="layui-form-item layui-inline">
                 <label class="layui-form-label">客户状态</label>
                 <div class="layui-input-block">
-                    <select id="cust_status" name="cust_status">
+                    <select id="custStatus" name="custStatus">
                         <option value=""></option>
                     </select>
                 </div>
@@ -63,7 +63,7 @@
             <div class="layui-form-item layui-inline">
                 <label class="layui-form-label">商机状态</label>
                 <div class="layui-input-block">
-                    <select id="business_status" name="business_status">
+                    <select id="businessStatus" name="businessStatus">
                         <option value=""></option>
                     </select>
                 </div>
@@ -71,7 +71,7 @@
             <div class="layui-form-item layui-inline">
                 <label class="layui-form-label">客户性质</label>
                 <div class="layui-input-block">
-                    <select id="cust_property" name="cust_property">
+                    <select id="custProperty" name="custProperty">
                         <option value=""></option>
                     </select>
                 </div>
@@ -99,11 +99,11 @@
             type: "GET",
             datatype: "json",
             success: function (result) {
-                //console.log(result);   //{cust_industry: {…}, cust_level: {…}, cust_source: {…}}
+                //console.log(result);   //{custIndustry: {…}, custLevel: {…}, custSource: {…}}
                 for (var p in result) {
-                    //console.log(p);  //p的值为cust_source，result[p]为cust_source的对应json字符窜
+                    //console.log(p);  //p的值为custSource，result[p]为custSource的对应json字符窜
                     var type = result[p];
-                    var cust_type = document.getElementById(p); //server为select定义的id，p："cust_industry"
+                    var custType = document.getElementById(p); //server为select定义的id，p："custIndustry"
                     for (var id in type) {
                         //console.log(result[p]);  //{1: "教育培训 ", 2: "电子商务", 3: "对外贸易", 4: "酒店旅游", 5: "房地产"}
                         //console.log(id);       //id
@@ -111,25 +111,25 @@
                         var option = document.createElement("option");  // 创建添加option属性
                         option.setAttribute("value", id); // 给option的value添加值
                         option.innerText = type[id];     // 打印option对应的纯文本
-                        cust_type.appendChild(option);           //给select添加option子标签
+                        custType.appendChild(option);           //给select添加option子标签
                         form.render("select");            // 刷性select，显示出数据
                     }
                 }
-                if(getQueryString('cust_id')!=null){
-                    var id = getQueryString('cust_id');
+                if(getQueryString('custId')!=null){
+                    var id = getQueryString('custId');
                     $.ajax({
                         type:"post",
                         url:"editFollowStatus",
                         data:{"id":id},
                         success:function (data) {
                             console.log(data)
-                            $("#cust_id").val(data.cust_id);
-                            $("#cust_name").val(data.cust_name);
-                            $("#cust_user_id").val(data.cust_user_id);
-                            $("#cust_status").val(data.cust_status);
-                            $("#business_status").val(data.business_status);
-                            $("#cust_linkman").val(data.cust_linkman);
-                            $("#cust_property").val(data.cust_property);
+                            $("#custId").val(data.custId);
+                            $("#custName").val(data.custName);
+                            $("#custUserId").val(data.custUserId);
+                            $("#custStatus").val(data.custStatus);
+                            $("#businessStatus").val(data.businessStatus);
+                            $("#custLinkman").val(data.custLinkman);
+                            $("#custProperty").val(data.custProperty);
                             form.render();
                         }
                     })
@@ -137,9 +137,9 @@
             }
         });
         tableSelect.render({
-            elem: '#cust_name',
+            elem: '#custName',
             checkedKey: 'id',
-            searchKey: 'cust_name',	//搜索输入框的name值 默认keyword
+            searchKey: 'custName',	//搜索输入框的name值 默认keyword
             searchPlaceholder: '客户名搜索',	//搜索输入框的提示文字 默认关键词搜索
             table: {
                 url: 'customerList',
@@ -160,20 +160,20 @@
                 cols: [
                     [
                         {type: 'radio'},
-                        {field: 'cust_id', title: 'ID'},
-                        {field: 'cust_name', title: '客户名'},
-                        {field: 'cust_linkman', title: '联系人'},
-                        {field: "cust_user_id", title: '负责人'}
+                        {field: 'custId', title: 'ID'},
+                        {field: 'custName', title: '客户名'},
+                        {field: 'custLinkman', title: '联系人'},
+                        {field: "custUserId", title: '负责人'}
                     ]
                 ]
             },
             done: function (elem, data) {
                 var NEWJSON = [];
                 layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.cust_name);
-                    $("#cust_id").val(item.cust_id);
-                    $("#cust_user_id").val(item.cust_user_id);
-                    $("#cust_linkman").val(item.cust_linkman)
+                    NEWJSON.push(item.custName);
+                    $("#custId").val(item.custId);
+                    $("#custUserId").val(item.custUserId);
+                    $("#custLinkman").val(item.custLinkman)
                 });
                 elem.val(NEWJSON.join(","))
             }

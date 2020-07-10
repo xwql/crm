@@ -15,19 +15,19 @@ public class FollowAnalyseController {
     private FollowAnalyseService followAnalyseService;
     @PostMapping("followAnalyse/getPieData")
     @ResponseBody
-    public Map getPieData(Date start_time,Date end_time){
-        return followAnalyseService.findPieData(start_time, end_time);
+    public Map getPieData(Date startTime,Date endTime){
+        return followAnalyseService.findPieData(startTime, endTime);
     }
 
     @PostMapping("followAnalyse/getFollowBar")
     @ResponseBody
-    public Map getFollowBar(Date start_time,Date end_time){
-        return followAnalyseService.findFollowBar(start_time, end_time);
+    public Map getFollowBar(Date startTime,Date endTime){
+        return followAnalyseService.findFollowBar(startTime, endTime);
     }
 
     @PostMapping("followAnalyse/getFollowNumAndNot")
     @ResponseBody
-    public Map getFollowNumAndNot(Date start_time,Date end_time){
-        return followAnalyseService.findFollowNumAndNot(start_time, end_time);
+    public Map getFollowNumAndNot(Date startTime,Date endTime){
+        return followAnalyseService.findFollowNumAndNot(startTime, endTime);
     }
 }

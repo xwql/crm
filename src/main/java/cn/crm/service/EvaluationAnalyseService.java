@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Map;
 
 public interface EvaluationAnalyseService {
-    Map findMaxAndMinEvaluation(Date start_time, Date end_time);
-    Map findEvaluationAvg(Date start_time, Date end_time);
-    Map findEvaluationLine(Date start_time, Date end_time);
+    Map findMaxAndMinEvaluation(Date startTime, Date endTime);
+    Map findEvaluationAvg(Date startTime, Date endTime);
+    Map findEvaluationLine(Date startTime, Date endTime);
 }

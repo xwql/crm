@@ -23,21 +23,21 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">客户名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="cust_name" name="cust_name" autocomplete="off"
+                                <input type="text" id="custName" name="custName" autocomplete="off"
                                        placeholder="点击选择客户" class="layui-input" required lay-verify="required">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">客户ID</label>
                             <div class="layui-input-block">
-                                <input type="text" id="cust_id1" name="cust_id1" placeholder="" autocomplete="off"
+                                <input type="text" id="custId1" name="custId1" placeholder="" autocomplete="off"
                                        class="layui-input" readonly="readonly">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">联系人</label>
                             <div class="layui-input-block">
-                                <input type="text" id="cust_linkman" name="cust_linkman" placeholder=""
+                                <input type="text" id="custLinkman" name="custLinkman" placeholder=""
                                        autocomplete="off"
                                        class="layui-input" readonly="readonly">
                             </div>
@@ -45,7 +45,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">负责人ID</label>
                             <div class="layui-input-block">
-                                <input type="text" id="cust_user_id1" name="cust_user_id1" placeholder=""
+                                <input type="text" id="custUserId1" name="custUserId1" placeholder=""
                                        autocomplete="off"
                                        class="layui-input" onkeyup="this.value=this.value.replace(/\D/g,'')"
                                        onafterpaste="this.value=this.value.replace(/\D/g,'')" readonly="readonly">
@@ -56,28 +56,28 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">电话</label>
                             <div class="layui-input-block">
-                                <input type="text" id="cust_phone" name="cust_phone" placeholder="" autocomplete="off"
+                                <input type="text" id="custPhone" name="custPhone" placeholder="" autocomplete="off"
                                        class="layui-input" readonly="readonly">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">邮箱</label>
                             <div class="layui-input-block">
-                                <input type="text" id="cust_email" name="cust_email" placeholder="" autocomplete="off"
+                                <input type="text" id="custEmail" name="custEmail" placeholder="" autocomplete="off"
                                        class="layui-input" readonly="readonly">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">邮政编码</label>
                             <div class="layui-input-block">
-                                <input type="text" id="cust_zipcode" name="cust_zipcode" placeholder="" autocomplete="off"
+                                <input type="text" id="custZipcode" name="custZipcode" placeholder="" autocomplete="off"
                                        class="layui-input" readonly="readonly">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">地址</label>
                             <div class="layui-input-block">
-                                <input type="text" id="cust_address" name="cust_address" placeholder=""
+                                <input type="text" id="custAddress" name="custAddress" placeholder=""
                                        autocomplete="off"
                                        class="layui-input" readonly="readonly">
                             </div>
@@ -95,14 +95,14 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">客户ID</label>
                                 <div class="layui-input-block">
-                                    <input type="text" id="cust_id" name="cust_id" placeholder="" autocomplete="off"
+                                    <input type="text" id="custId" name="custId" placeholder="" autocomplete="off"
                                            class="layui-input" readonly="readonly" required lay-verify="required">
                                 </div>
                             </div>
                             <div class="layui-inline" style="display: none">
                                 <label class="layui-form-label">负责人ID</label>
                                 <div class="layui-input-block">
-                                    <input type="text" id="cust_user_id" name="cust_user_id" placeholder=""
+                                    <input type="text" id="custUserId" name="custUserId" placeholder=""
                                            autocomplete="off"
                                            class="layui-input" onkeyup="this.value=this.value.replace(/\D/g,'')"
                                            onafterpaste="this.value=this.value.replace(/\D/g,'')" readonly="readonly">
@@ -208,11 +208,11 @@
             type: "GET",
             datatype: "json",
             success: function (result) {
-                console.log(result);   //{cust_industry: {…}, cust_level: {…}, cust_source: {…}}
+                console.log(result);   //{custIndustry: {…}, custLevel: {…}, custSource: {…}}
                 for (var p in result) {
-                    //console.log(p);  //p的值为cust_source，result[p]为cust_source的对应json字符窜
+                    //console.log(p);  //p的值为custSource，result[p]为custSource的对应json字符窜
                     var type = result[p];
-                    var cust_type = document.getElementById(p); //server为select定义的id，p："cust_industry"
+                    var custType = document.getElementById(p); //server为select定义的id，p："custIndustry"
                     for (var id in type) {
                         //console.log(result[p]);  //{1: "教育培训 ", 2: "电子商务", 3: "对外贸易", 4: "酒店旅游", 5: "房地产"}
                         //console.log(id);       //id
@@ -220,7 +220,7 @@
                         var option = document.createElement("option");  // 创建添加option属性
                         option.setAttribute("value", id); // 给option的value添加值
                         option.innerText = type[id];     // 打印option对应的纯文本
-                        cust_type.appendChild(option);           //给select添加option子标签
+                        custType.appendChild(option);           //给select添加option子标签
                         form.render("select");            // 刷性select，显示出数据
                     }
                 }
@@ -228,9 +228,9 @@
             }
         });
         tableSelect.render({
-            elem: '#cust_name',
+            elem: '#custName',
             checkedKey: 'id',
-            searchKey: 'cust_name',	//搜索输入框的name值 默认keyword
+            searchKey: 'custName',	//搜索输入框的name值 默认keyword
             searchPlaceholder: '客户名搜索',	//搜索输入框的提示文字 默认关键词搜索
             table: {
                 url: 'customerList',
@@ -251,26 +251,26 @@
                 cols: [
                     [
                         {type: 'radio'},
-                        {field: 'cust_id', title: 'ID'},
-                        {field: 'cust_name', title: '客户名'},
-                        {field: 'cust_linkman', title: '联系人'},
-                        {field: "cust_user_id", title: '负责人'}
+                        {field: 'custId', title: 'ID'},
+                        {field: 'custName', title: '客户名'},
+                        {field: 'custLinkman', title: '联系人'},
+                        {field: "custUserId", title: '负责人'}
                     ]
                 ]
             },
             done: function (elem, data) {
                 var NEWJSON = [];
                 layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.cust_name);
-                    $("#cust_id").val(item.cust_id);
-                    $("#cust_id1").val(item.cust_id);
-                    $("#cust_user_id").val(item.cust_user_id);
-                    $("#cust_user_id1").val(item.cust_user_id);
-                    $("#cust_linkman").val(item.cust_linkman);
-                    $("#cust_phone").val(item.cust_phone);
-                    $("#cust_email").val(item.cust_email);
-                    $("#cust_address").val(item.cust_address);
-                    $("#cust_zipcode").val(item.cust_zipcode)
+                    NEWJSON.push(item.custName);
+                    $("#custId").val(item.custId);
+                    $("#custId1").val(item.custId);
+                    $("#custUserId").val(item.custUserId);
+                    $("#custUserId1").val(item.custUserId);
+                    $("#custLinkman").val(item.custLinkman);
+                    $("#custPhone").val(item.custPhone);
+                    $("#custEmail").val(item.custEmail);
+                    $("#custAddress").val(item.custAddress);
+                    $("#custZipcode").val(item.custZipcode)
                 });
                 elem.val(NEWJSON.join(","))
             }

@@ -4,32 +4,32 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Customer implements Serializable {
-	private Long cust_id;
-	private String cust_name;
-	private Long cust_user_id;
-	private Long cust_create_id;
-	private String cust_source;
-	private String cust_industry;
-	private String cust_level;
-	private String cust_linkman;
-	private String cust_phone;
-	private String cust_email;
-	private String cust_zipcode;
-	private String cust_address;
-	private Date cust_createtime;
+	private Long custId;
+	private String custName;
+	private Long custUserId;
+	private Long custCreateId;
+	private String custSource;
+	private String custIndustry;
+	private String custLevel;
+	private String custLinkman;
+	private String custPhone;
+	private String custEmail;
+	private String custZipcode;
+	private String custAddress;
+	private Date custCreatetime;
 	private Integer start;
 	private Integer rows;
-	public String getCust_zipcode() {
-		return cust_zipcode;
+	public String getCustZipcode() {
+		return custZipcode;
 	}
-	public void setCust_zipcode(String cust_zipcode) {
-		this.cust_zipcode = cust_zipcode;
+	public void setCustZipcode(String custZipcode) {
+		this.custZipcode = custZipcode;
 	}
-	public String getCust_address() {
-		return cust_address;
+	public String getCustAddress() {
+		return custAddress;
 	}
-	public void setCust_address(String cust_address) {
-		this.cust_address = cust_address;
+	public void setCustAddress(String custAddress) {
+		this.custAddress = custAddress;
 	}
 	public Integer getStart() {
 		return start;
@@ -43,71 +43,71 @@ public class Customer implements Serializable {
 	public void setRows(Integer rows) {
 		this.rows = rows;
 	}
-	public Long getCust_id() {
-		return cust_id;
+	public Long getCustId() {
+		return custId;
 	}
-	public void setCust_id(Long cust_id) {
-		this.cust_id = cust_id;
+	public void setCustId(Long custId) {
+		this.custId = custId;
 	}
-	public String getCust_name() {
-		return cust_name;
+	public String getCustName() {
+		return custName;
 	}
-	public void setCust_name(String cust_name) {
-		this.cust_name = cust_name;
+	public void setCustName(String custName) {
+		this.custName = custName;
 	}
-	public Long getCust_user_id() {
-		return cust_user_id;
+	public Long getCustUserId() {
+		return custUserId;
 	}
-	public void setCust_user_id(Long cust_user_id) {
-		this.cust_user_id = cust_user_id;
+	public void setCustUserId(Long custUserId) {
+		this.custUserId = custUserId;
 	}
-	public Long getCust_create_id() {
-		return cust_create_id;
+	public Long getCustCreateId() {
+		return custCreateId;
 	}
-	public void setCust_create_id(Long cust_create_id) {
-		this.cust_create_id = cust_create_id;
+	public void setCustCreateId(Long custCreateId) {
+		this.custCreateId = custCreateId;
 	}
-	public String getCust_source() {
-		return cust_source;
+	public String getCustSource() {
+		return custSource;
 	}
-	public void setCust_source(String cust_source) {
-		this.cust_source = cust_source;
+	public void setCustSource(String custSource) {
+		this.custSource = custSource;
 	}
-	public String getCust_industry() {
-		return cust_industry;
+	public String getCustIndustry() {
+		return custIndustry;
 	}
-	public void setCust_industry(String cust_industry) {
-		this.cust_industry = cust_industry;
+	public void setCustIndustry(String custIndustry) {
+		this.custIndustry = custIndustry;
 	}
-	public String getCust_level() {
-		return cust_level;
+	public String getCustLevel() {
+		return custLevel;
 	}
-	public void setCust_level(String cust_level) {
-		this.cust_level = cust_level;
+	public void setCustLevel(String custLevel) {
+		this.custLevel = custLevel;
 	}
-	public String getCust_linkman() {
-		return cust_linkman;
+	public String getCustLinkman() {
+		return custLinkman;
 	}
-	public void setCust_linkman(String cust_linkman) {
-		this.cust_linkman = cust_linkman;
+	public void setCustLinkman(String custLinkman) {
+		this.custLinkman = custLinkman;
 	}
-	public String getCust_phone() {
-		return cust_phone;
+	public String getCustPhone() {
+		return custPhone;
 	}
-	public void setCust_phone(String cust_phone) {
-		this.cust_phone = cust_phone;
+	public void setCustPhone(String custPhone) {
+		this.custPhone = custPhone;
 	}
-	public String getCust_email() {
-		return cust_email;
+	public String getCustEmail() {
+		return custEmail;
 	}
-	public void setCust_email(String cust_mobile) {
-		this.cust_email = cust_mobile;
+	public void setCustEmail(String custMobile) {
+		this.custEmail = custMobile;
 	}
-	public Date getCust_createtime() {
-		return cust_createtime;
+	public Date getCustCreatetime() {
+		return custCreatetime;
 	}
-	public void setCust_createtime(Date cust_createtime) {
-		this.cust_createtime = cust_createtime;
+	public void setCustCreatetime(Date custCreatetime) {
+		this.custCreatetime = custCreatetime;
 	}
 	
 }

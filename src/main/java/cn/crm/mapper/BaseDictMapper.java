@@ -8,7 +8,7 @@ import java.util.List;
 public interface BaseDictMapper {
 
 	//根据数据字典类别代码查询
-    public List<BaseDict> selectByTypecode(String typecode);
+    public List<BaseDict> selectByTypecode(String typeCode);
     //根据数据字典ID查询
     BaseDict selectByPrimaryKey(Long dictId);
         //分页查询

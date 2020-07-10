@@ -30,10 +30,10 @@ public class ContractServiceImpl implements ContractService {
             end = DateUtils.stringToDate(endTime);
         }
         if(custID != null){
-            contract.setCust_id(custID);
+            contract.setCustId(custID);
         }
-        contract.setStart_time(start);
-        contract.setEnd_time(end);
+        contract.setStartTime(start);
+        contract.setEndTime(end);
         contract.setEnable(enable);
         contract.setStart((page-1) * rows) ;
         //每页行数

@@ -5,9 +5,9 @@ import java.util.Date;
 public class FollowRecord {
     private Long id;
 
-    private Long cust_id;
+    private Long custId;
 
-    private Long user_id;
+    private Long userId;
 
     private String way;
 
@@ -15,7 +15,7 @@ public class FollowRecord {
 
     private String remark;
 
-    private Date record_time;
+    private Date recordTime;
 
     private Integer visible;
 
@@ -64,20 +64,20 @@ public class FollowRecord {
         this.id = id;
     }
 
-    public Long getCust_id() {
-        return cust_id;
+    public Long getCustId() {
+        return custId;
     }
 
-    public void setCust_id(Long cust_id) {
-        this.cust_id = cust_id;
+    public void setCustId(Long custId) {
+        this.custId = custId;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getWay() {
@@ -104,12 +104,12 @@ public class FollowRecord {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public Date getRecord_time() {
-        return record_time;
+    public Date getRecordTime() {
+        return recordTime;
     }
 
-    public void setRecord_time(Date record_time) {
-        this.record_time = record_time;
+    public void setRecordTime(Date recordTime) {
+        this.recordTime = recordTime;
     }
 
     public Integer getVisible() {

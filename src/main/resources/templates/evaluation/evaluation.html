@@ -22,13 +22,13 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">客户名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="cust_name" autocomplete="off" class="layui-input" placeholder="输入客户名称">
+                                <input type="text" name="custName" autocomplete="off" class="layui-input" placeholder="输入客户名称">
                             </div>
                         </div>
                         <div class="layui-inline">
                         <label class="layui-form-label">评价对象</label>
                         <div class="layui-input-block">
-                            <select id="to_object" name="to_object">
+                            <select id="toObject" name="toObject">
                                 <option value="">--请选择--</option>
                                 <option value="公司对客户">公司对客户</option>
                                 <option value="客户对公司">客户对公司</option>
@@ -75,7 +75,7 @@
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
-                layEvent: 'LAYTABLE_TIPS',
+                layEvent: 'LAYTABLETIPS',
                 icon: 'layui-icon-tips'
             }],
             request: {
@@ -101,13 +101,13 @@
             cols: [
                 [
                     {field: 'id', width: 90, title: '评价ID', sort: true},
-                    {field: 'cust_id', width: 90, title: '客户ID', sort: true},
-                    {field: 'cust_name', width: 120, title: '客户名称'},
-                    {field: 'user_id', width: 120, title: '负责人ID'},
-                    {field: 'to_object', width: 150, title: '评价对象'},
+                    {field: 'custId', width: 90, title: '客户ID', sort: true},
+                    {field: 'custName', width: 150, title: '客户名称'},
+                    {field: 'userId', width: 120, title: '负责人ID'},
+                    {field: 'toObject', width: 150, title: '评价对象'},
                     {field: 'score', title: '评分', width: 90, sort: true},
                     {field: 'content', width: 150, title: '内容'},
-                    {field: 'createtime', width: 120, title: '创建时间',templet : "<div>{{layui.util.toDateString(d.createtime, 'yyyy-MM-dd HH:mm')}}</div>",sort: true},
+                    {field: 'createtime', width: 150, title: '创建时间',templet : "<div>{{layui.util.toDateString(d.createtime, 'yyyy-MM-dd HH:mm')}}</div>",sort: true},
                     {title: '操作', minWidth: 50, templet: '#currentTableBar',  align: "center"}
                 ]
             ],
@@ -118,18 +118,18 @@
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
             var result = JSON.stringify(data.field);
-            var text = JSON.parse(result);   //{text.cust_name,cust_source。。。}
-            //var cust_source = $("#cust_source option:selected").val();
-            //var cust_industry = $("#cust_industry option:selected").val();
-            //var cust_level = $("#cust_level option:selected").val();
+            var text = JSON.parse(result);   //{text.custName,custSource。。。}
+            //var custSource = $("#custSource option:selected").val();
+            //var custIndustry = $("#custIndustry option:selected").val();
+            //var custLevel = $("#custLevel option:selected").val();
             table.reload('currentTableId', {
                 method: 'post'
                 , where: text  //搜索框里的各个参数,通过这个实现搜索功能，table同一数据接口
                 /*{
-                    'cust_name': text.cust_name,
-                    'cust_source': cust_source,
-                    'cust_industry': cust_industry,
-                    'cust_level':cust_level
+                    'custName': text.custName,
+                    'custSource': custSource,
+                    'custIndustry': custIndustry,
+                    'custLevel':custLevel
                 }*/
                 , page: {
                     curr: 1
@@ -153,7 +153,7 @@
                     resize: false,
                     shadeClose: true,
                     area: ['75%', '80%'],
-                    //content: ['customerAdd.html'+ '#cust_id'+'#cust_name'],
+                    //content: ['customerAdd.html'+ '#custId'+'#custName'],
                     content: 'evaluationAdd.html?edit=1&id=' + data.id
 
                 });

@@ -22,16 +22,16 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">客户名称</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="cust_name" autocomplete="off" class="layui-input">
+                            <input type="text" name="custName" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
                         <label class="layui-form-label">负责人</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="cust_user_name" autocomplete="off" class="layui-input">
+                            <input type="text" name="custUserName" autocomplete="off" class="layui-input">
                         </div>
                         <div class="layui-input-inline" pane>
-                            <input type="checkbox" name="follow_status" lay-skin="switch" lay-text="跟进中|未跟进"
+                            <input type="checkbox" name="followStatus" lay-skin="switch" lay-text="跟进中|未跟进"
                                    lay-filter="switchFollow" checked>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
             table = layui.table,
             layuimini = layui.layuimini;
         var statusTpl = function (d) { // 参数d是当前行数据
-            if (d.follow_status == 1) {
+            if (d.followStatus == 1) {
                 return '<input disabled type="checkbox" lay-skin="switch" lay-text="跟进中|未跟进" checked> ';
             } else {
                 return '<input disabled type="checkbox" lay-skin="switch" lay-text="跟进中|未跟进"> ';
@@ -90,7 +90,7 @@
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
-                layEvent: 'LAYTABLE_TIPS',
+                layEvent: 'LAYTABLETIPS',
                 icon: 'layui-icon-tips'
             }],
             request: {
@@ -109,15 +109,15 @@
             },
             cols: [
                 [
-                    {field: 'cust_id', width: 90, title: '客户ID', sort: true},
-                    {field: 'cust_name', width: 150, title: '客户名称'},
-                    {field: 'cust_status', width: 120, title: '客户状态'},
-                    {field: 'business_status', width: 120, title: '商机状态'},
-                    {field: 'cust_property', title: '客户性质', width: 120},
-                    {field: 'cust_linkman', width: 120, title: '联系人'},
-                    {field: 'cust_user_name', width: 120, title: '负责人'},
+                    {field: 'custId', width: 90, title: '客户ID', sort: true},
+                    {field: 'custName', width: 150, title: '客户名称'},
+                    {field: 'custStatus', width: 120, title: '客户状态'},
+                    {field: 'businessStatus', width: 120, title: '商机状态'},
+                    {field: 'custProperty', title: '客户性质', width: 120},
+                    {field: 'custLinkman', width: 120, title: '联系人'},
+                    {field: 'custUserName', width: 120, title: '负责人'},
                     {field: 'times', width: 120, title: '跟进次数'},
-                    {field: 'follow_status', width: 120, title: '跟进状态', templet: statusTpl},
+                    {field: 'followStatus', width: 120, title: '跟进状态', templet: statusTpl},
                     {title: '操作', minWidth: 50, templet: '#currentTableBar', align: "center"}
                 ]
             ],
@@ -127,12 +127,12 @@
         });
         //console.log(tableIns.config);
         //监听搜索框开关
-        var follow_status = 1;
+        var followStatus = 1;
         form.on("switch(switchFollow)", function (data) {
             if (data.elem.checked) {
-                follow_status = 1;
+                followStatus = 1;
             } else {
-                follow_status = 0;
+                followStatus = 0;
             }
         });
         form.on('submit(data-search-btn)', function (data) {
@@ -141,9 +141,9 @@
             table.reload('currentTableId', {
                 method: 'post'
                 , where: {  //text  //搜索框里的各个参数,通过这个实现搜索功能，table同一数据接口
-                    "cust_name": text.cust_name,
-                    "cust_user_name": text.cust_user_name,
-                    "follow_status": follow_status
+                    "custName": text.custName,
+                    "custUserName": text.custUserName,
+                    "followStatus": followStatus
                 }
                 , page: {
                     curr: 1
@@ -165,18 +165,18 @@
                     resize: false,
                     shadeClose: true,
                     area: ['60%', '70%'],
-                    //content: ['customerAdd.html'+ '#cust_id'+'#cust_name'],
-                    content: 'followAdd.html?edit=1&cust_id=' + data.cust_id
+                    //content: ['customerAdd.html'+ '#custId'+'#custName'],
+                    content: 'followAdd.html?edit=1&custId=' + data.custId
                 });
                 /* $(window).on("resize", function () {
                      layer.full(index);
                  });*/
                 return false;
             } else if (obj.event === 'delete') {
-                layer.confirm('确定停止跟进客户'+data.cust_name+'吗？', function (x) {
+                layer.confirm('确定停止跟进客户'+data.custName+'吗？', function (x) {
                     $.ajax({
                         type: "post",
-                        data: {"id":data.cust_id},
+                        data: {"id":data.custId},
                         url: "stopFollowing",
                         success: function (data) {
                             //layer.alert();
@@ -193,7 +193,7 @@
                     layer.close(x);
                 });
             }else if (obj.event === 'follow'){
-                if(data.follow_status == 1){
+                if(data.followStatus == 1){
                     layer.msg("已经在跟进列表中",{
                         icon: 1,
                         time: 1000

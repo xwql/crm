@@ -25,14 +25,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">合同名称</label>
                     <div class="layui-input-block">
-                        <input type="text" id="contract_name" name="contract_name" placeholder="" autocomplete="off"
+                        <input type="text" id="contractName" name="contractName" placeholder="" autocomplete="off"
                                class="layui-input" >
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">客户ID</label>
                     <div class="layui-input-block">
-                        <input type="text" id="cust_id" name="cust_id" placeholder=""
+                        <input type="text" id="custId" name="custId" placeholder=""
                                autocomplete="off"
                                class="layui-input" onkeyup="this.value=this.value.replace(/\D/g,'')"
                                onafterpaste="this.value=this.value.replace(/\D/g,'')">
@@ -43,20 +43,21 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">金额</label>
                     <div class="layui-input-block">
-                        <input type="text" id="money" name="money" placeholder="" autocomplete="off"
-                               class="layui-input" >
+                        <input type="text" id="money" name="money" placeholder="阿拉伯数字" autocomplete="off"
+                               class="layui-input" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                               onafterpaste="this.value=this.value.replace(/\D/g,'')">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">开始时间</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="start_time" id="start_time" class="layui-input datetime">
+                        <input type="text" name="startTime" id="startTime" class="layui-input datetime">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">终止时间</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="end_time" id="end_time" class="layui-input datetime">
+                        <input type="text" name="endTime" id="endTime" class="layui-input datetime">
                     </div>
                 </div>
             </div>
@@ -101,13 +102,13 @@
                 data: {"id": id},
                 url: "getOneContract",
                 success: function (data) {
-                    console.log(layui.util.toDateString(data.start_time, 'yyyy-MM-dd HH:mm:ss'));
+                    console.log(layui.util.toDateString(data.startTime, 'yyyy-MM-dd HH:mm:ss'));
                     $("#id").val(data.id);
-                    $("#cust_id").val(data.cust_id);
-                    $("#contract_name").val(data.contract_name);
+                    $("#custId").val(data.custId);
+                    $("#contractName").val(data.contractName);
                     $("#money").val(parseInt(data.money));
-                    $("#start_time").val(layui.util.toDateString(data.start_time, 'yyyy-MM-dd HH:mm:ss'));
-                    $("#end_time").val(layui.util.toDateString(data.end_time, 'yyyy-MM-dd HH:mm:ss'));
+                    $("#startTime").val(layui.util.toDateString(data.startTime, 'yyyy-MM-dd HH:mm:ss'));
+                    $("#endTime").val(layui.util.toDateString(data.endTime, 'yyyy-MM-dd HH:mm:ss'));
                     $("#content").val(data.content);
                     form.render();
                 }
@@ -133,6 +134,10 @@
                             parent.layer.close(parent.layer.index);
                             parent.layui.table.reload("currentTableId", {})
                         })
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        layer.alert(XMLHttpRequest.status + "," + "请查看选项是否填错");
+                        //alert(XMLHttpRequest.readyState);
                     }
                 });
             });

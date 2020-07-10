@@ -3,12 +3,12 @@
 <mapper namespace="cn.crm.mapper.ContractMapper">
   <resultMap id="BaseResultMap" type="cn.crm.bean.Contract">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="contract_name" jdbcType="VARCHAR" property="contract_name" />
-    <result column="cust_id" jdbcType="BIGINT" property="cust_id" />
+    <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
+    <result column="cust_id" jdbcType="BIGINT" property="custId" />
     <result column="money" jdbcType="BIGINT" property="money" />
     <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="start_time" jdbcType="TIMESTAMP" property="start_time" />
-    <result column="end_time" jdbcType="TIMESTAMP" property="end_time" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="enable" jdbcType="INTEGER" property="enable" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -28,9 +28,9 @@
     insert into contract (id, contract_name, cust_id, 
       money, content, start_time, 
       end_time, enable)
-    values (#{id,jdbcType=VARCHAR}, #{contract_name,jdbcType=VARCHAR}, #{cust_id,jdbcType=BIGINT}, 
-      #{money,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{start_time,jdbcType=TIMESTAMP}, 
-      #{end_time,jdbcType=TIMESTAMP}, #{enable,jdbcType=INTEGER})
+    values (#{id,jdbcType=VARCHAR}, #{contractName,jdbcType=VARCHAR}, #{custId,jdbcType=BIGINT},
+      #{money,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP},
+      #{endTime,jdbcType=TIMESTAMP}, #{enable,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.crm.bean.Contract">
     insert into contract
@@ -38,10 +38,10 @@
       <if test="id != null">
         id,
       </if>
-      <if test="contract_name != null">
+      <if test="contractName != null">
         contract_name,
       </if>
-      <if test="cust_id != null">
+      <if test="custId != null">
         cust_id,
       </if>
       <if test="money != null">
@@ -50,10 +50,10 @@
       <if test="content != null">
         content,
       </if>
-      <if test="start_time != null">
+      <if test="startTime != null">
         start_time,
       </if>
-      <if test="end_time != null">
+      <if test="endTime != null">
         end_time,
       </if>
       <if test="enable != null">
@@ -64,11 +64,11 @@
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="contract_name != null">
-        #{contract_name,jdbcType=VARCHAR},
+      <if test="contractName != null">
+        #{contractName,jdbcType=VARCHAR},
       </if>
-      <if test="cust_id != null">
-        #{cust_id,jdbcType=BIGINT},
+      <if test="custId != null">
+        #{custId,jdbcType=BIGINT},
       </if>
       <if test="money != null">
         #{money,jdbcType=BIGINT},
@@ -76,11 +76,11 @@
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="start_time != null">
-        #{start_time,jdbcType=TIMESTAMP},
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="end_time != null">
-        #{end_time,jdbcType=TIMESTAMP},
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="enable != null">
         #{enable,jdbcType=INTEGER},
@@ -90,11 +90,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.crm.bean.Contract">
     update contract
     <set>
-      <if test="contract_name != null">
-        contract_name = #{contract_name,jdbcType=VARCHAR},
+      <if test="contractName != null">
+        contract_name = #{contractName,jdbcType=VARCHAR},
       </if>
-      <if test="cust_id != null">
-        cust_id = #{cust_id,jdbcType=BIGINT},
+      <if test="custId != null">
+        cust_id = #{custId,jdbcType=BIGINT},
       </if>
       <if test="money != null">
         money = #{money,jdbcType=BIGINT},
@@ -102,11 +102,11 @@
       <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="start_time != null">
-        start_time = #{start_time,jdbcType=TIMESTAMP},
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="end_time != null">
-        end_time = #{end_time,jdbcType=TIMESTAMP},
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="enable != null">
         enable = #{enable,jdbcType=INTEGER},
@@ -116,12 +116,12 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.crm.bean.Contract">
     update contract
-    set contract_name = #{contract_name,jdbcType=VARCHAR},
-      cust_id = #{cust_id,jdbcType=BIGINT},
+    set contract_name = #{contractName,jdbcType=VARCHAR},
+      cust_id = #{custId,jdbcType=BIGINT},
       money = #{money,jdbcType=BIGINT},
       content = #{content,jdbcType=VARCHAR},
-      start_time = #{start_time,jdbcType=TIMESTAMP},
-      end_time = #{end_time,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
       enable = #{enable,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -131,14 +131,14 @@
       <if test="enable != null">
         enable = #{enable}
       </if>
-      <if test="cust_id != null" >
-        and cust_id = #{cust_id}
+      <if test="custId != null" >
+        and cust_id = #{custId}
       </if>
-      <if test="start_time != null" >
-        and start_time &gt; #{start_time}
+      <if test="startTime != null" >
+        and start_time &gt; #{startTime}
       </if>
-      <if test="end_time != null" >
-        and end_time &lt; #{end_time}
+      <if test="endTime != null" >
+        and end_time &lt; #{endTime}
       </if>
     </where>
   </sql>

@@ -25,7 +25,7 @@ public class BaseDictController {
         List<BaseDict> baseDictListByType = systemService.findBaseDictListByType("002");
         HashMap<Long, String> map = new HashMap<>();
         for (BaseDict b: baseDictListByType) {
-            map.put(b.getId(),b.getItem_name());
+            map.put(b.getId(),b.getItemName());
         }
         return map;
     }
@@ -43,34 +43,34 @@ public class BaseDictController {
         HashMap<Long, String> levelMap = new HashMap<>();
         for (BaseDict b: industryType) {
 
-            industryMap.put(b.getId(),b.getItem_name());
+            industryMap.put(b.getId(),b.getItemName());
         }
         for(BaseDict b: sourceType){
-            sourceMap.put(b.getId(),b.getItem_name());
+            sourceMap.put(b.getId(),b.getItemName());
         }
         for(BaseDict b: levelType){
-            levelMap.put(b.getId(),b.getItem_name());
+            levelMap.put(b.getId(),b.getItemName());
         }
-        map.put("cust_level",levelMap);
-        map.put("cust_source",sourceMap);
-        map.put("cust_industry",industryMap);
+        map.put("custLevel",levelMap);
+        map.put("custSource",sourceMap);
+        map.put("custIndustry",industryMap);
        /* HashMap<String, List> map = new HashMap<>();
         ArrayList<String> industryList = new ArrayList<>();
         ArrayList<String> sourceList = new ArrayList<>();
         ArrayList<String> levelList = new ArrayList<>();
         for (BaseDict b: industryType) {
 
-            industryList.add(b.getDict_item_name());
+            industryList.add(b.getDictItemName());
         }
         for(BaseDict b: sourceType){
-            sourceList.add(b.getDict_item_name());
+            sourceList.add(b.getDictItemName());
         }
         for(BaseDict b: levelType){
-            levelList.add(b.getDict_item_name());
+            levelList.add(b.getDictItemName());
         }
-        map.put("cust_level",levelList);
-        map.put("cust_source",sourceList);
-        map.put("cust_industry",industryList);*/
+        map.put("custLevel",levelList);
+        map.put("custSource",sourceList);
+        map.put("custIndustry",industryList);*/
         return map;
     }
 
@@ -81,7 +81,7 @@ public class BaseDictController {
         List<BaseDict> baseDictListByType = systemService.findBaseDictListByType("006");
         HashMap<Long, String> map = new HashMap<>();
         for (BaseDict b: baseDictListByType) {
-            map.put(b.getId(),b.getItem_name());
+            map.put(b.getId(),b.getItemName());
         }
         return map;
     }
@@ -99,8 +99,8 @@ public class BaseDictController {
     @RequestMapping(value = "getBaseDictList", method = RequestMethod.POST)
     @ResponseBody
     public Page getBaseDictList(@RequestParam(defaultValue="1")Integer page, @RequestParam(defaultValue="10")Integer pageSize,
-                                 String type_code, String type_name){
-        Page<BaseDict> baseDicts = systemService.findBaseDictList(page,pageSize,type_code,type_name);
+                                 String typeCode, String typeName){
+        Page<BaseDict> baseDicts = systemService.findBaseDictList(page,pageSize,typeCode,typeName);
         return baseDicts;
     }
 
@@ -146,17 +146,17 @@ public class BaseDictController {
         HashMap<Long, String> propertyMap = new HashMap<>();
         for (BaseDict b: custType) {
 
-            custMap.put(b.getId(),b.getItem_name());
+            custMap.put(b.getId(),b.getItemName());
         }
         for(BaseDict b: businessType){
-            businessMap.put(b.getId(),b.getItem_name());
+            businessMap.put(b.getId(),b.getItemName());
         }
         for(BaseDict b: propertyType){
-            propertyMap.put(b.getId(),b.getItem_name());
+            propertyMap.put(b.getId(),b.getItemName());
         }
-        map.put("cust_status",custMap);
-        map.put("business_status",businessMap);
-        map.put("cust_property",propertyMap);
+        map.put("custStatus",custMap);
+        map.put("businessStatus",businessMap);
+        map.put("custProperty",propertyMap);
         return map;
     }
 
@@ -169,7 +169,7 @@ public class BaseDictController {
         HashMap<Long, String> wayMap = new HashMap<>();
         for (BaseDict b: wayType) {
 
-            wayMap.put(b.getId(),b.getItem_name());
+            wayMap.put(b.getId(),b.getItemName());
         }
         map.put("way",wayMap);
         return map;

@@ -17,6 +17,8 @@ public class ControllerExceptionHandleAdvice {
         HashMap<String, String> map = new HashMap<>();
         //outputJson(-400, "参数类型不匹配,参数" + ex.getPropertyName() + "类型应该为" + ex.getRequiredType())
         map.put("msg","参数类型不匹配,参数" + ex.getPropertyName() + "类型应该为" + ex.getRequiredType());
+        System.out.println("-------------------------------------------\n map = " + map);
+
         return map;
     }
 }

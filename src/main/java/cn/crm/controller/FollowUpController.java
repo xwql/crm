@@ -48,8 +48,8 @@ public class FollowUpController {
     public Page getlist(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer pageSize,
                         FollowStatus followStatus) {
 
-        Page<FollowStatus> followStatusPage = followService.findFollowList(page, pageSize, followStatus.getCust_name(),
-                followStatus.getCust_user_name(), followStatus.getFollow_status());
+        Page<FollowStatus> followStatusPage = followService.findFollowList(page, pageSize, followStatus.getCustName(),
+                followStatus.getCustUserName(), followStatus.getFollowStatus());
 
         return followStatusPage;
     }
@@ -100,8 +100,8 @@ public class FollowUpController {
     @PostMapping("followRecordList")
     @ResponseBody
     public Page<FollowRecord> followRecordList(@RequestParam(defaultValue="1")Integer page, @RequestParam(defaultValue="3")Integer pageSize,
-                                               Long cust_id, String startTime,String endTime) {
-        Page<FollowRecord> recordList = followService.findFollowRecordList(page, pageSize, cust_id, startTime, endTime, 1);
+                                               Long custId, String startTime,String endTime) {
+        Page<FollowRecord> recordList = followService.findFollowRecordList(page, pageSize, custId, startTime, endTime, 1);
 
         return recordList;
     }

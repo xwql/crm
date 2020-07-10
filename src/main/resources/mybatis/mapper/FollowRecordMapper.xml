@@ -3,12 +3,12 @@
 <mapper namespace="cn.crm.mapper.FollowRecordMapper">
   <resultMap id="BaseResultMap" type="cn.crm.bean.FollowRecord">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="cust_id" jdbcType="BIGINT" property="cust_id" />
-    <result column="user_id" jdbcType="BIGINT" property="user_id" />
+    <result column="cust_id" jdbcType="BIGINT" property="custId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="way" jdbcType="VARCHAR" property="way" />
     <result column="record" jdbcType="VARCHAR" property="record" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="record_time" jdbcType="TIMESTAMP" property="record_time" />
+    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
     <result column="visible" jdbcType="INTEGER" property="visible" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -28,9 +28,9 @@
     insert into follow_record (id, cust_id, user_id, 
       way, record, remark, 
       record_time, visible)
-    values (#{id,jdbcType=BIGINT}, #{cust_id,jdbcType=BIGINT}, #{user_id,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{custId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
       #{way,jdbcType=VARCHAR}, #{record,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{record_time,jdbcType=TIMESTAMP}, #{visible,jdbcType=INTEGER})
+      #{recordTime,jdbcType=TIMESTAMP}, #{visible,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.crm.bean.FollowRecord">
     insert into follow_record
@@ -38,10 +38,10 @@
       <if test="id != null">
         id,
       </if>
-      <if test="cust_id != null">
+      <if test="custId != null">
         cust_id,
       </if>
-      <if test="user_id != null">
+      <if test="userId != null">
         user_id,
       </if>
       <if test="way != null">
@@ -53,7 +53,7 @@
       <if test="remark != null">
         remark,
       </if>
-      <if test="record_time != null">
+      <if test="recordTime != null">
         record_time,
       </if>
       <if test="visible != null">
@@ -64,11 +64,11 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="cust_id != null">
-        #{cust_id,jdbcType=BIGINT},
+      <if test="custId != null">
+        #{custId,jdbcType=BIGINT},
       </if>
-      <if test="user_id != null">
-        #{user_id,jdbcType=BIGINT},
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="way != null">
         #{way,jdbcType=VARCHAR},
@@ -79,8 +79,8 @@
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="record_time != null">
-        #{record_time,jdbcType=TIMESTAMP},
+      <if test="recordTime != null">
+        #{recordTime,jdbcType=TIMESTAMP},
       </if>
       <if test="visible != null">
         #{visible,jdbcType=INTEGER},
@@ -90,11 +90,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.crm.bean.FollowRecord">
     update follow_record
     <set>
-      <if test="cust_id != null">
-        cust_id = #{cust_id,jdbcType=BIGINT},
+      <if test="custId != null">
+        cust_id = #{custId,jdbcType=BIGINT},
       </if>
-      <if test="user_id != null">
-        user_id = #{user_id,jdbcType=BIGINT},
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="way != null">
         way = #{way,jdbcType=VARCHAR},
@@ -105,7 +105,7 @@
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="record_time != null">
+      <if test="recordTime != null">
         record_time = #{record_time,jdbcType=TIMESTAMP},
       </if>
       <if test="visible != null">
@@ -116,20 +116,20 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.crm.bean.FollowRecord">
     update follow_record
-    set cust_id = #{cust_id,jdbcType=BIGINT},
-      user_id = #{user_id,jdbcType=BIGINT},
+    set cust_id = #{custId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
       way = #{way,jdbcType=VARCHAR},
       record = #{record,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
-      record_time = #{record_time,jdbcType=TIMESTAMP},
+      record_time = #{recordTime,jdbcType=TIMESTAMP},
       visible = #{visible,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 
   <sql id="selectFollowRecordListWhere">
     <where>
-      <if test="cust_id != null" >
-        cust_id = #{cust_id}
+      <if test="custId != null" >
+        cust_id = #{custId}
       </if>
       <if test="startTime != null " >
         and record_time &gt; #{startTime}

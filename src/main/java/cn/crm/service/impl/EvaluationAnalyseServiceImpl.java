@@ -15,18 +15,18 @@ public class EvaluationAnalyseServiceImpl implements EvaluationAnalyseService {
     private EvaluationAnalyseMapper evaluationAnalyseMapper;
 
     @Override
-    public Map findMaxAndMinEvaluation(Date start_time, Date end_time) {
+    public Map findMaxAndMinEvaluation(Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             end = new Date();
             instance.setTime(end);
             instance.add(Calendar.YEAR, -1);
             start = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
         HashMap<String, Evaluation> map = new HashMap<>();
         Evaluation maxEvaluation = evaluationAnalyseMapper.selectMaxEvaluation(start, end);
@@ -37,18 +37,18 @@ public class EvaluationAnalyseServiceImpl implements EvaluationAnalyseService {
     }
 
     @Override
-    public Map findEvaluationAvg(Date start_time, Date end_time) {
+    public Map findEvaluationAvg(Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             end = new Date();
             instance.setTime(end);
             instance.add(Calendar.YEAR, -1);
             start = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
         Map<String, Object> avg = evaluationAnalyseMapper.selectEvaluationAvg(start, end);
         /*HashMap<String, Double> map = new HashMap<>();
@@ -59,18 +59,18 @@ public class EvaluationAnalyseServiceImpl implements EvaluationAnalyseService {
     }
 
     @Override
-    public Map findEvaluationLine(Date start_time, Date end_time) {
+    public Map findEvaluationLine(Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             end = new Date();
             instance.setTime(end);
             instance.add(Calendar.YEAR, -1);
             start = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
         List<Map<String, Object>> maps = evaluationAnalyseMapper.selectEvaluationLine(start, end);
         TreeMap<String, Integer> evaluationMap = new TreeMap<>();

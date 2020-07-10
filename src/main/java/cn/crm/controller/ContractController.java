@@ -32,9 +32,9 @@ public class ContractController {
     @PostMapping("contractList")
     @ResponseBody
     public Page<Contract> getContractList(@RequestParam(defaultValue="1")Integer page, @RequestParam(defaultValue="10")Integer pageSize,
-                                          Long cust_id, String start_time, String end_time){
+                                          Long custId, String startTime, String endTime){
         //HashMap<String, String> map = new HashMap<>();
-        Page<Contract> contractList = contractService.findContractList(page, pageSize, cust_id, start_time, end_time, 1);
+        Page<Contract> contractList = contractService.findContractList(page, pageSize, custId, startTime, endTime, 1);
         return contractList;
     }
 

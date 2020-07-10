@@ -32,9 +32,9 @@ public class EvaluationController {
     @PostMapping("evaluationList")
     @ResponseBody
     public Page<Evaluation> getevaluationList(@RequestParam(defaultValue="1")Integer page, @RequestParam(defaultValue="10")Integer pageSize,
-                                 String cust_name,String to_object){
+                                 String custName,String toObject){
         HashMap<String, String> map = new HashMap<>();
-        Page<Evaluation> evaluationList = evaluationService.findEvaluationList(page, pageSize, cust_name, to_object, 1);
+        Page<Evaluation> evaluationList = evaluationService.findEvaluationList(page, pageSize, custName, toObject, 1);
         return evaluationList;
     }
 

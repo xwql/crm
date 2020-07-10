@@ -26,14 +26,14 @@ public class SystemServiceImpl implements SystemService{
 		return baseDictDao.selectByTypecode(typecode);
 	}
 
-	public Page<BaseDict> findBaseDictList(Integer page, Integer rows, String type_code, String type_name){
+	public Page<BaseDict> findBaseDictList(Integer page, Integer rows, String typeCode, String typeName){
 		BaseDict baseDict = new BaseDict();
 		baseDict.setStart((page-1)*rows);
 		baseDict.setRows(rows);
-		if(StringUtils.isNotBlank(type_code))
-			baseDict.setType_code(type_code);
-		if(StringUtils.isNotBlank(type_name))
-			baseDict.setType_name(type_name);
+		if(StringUtils.isNotBlank(typeCode))
+			baseDict.setTypeCode(typeCode);
+		if(StringUtils.isNotBlank(typeName))
+			baseDict.setTypeName(typeName);
 		List<BaseDict> baseDicts = baseDictDao.selectDictList(baseDict);
 		Integer count = baseDictDao.selectDictListCount(baseDict);
 		Page<BaseDict> result = new Page<>();

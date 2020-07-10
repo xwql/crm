@@ -17,25 +17,25 @@
     <div class="layui-card">
         <div class="layui-card-body">
             <form class="layui-form">
-                <input style="display: none" id="cust_id" name="cust_id">
+                <input style="display: none" id="custId" name="custId">
                 <div class="layui-inline">
                     <label class="layui-form-label">客户名称</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="cust_name" name="cust_name" autocomplete="off"
+                        <input type="text" id="custName" name="custName" autocomplete="off"
                                placeholder="点击选择客户" class="layui-input" required lay-verify="required">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">开始月份</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="start_time" id="=start_time" class="layui-input datetime"
+                        <input type="text" name="startTime" id="=startTime" class="layui-input datetime"
                                placeholder="(包含此月)" required lay-verify="required">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">终止月份</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="end_time" id="end_time" class="layui-input datetime"
+                        <input type="text" name="endTime" id="endTime" class="layui-input datetime"
                                placeholder="(不包含此月)" required lay-verify="required">
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                                                     <h5 >客户来源</h5>
                                                 </div>
                                                 <div class="panel-content">
-                                                    <h4 class="no-margins myColor" id="cust_source">----</h4>
+                                                    <h4 class="no-margins myColor" id="custSource">----</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -73,7 +73,7 @@
                                                     <h5>所属行业</h5>
                                                 </div>
                                                 <div class="panel-content">
-                                                    <h4 class="no-margins myColor" id="cust_industry">----</h4>
+                                                    <h4 class="no-margins myColor" id="custIndustry">----</h4>
 
                                                 </div>
                                             </div>
@@ -86,7 +86,7 @@
                                                     <h5>客户级别</h5>
                                                 </div>
                                                 <div class="panel-content">
-                                                    <h4 class="no-margins myColor" id="cust_level">----</h4>
+                                                    <h4 class="no-margins myColor" id="custLevel">----</h4>
 
                                                 </div>
                                             </div>
@@ -99,7 +99,7 @@
                                                     <h5>客户状态</h5>
                                                 </div>
                                                 <div class="panel-content">
-                                                    <h4 class="no-margins myColor" id="cust_status">----</h4>
+                                                    <h4 class="no-margins myColor" id="custStatus">----</h4>
 
                                                 </div>
                                             </div>
@@ -112,7 +112,7 @@
                                                     <h5>商机状态</h5>
                                                 </div>
                                                 <div class="panel-content">
-                                                    <h4 class="no-margins myColor" id="business_status">----</h4>
+                                                    <h4 class="no-margins myColor" id="businessStatus">----</h4>
 
                                                 </div>
                                             </div>
@@ -125,7 +125,7 @@
                                                     <h5>客户性质</h5>
                                                 </div>
                                                 <div class="panel-content">
-                                                    <h4 class="no-margins myColor" id="cust_property">----</h4>
+                                                    <h4 class="no-margins myColor" id="custProperty">----</h4>
 
                                                 </div>
                                             </div>
@@ -152,8 +152,8 @@
                             <div class="layui-card">
                                 <div class="layui-card-header"><i class="fa fa-user icon"></i>客户评分(平均)</div>
                                 <div class="layui-card-body " style="color: rgb(102,102,102);">
-                                    <h1 id="cust_scoreAvg">----</h1>
-                                    <small>评价次数:<span id="cust_num"> --</span></small>
+                                    <h1 id="custScoreAvg">----</h1>
+                                    <small>评价次数:<span id="custNum"> --</span></small>
                                 </div>
                             </div>
                         </div>
@@ -161,8 +161,8 @@
                             <div class="layui-card">
                                 <div class="layui-card-header"><i class="fa fa-street-view icon"></i>公司评分(平均)</div>
                                 <div class="layui-card-body" style="color: rgb(102,102,102);">
-                                    <h1 id="self_scoreAvg">----</h1>
-                                     <small>评价次数:<span  id="self_num"> --</span></small>
+                                    <h1 id="selfScoreAvg">----</h1>
+                                     <small>评价次数:<span  id="selfNum"> --</span></small>
                                 </div>
                             </div>
                         </div>
@@ -216,9 +216,9 @@
         var contractData = [];
         var followFreData = [];*/
         tableSelect.render({
-            elem: '#cust_name',
+            elem: '#custName',
             checkedKey: 'id',
-            searchKey: 'cust_name',	//搜索输入框的name值 默认keyword
+            searchKey: 'custName',	//搜索输入框的name值 默认keyword
             searchPlaceholder: '客户名搜索',	//搜索输入框的提示文字 默认关键词搜索
             table: {
                 url: 'customerList',
@@ -239,25 +239,25 @@
                 cols: [
                     [
                         {type: 'radio'},
-                        {field: 'cust_id', title: 'ID'},
-                        {field: 'cust_name', title: '客户名'},
-                        {field: 'cust_linkman', title: '联系人'},
-                        {field: "cust_user_id", title: '负责人'}
+                        {field: 'custId', title: 'ID'},
+                        {field: 'custName', title: '客户名'},
+                        {field: 'custLinkman', title: '联系人'},
+                        {field: "custUserId", title: '负责人'}
                     ]
                 ]
             },
             done: function (elem, data) {
                 var NEWJSON = [];
                 layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.cust_name);
-                    $("#cust_id").val(item.cust_id);
-                    getData({"cust_id":item.cust_id});
+                    NEWJSON.push(item.custName);
+                    $("#custId").val(item.custId);
+                    getData({"custId":item.custId});
                 });
                 elem.val(NEWJSON.join(","))
             }
         });
         form.on("submit(data-search-btn)",function (data) {
-            if(data.field.cust_id == null) {
+            if(data.field.custId == null) {
                 layer.msg("请先选择客户",{time:2000});
             } else {
                 data = data.field;
@@ -272,22 +272,22 @@
                 type:"post",
                 success:function (result) {
                     //console.log(result);
-                    $("#cust_source").html(result.cust_source);
-                    $("#cust_industry").html(result.cust_industry);
-                    $("#cust_level").html(result.cust_level);
-                    $("#cust_property").html(result.cust_property);
-                    $("#business_status").html(result.business_status);
-                    $("#cust_status").html(result.cust_status);
-                    $("#cust_scoreAvg").html(result.cust_scoreAvg);
-                    $("#cust_num").html(result.cust_num);
-                    $("#self_scoreAvg").html(result.self_scoreAvg);
-                    $("#self_num").html(result.self_num);
+                    $("#custSource").html(result.custSource);
+                    $("#custIndustry").html(result.custIndustry);
+                    $("#custLevel").html(result.custLevel);
+                    $("#custProperty").html(result.custProperty);
+                    $("#businessStatus").html(result.businessStatus);
+                    $("#custStatus").html(result.custStatus);
+                    $("#custScoreAvg").html(result.custScoreAvg);
+                    $("#custNum").html(result.custNum);
+                    $("#selfScoreAvg").html(result.selfScoreAvg);
+                    $("#selfNum").html(result.selfNum);
                     $("#money").html(result.money);
                     $("#contractNum").html(result.contractNum);
-                    if(result.cust_scoreAvg == undefined) $("#cust_scoreAvg").html("无");
-                    if(result.cust_num == undefined) $("#cust_num").html(0);
-                    if(result.self_scoreAvg == undefined) $("#self_scoreAvg").html("无");
-                    if(result.self_num == undefined) $("#self_num").html(0);
+                    if(result.custScoreAvg == undefined) $("#custScoreAvg").html("无");
+                    if(result.custNum == undefined) $("#custNum").html(0);
+                    if(result.selfScoreAvg == undefined) $("#selfScoreAvg").html("无");
+                    if(result.selfNum == undefined) $("#selfNum").html(0);
                 }
             });
             $.ajax({

@@ -32,7 +32,7 @@ public interface FollowService {
      */
     void deleteFollowRecord(Long id);
 
-    Page<FollowRecord> findFollowRecordList(Integer page, Integer rows, Long cust_id, String startTime, String endTime,Integer visible);
+    Page<FollowRecord> findFollowRecordList(Integer page, Integer rows, Long custId, String startTime, String endTime,Integer visible);
 
     FollowRecord getFollowRecordByID(Long id);
 }

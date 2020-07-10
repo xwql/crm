@@ -42,19 +42,19 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer customer = new Customer();
 		//判断客户名称(公司名称)
 		if(StringUtils.isNotBlank(custName)){
-			customer.setCust_name(custName);
+			customer.setCustName(custName);
 		}
 		//判断客户信息来源
 		if(StringUtils.isNotBlank(custSource)){
-			customer.setCust_source(custSource);
+			customer.setCustSource(custSource);
 		}
 		//判断客户所属行业
 		if(StringUtils.isNotBlank(custIndustry)){
-			customer.setCust_industry(custIndustry);
+			customer.setCustIndustry(custIndustry);
 		}
 		//判断客户级别
 		if(StringUtils.isNotBlank(custLevel)){
-			customer.setCust_level(custLevel);
+			customer.setCustLevel(custLevel);
 		}
 		//当前页
 		customer.setStart((page-1) * rows) ;
@@ -104,7 +104,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void  saveCustomer(Customer customer) {
-		customer.setCust_createtime(new Date());
+		customer.setCustCreatetime(new Date());
 		customerDao.insertCustomer(customer);
 	}
 }

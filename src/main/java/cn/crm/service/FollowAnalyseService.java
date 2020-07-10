@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface FollowAnalyseService {
 
-    Map findPieData(Date start_time, Date end_time);
-    Map findFollowBar(Date start_time, Date end_time);
-    Map findFollowNumAndNot(Date start_time, Date end_time);
+    Map findPieData(Date startTime, Date endTime);
+    Map findFollowBar(Date startTime, Date endTime);
+    Map findFollowNumAndNot(Date startTime, Date endTime);
 }

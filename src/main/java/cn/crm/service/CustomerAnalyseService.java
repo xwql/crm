@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Map;
 
 public interface CustomerAnalyseService {
-    Map findAllSingleData(Date start_time, Date end_time);
-    Map findCustomerLineData(Date start_time, Date end_time);
-    Map findCustomerPieData(Date start_time, Date end_time);
+    Map findAllSingleData(Date startTime, Date endTime);
+    Map findCustomerLineData(Date startTime, Date endTime);
+    Map findCustomerPieData(Date startTime, Date endTime);
 }

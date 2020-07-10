@@ -14,7 +14,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">客户名称</label>
                     <div class="layui-input-block">
-                        <input type="text" id="cust_name" name="cust_name" required lay-verify="required"
+                        <input type="text" id="custName" name="custName" required lay-verify="required"
                                placeholder="请选择"
                                autocomplete="off" class="layui-input">
                     </div>
@@ -23,14 +23,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">客户ID</label>
                     <div class="layui-input-block">
-                        <input type="text" id="cust_id" name="cust_id" placeholder="请先选择客户" autocomplete="off"
+                        <input type="text" id="custId" name="custId" placeholder="请先选择客户" autocomplete="off"
                                class="layui-input" readonly="readonly" lay-verify="required">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">负责人ID</label>
                     <div class="layui-input-block">
-                        <input type="text" id="user_id" name="user_id" placeholder="输入负责人ID" autocomplete="off"
+                        <input type="text" id="userId" name="userId" placeholder="输入负责人ID" autocomplete="off"
                                class="layui-input" lay-verify="required" onkeyup="this.value=this.value.replace(/\D/g,'')"
                                onafterpaste="this.value=this.value.replace(/\D/g,'')">
                     </div>
@@ -40,7 +40,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">评价对象</label>
                     <div class="layui-input-block">
-                        <select id="to_object" name="to_object">
+                        <select id="toObject" name="toObject">
                             <option value="">--请选择--</option>
                             <option value="公司对客户">公司对客户</option>
                             <option value="客户对公司">客户对公司</option>
@@ -51,10 +51,10 @@
                     <label class="layui-form-label">评分</label>
                     <div class="layui-input-block">
                         <div class="layui-btn-group">
-                            <button type="button" class="layui-btn  layui-btn-primary " id="num_sub"><i
+                            <button type="button" class="layui-btn  layui-btn-primary " id="numSub"><i
                                     class="layui-icon layui-icon-subtraction"></i></button>
                             <input type="button" class="layui-btn  layui-btn-primary " id="score" name="score" value="5">
-                            <button type="button" class="layui-btn  layui-btn-primary " id="num_add"><i
+                            <button type="button" class="layui-btn  layui-btn-primary " id="numAdd"><i
                                     class="layui-icon layui-icon-addition"></i></button>
                         </div>
                 </div>
@@ -92,10 +92,10 @@
                 success:function (data) {
                     //console.log(data)
                     $("#id").val(data.id);
-                    $("#cust_id").val(data.cust_id);
-                    $("#cust_name").val(data.cust_name);
-                    $("#user_id").val(data.user_id);
-                    $("#to_object").val(data.to_object);
+                    $("#custId").val(data.custId);
+                    $("#custName").val(data.custName);
+                    $("#userId").val(data.userId);
+                    $("#toObject").val(data.toObject);
                     $("#score").val(data.score);
                     $("#content").val(data.content);
                     form.render();
@@ -103,9 +103,9 @@
             })
         }
         tableSelect.render({
-            elem: '#cust_name',
+            elem: '#custName',
             checkedKey: 'id',
-            searchKey: 'cust_name',	//搜索输入框的name值 默认keyword
+            searchKey: 'custName',	//搜索输入框的name值 默认keyword
             searchPlaceholder: '客户名搜索',	//搜索输入框的提示文字 默认关键词搜索
             table: {
                 url: 'customerList',
@@ -126,19 +126,19 @@
                 cols: [
                     [
                         {type: 'radio'},
-                        {field: 'cust_id', title: 'ID'},
-                        {field: 'cust_name', title: '客户名'},
-                        {field: 'cust_linkman', title: '联系人'},
-                        {field: "cust_user_id", title: '负责人'}
+                        {field: 'custId', title: 'ID'},
+                        {field: 'custName', title: '客户名'},
+                        {field: 'custLinkman', title: '联系人'},
+                        {field: "custUserId", title: '负责人'}
                     ]
                 ]
             },
             done: function (elem, data) {
                 var NEWJSON = [];
                 layui.each(data.data, function (index, item) {
-                    NEWJSON.push(item.cust_name);
-                    $("#cust_id").val(item.cust_id);
-                    $("#user_id").val(item.cust_user_id);
+                    NEWJSON.push(item.custName);
+                    $("#custId").val(item.custId);
+                    $("#userId").val(item.custUserId);
                 });
                 elem.val(NEWJSON.join(","))
             }
@@ -167,14 +167,14 @@
             return false;
         });
         //监听加减
-        $("#num_add").click(function () {
+        $("#numAdd").click(function () {
             if (document.getElementById("score").value * 1 < 10) {
                 document.getElementById("score").value = document.getElementById("score").value * 1 + 1;
             } else {
                 layer.msg("评分最大为10", {icon: 6, time: 2000})
             }
         });
-        $("#num_sub").click(function () {
+        $("#numSub").click(function () {
             if (document.getElementById("score").value * 1 > 1) {
                 document.getElementById("score").value = document.getElementById("score").value * 1 - 1;
             } else {

@@ -13,36 +13,36 @@ public class OneAnalyseServiceImpl implements OneAnalyseService {
     @Autowired
     private OneAnalyseMapper oneAnalyseMapper;
     @Override
-    public Map findAllSingleData(Long cust_id, Date start_time, Date end_time) {
+    public Map findAllSingleData(Long custId, Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             end = new Date();
             instance.setTime(end);
             instance.add(Calendar.YEAR, -1);
             start = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
-        Map<String, Object> contractData = oneAnalyseMapper.selectContractData(cust_id, start, end);
-        List<Map<String, Object>> maps = oneAnalyseMapper.selectEvaluationAvgAndNum(cust_id, start, end);
-        Map<String, Object> status = oneAnalyseMapper.selectStatus(cust_id);
+        Map<String, Object> contractData = oneAnalyseMapper.selectContractData(custId, start, end);
+        List<Map<String, Object>> maps = oneAnalyseMapper.selectEvaluationAvgAndNum(custId, start, end);
+        Map<String, Object> status = oneAnalyseMapper.selectStatus(custId);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("cust_source",status.get("cust_source"));
-        map.put("cust_industry",status.get("cust_industry"));
-        map.put("cust_level",status.get("cust_level"));
-        map.put("cust_status",status.get("cust_status"));
-        map.put("business_status",status.get("business_status"));
-        map.put("cust_property",status.get("cust_property"));
+        map.put("custSource",status.get("custSource"));
+        map.put("custIndustry",status.get("custIndustry"));
+        map.put("custLevel",status.get("custLevel"));
+        map.put("custStatus",status.get("custStatus"));
+        map.put("businessStatus",status.get("businessStatus"));
+        map.put("custProperty",status.get("custProperty"));
         for (Map m:maps){
-            if(m.get("to_object").equals("客户对公司")) {
-                map.put("cust_scoreAvg", m.get("scoreAvg"));
-                map.put("cust_num",m.get("num"));
+            if(m.get("toObject").equals("客户对公司")) {
+                map.put("custScoreAvg", m.get("scoreAvg"));
+                map.put("custNum",m.get("num"));
             }else {
-                map.put("self_scoreAvg", m.get("scoreAvg"));
-                map.put("self_num",m.get("num"));
+                map.put("selfScoreAvg", m.get("scoreAvg"));
+                map.put("selfNum",m.get("num"));
             }
         }
         map.put("money",contractData.get("money"));
@@ -51,21 +51,21 @@ public class OneAnalyseServiceImpl implements OneAnalyseService {
     }
 
     @Override
-    public Map findOneBarData(Long cust_id, Date start_time, Date end_time) {
+    public Map findOneBarData(Long custId, Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             end = new Date();
             instance.setTime(end);
             instance.add(Calendar.YEAR, -1);
             start = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
-        List<Map<String, Object>> contractBar = oneAnalyseMapper.selectContractBar(cust_id, start, end);
-        List<Map<String, Object>> followFreBar = oneAnalyseMapper.selectFollowFreBar(cust_id, start, end);
+        List<Map<String, Object>> contractBar = oneAnalyseMapper.selectContractBar(custId, start, end);
+        List<Map<String, Object>> followFreBar = oneAnalyseMapper.selectFollowFreBar(custId, start, end);
         TreeMap<String, Integer> contractMap = new TreeMap<>();
         TreeMap<String, Integer> followFreMap = new TreeMap<>();
         for (Map m : contractBar) {
@@ -81,20 +81,20 @@ public class OneAnalyseServiceImpl implements OneAnalyseService {
     }
 
     @Override
-    public Map findWayPieData(Long cust_id, Date start_time, Date end_time) {
+    public Map findWayPieData(Long custId, Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             end = new Date();
             instance.setTime(end);
             instance.add(Calendar.YEAR, -1);
             start = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
-        List<Map<String, Object>> maps = oneAnalyseMapper.selectWayPie(cust_id, start, end);
+        List<Map<String, Object>> maps = oneAnalyseMapper.selectWayPie(custId, start, end);
         HashMap<String, List> map = new HashMap<>();
         map.put("pieData",maps);
         ArrayList<String> list = new ArrayList<>();

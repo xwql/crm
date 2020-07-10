@@ -31,22 +31,22 @@ public class FollowServiceImpl implements FollowService {
 
     @Override
     public void save(FollowStatus followStatus) {
-        followStatus.setFollow_status(1);
-        FollowStatus primaryKey = followStatusMapper.selectByPrimaryKey(followStatus.getCust_id());
+        followStatus.setFollowStatus(1);
+        FollowStatus primaryKey = followStatusMapper.selectByPrimaryKey(followStatus.getCustId());
         if (primaryKey == null) {
             followStatus.setCreatetime(new Date());
             followStatus.setTimes(0L);
             followStatusMapper.insert(followStatus);
         } else {
-            followStatus.setFollow_status(1);
+            followStatus.setFollowStatus(1);
             followStatusMapper.updateByPrimaryKeySelective(followStatus);
         }
-        Long cust_user_id = followStatus.getCust_user_id();
-        String cust_linkman = followStatus.getCust_linkman();
-        Customer customerById = customerMapper.getCustomerById(followStatus.getCust_id());
-        customerById.setCust_user_id(cust_user_id);
-        if(cust_linkman!=null)
-            customerById.setCust_linkman(cust_linkman);
+        Long custUserId = followStatus.getCustUserId();
+        String custLinkman = followStatus.getCustLinkman();
+        Customer customerById = customerMapper.getCustomerById(followStatus.getCustId());
+        customerById.setCustUserId(custUserId);
+        if(custLinkman!=null)
+            customerById.setCustLinkman(custLinkman);
         customerMapper.updateCustomer(customerById);
 
     }
@@ -56,17 +56,17 @@ public class FollowServiceImpl implements FollowService {
         FollowStatus followS = new FollowStatus();
         //
         if (StringUtils.isNotBlank(custName)) {
-            followS.setCust_name(custName);
+            followS.setCustName(custName);
         }
         //
         if (custUserName != null) {
-            followS.setCust_user_name(custUserName);
+            followS.setCustUserName(custUserName);
         }
         //
         if (followStatus != null) {
-            followS.setFollow_status(followStatus);
+            followS.setFollowStatus(followStatus);
         }else{
-            followS.setFollow_status(1);
+            followS.setFollowStatus(1);
         }
         //当前页
         followS.setStart((page - 1) * rows);
@@ -89,16 +89,16 @@ public class FollowServiceImpl implements FollowService {
     public FollowStatus getCustomerFollowStatusById(Long id) {
         Customer customerById = customerMapper.getCustomerById(id);
         FollowStatus followStatus = followStatusMapper.selectByPrimaryKey(id);
-        followStatus.setCust_name(customerById.getCust_name());
-        followStatus.setCust_linkman(customerById.getCust_linkman());
-        followStatus.setCust_user_id(customerById.getCust_user_id());
+        followStatus.setCustName(customerById.getCustName());
+        followStatus.setCustLinkman(customerById.getCustLinkman());
+        followStatus.setCustUserId(customerById.getCustUserId());
         return followStatus;
     }
 
     @Override
     public void stopFollowing(Long id) {
         FollowStatus followStatus = followStatusMapper.selectByPrimaryKey(id);
-        followStatus.setFollow_status(0);
+        followStatus.setFollowStatus(0);
         followStatusMapper.updateByPrimaryKeySelective(followStatus);
     }
 
@@ -107,7 +107,7 @@ public class FollowServiceImpl implements FollowService {
         followRecord.setVisible(1);
         FollowRecord record = followRecordMapper.selectByPrimaryKey(followRecord.getId());
         if(record == null){
-            followRecord.setRecord_time(new Date());
+            followRecord.setRecordTime(new Date());
             followRecordMapper.insert(followRecord);
         } else {
             followRecordMapper.updateByPrimaryKeySelective(followRecord);
@@ -115,7 +115,7 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public Page<FollowRecord> findFollowRecordList(Integer page, Integer rows, Long cust_id, String startTime, String endTime, Integer visible) {
+    public Page<FollowRecord> findFollowRecordList(Integer page, Integer rows, Long custId, String startTime, String endTime, Integer visible) {
         FollowRecord record = new FollowRecord();
         Date start = null;
         if(StringUtils.isNotEmpty(startTime)) {
@@ -125,8 +125,8 @@ public class FollowServiceImpl implements FollowService {
         if(StringUtils.isNotEmpty(endTime)){
             end = DateUtils.stringToDate(endTime);
         }
-        if(cust_id != null){
-            record.setCust_id(cust_id);
+        if(custId != null){
+            record.setCustId(custId);
         }
         record.setStartTime(start);
         record.setEndTime(end);

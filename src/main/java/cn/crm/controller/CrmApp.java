@@ -24,12 +24,12 @@ public class CrmApp {
 
     @RequestMapping(value = "/customerAdd.html", method = RequestMethod.GET)
     public String show2(){
-        return "customerAdd";
+        return "customer/customerAdd";
     }
 
     @RequestMapping(value = "/customerDelete.html", method = RequestMethod.GET)
     public String deleteCustomer(){
-        return "customerDelete";
+        return "customer/customerDelete";
     }
 
     @RequestMapping(value = "/edit.html", method = RequestMethod.GET)
@@ -70,5 +70,10 @@ public class CrmApp {
     @RequestMapping(value = "oneCustomerAnalyse.html", method = RequestMethod.GET)
     public String oneCustomerAnalyse(){
         return "analyse/oneCustomerAnalyse";
+    }
+
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String login(){
+        return "login";
     }
 }

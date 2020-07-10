@@ -106,132 +106,132 @@ public class CustomerStatusExample {
         }
 
         public Criteria andCustIdIsNull() {
-            addCriterion("cust_id is null");
+            addCriterion("custId is null");
             return (Criteria) this;
         }
 
         public Criteria andCustIdIsNotNull() {
-            addCriterion("cust_id is not null");
+            addCriterion("custId is not null");
             return (Criteria) this;
         }
 
         public Criteria andCustIdEqualTo(Long value) {
-            addCriterion("cust_id =", value, "custId");
+            addCriterion("custId =", value, "custId");
             return (Criteria) this;
         }
 
         public Criteria andCustIdNotEqualTo(Long value) {
-            addCriterion("cust_id <>", value, "custId");
+            addCriterion("custId <>", value, "custId");
             return (Criteria) this;
         }
 
         public Criteria andCustIdGreaterThan(Long value) {
-            addCriterion("cust_id >", value, "custId");
+            addCriterion("custId >", value, "custId");
             return (Criteria) this;
         }
 
         public Criteria andCustIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("cust_id >=", value, "custId");
+            addCriterion("custId >=", value, "custId");
             return (Criteria) this;
         }
 
         public Criteria andCustIdLessThan(Long value) {
-            addCriterion("cust_id <", value, "custId");
+            addCriterion("custId <", value, "custId");
             return (Criteria) this;
         }
 
         public Criteria andCustIdLessThanOrEqualTo(Long value) {
-            addCriterion("cust_id <=", value, "custId");
+            addCriterion("custId <=", value, "custId");
             return (Criteria) this;
         }
 
         public Criteria andCustIdIn(List<Long> values) {
-            addCriterion("cust_id in", values, "custId");
+            addCriterion("custId in", values, "custId");
             return (Criteria) this;
         }
 
         public Criteria andCustIdNotIn(List<Long> values) {
-            addCriterion("cust_id not in", values, "custId");
+            addCriterion("custId not in", values, "custId");
             return (Criteria) this;
         }
 
         public Criteria andCustIdBetween(Long value1, Long value2) {
-            addCriterion("cust_id between", value1, value2, "custId");
+            addCriterion("custId between", value1, value2, "custId");
             return (Criteria) this;
         }
 
         public Criteria andCustIdNotBetween(Long value1, Long value2) {
-            addCriterion("cust_id not between", value1, value2, "custId");
+            addCriterion("custId not between", value1, value2, "custId");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusIsNull() {
-            addCriterion("cust_status is null");
+            addCriterion("custStatus is null");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusIsNotNull() {
-            addCriterion("cust_status is not null");
+            addCriterion("custStatus is not null");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusEqualTo(String value) {
-            addCriterion("cust_status =", value, "custStatus");
+            addCriterion("custStatus =", value, "custStatus");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusNotEqualTo(String value) {
-            addCriterion("cust_status <>", value, "custStatus");
+            addCriterion("custStatus <>", value, "custStatus");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusGreaterThan(String value) {
-            addCriterion("cust_status >", value, "custStatus");
+            addCriterion("custStatus >", value, "custStatus");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusGreaterThanOrEqualTo(String value) {
-            addCriterion("cust_status >=", value, "custStatus");
+            addCriterion("custStatus >=", value, "custStatus");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusLessThan(String value) {
-            addCriterion("cust_status <", value, "custStatus");
+            addCriterion("custStatus <", value, "custStatus");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusLessThanOrEqualTo(String value) {
-            addCriterion("cust_status <=", value, "custStatus");
+            addCriterion("custStatus <=", value, "custStatus");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusLike(String value) {
-            addCriterion("cust_status like", value, "custStatus");
+            addCriterion("custStatus like", value, "custStatus");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusNotLike(String value) {
-            addCriterion("cust_status not like", value, "custStatus");
+            addCriterion("custStatus not like", value, "custStatus");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusIn(List<String> values) {
-            addCriterion("cust_status in", values, "custStatus");
+            addCriterion("custStatus in", values, "custStatus");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusNotIn(List<String> values) {
-            addCriterion("cust_status not in", values, "custStatus");
+            addCriterion("custStatus not in", values, "custStatus");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusBetween(String value1, String value2) {
-            addCriterion("cust_status between", value1, value2, "custStatus");
+            addCriterion("custStatus between", value1, value2, "custStatus");
             return (Criteria) this;
         }
 
         public Criteria andCustStatusNotBetween(String value1, String value2) {
-            addCriterion("cust_status not between", value1, value2, "custStatus");
+            addCriterion("custStatus not between", value1, value2, "custStatus");
             return (Criteria) this;
         }
 

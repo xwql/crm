@@ -5,15 +5,15 @@ import java.io.Serializable;
 public class BaseDict implements Serializable {
     private Long id;
 
-    private String type_code;
+    private String typeCode;
 
-    private String type_name;
+    private String typeName;
 
-    private String item_name;
+    private String itemName;
 
-    private Integer dict_sort;
+    private Integer dictSort;
 
-    private Integer dict_enable;
+    private Integer dictEnable;
 
     private String remark;
 
@@ -36,24 +36,24 @@ public class BaseDict implements Serializable {
         return id;
     }
 
-    public String getType_code() {
-        return type_code;
+    public String getTypeCode() {
+        return typeCode;
     }
 
-    public String getType_name() {
-        return type_name;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public String getItem_name() {
-        return item_name;
+    public String getItemName() {
+        return itemName;
     }
 
-    public Integer getDict_sort() {
-        return dict_sort;
+    public Integer getDictSort() {
+        return dictSort;
     }
 
-    public Integer getDict_enable() {
-        return dict_enable;
+    public Integer getDictEnable() {
+        return dictEnable;
     }
 
     public String getRemark() {
@@ -64,24 +64,24 @@ public class BaseDict implements Serializable {
         this.id = id;
     }
 
-    public void setType_code(String type_code) {
-        this.type_code = type_code;
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
     }
 
-    public void setType_name(String type_name) {
-        this.type_name = type_name;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
-    public void setItem_name(String item_name) {
-        this.item_name = item_name;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
-    public void setDict_sort(Integer dict_sort) {
-        this.dict_sort = dict_sort;
+    public void setDictSort(Integer dictSort) {
+        this.dictSort = dictSort;
     }
 
-    public void setDict_enable(Integer dict_enable) {
-        this.dict_enable = dict_enable;
+    public void setDictEnable(Integer dictEnable) {
+        this.dictEnable = dictEnable;
     }
 
     public void setRemark(String remark) {

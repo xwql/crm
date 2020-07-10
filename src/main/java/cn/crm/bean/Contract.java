@@ -5,17 +5,17 @@ import java.util.Date;
 public class Contract {
     private String id;
 
-    private String contract_name;
+    private String contractName;
 
-    private Long cust_id;
+    private Long custId;
 
     private Long money;
 
     private String content;
 
-    private Date start_time;
+    private Date startTime;
 
-    private Date end_time;
+    private Date endTime;
 
     private Integer enable;
     private Integer start;
@@ -45,20 +45,20 @@ public class Contract {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getContract_name() {
-        return contract_name;
+    public String getContractName() {
+        return contractName;
     }
 
-    public void setContract_name(String contract_name) {
-        this.contract_name = contract_name == null ? null : contract_name.trim();
+    public void setContractName(String contractName) {
+        this.contractName = contractName == null ? null : contractName.trim();
     }
 
-    public Long getCust_id() {
-        return cust_id;
+    public Long getCustId() {
+        return custId;
     }
 
-    public void setCust_id(Long cust_id) {
-        this.cust_id = cust_id;
+    public void setCustId(Long custId) {
+        this.custId = custId;
     }
 
     public Long getMoney() {
@@ -77,20 +77,20 @@ public class Contract {
         this.content = content == null ? null : content.trim();
     }
 
-    public Date getStart_time() {
-        return start_time;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setStart_time(Date start_time) {
-        this.start_time = start_time;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public Date getEnd_time() {
-        return end_time;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setEnd_time(Date end_time) {
-        this.end_time = end_time;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public Integer getEnable() {

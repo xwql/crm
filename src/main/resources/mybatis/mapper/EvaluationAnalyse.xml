@@ -35,6 +35,7 @@
         </if>
         and to_object='客户对公司'
     ORDER BY createtime desc
+    limit 1
     </select>
     <select id="selectMinEvaluation" resultType="cn.crm.bean.Evaluation">
         SELECT *
@@ -52,6 +53,7 @@
         </if>
         and to_object='客户对公司'
         ORDER BY createtime desc
+        limit 1
     </select>
 
     <resultMap id="EvaluationLineData" type="HashMap">

@@ -129,9 +129,18 @@
 
 
         $('.login-out').on("click", function () {
-            layer.msg('退出登录成功', function () {
-                window.location = '/page/login-1.html';
+            $.ajax({
+               url: "user/logout",
+               type: "get",
+               success: function (data) {
+                   if(data.success) {
+                       layer.msg('退出登录成功',{time: 1000}, function () {
+                           window.location = '/login.html';
+                       });
+                   }
+               }
             });
+
         });
 
 

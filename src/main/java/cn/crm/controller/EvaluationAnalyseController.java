@@ -17,19 +17,19 @@ public class EvaluationAnalyseController {
 
     @PostMapping("evaluationAnalyse/getMaxAndMinEvaluation")
     @ResponseBody
-    public Map getMaxAndMinEvaluation(Date start_time, Date end_time){
-     return evaluationAnalyseService.findMaxAndMinEvaluation(start_time,end_time);
+    public Map getMaxAndMinEvaluation(Date startTime, Date endTime){
+     return evaluationAnalyseService.findMaxAndMinEvaluation(startTime,endTime);
     }
 
     @PostMapping("evaluationAnalyse/getEvaluationAvg")
     @ResponseBody
-    public Map getEvaluationAvg(Date start_time, Date end_time){
-        return evaluationAnalyseService.findEvaluationAvg(start_time, end_time);
+    public Map getEvaluationAvg(Date startTime, Date endTime){
+        return evaluationAnalyseService.findEvaluationAvg(startTime, endTime);
     }
 
     @PostMapping("evaluationAnalyse/getEvaluationLine")
     @ResponseBody
-    public Map getEvaluationLine(Date start_time, Date end_time){
-        return evaluationAnalyseService.findEvaluationLine(start_time, end_time);
+    public Map getEvaluationLine(Date startTime, Date endTime){
+        return evaluationAnalyseService.findEvaluationLine(startTime, endTime);
     }
 }

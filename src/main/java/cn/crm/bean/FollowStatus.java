@@ -3,21 +3,21 @@ package cn.crm.bean;
 import java.util.Date;
 
 public class FollowStatus {
-    private Long cust_id;
+    private Long custId;
 
-    private String cust_status;
+    private String custStatus;
 
-    private String business_status;
+    private String businessStatus;
 
-    private Integer follow_status;
+    private Integer followStatus;
 
-    private String cust_property;
+    private String custProperty;
 
     private Long times;
     //这两项为连接查询表格显示
     //负责人
-    private Long cust_user_id;
-    private String cust_user_name;
+    private Long custUserId;
+    private String custUserName;
     private Date createtime;
 
     public Date getCreatetime() {
@@ -28,18 +28,18 @@ public class FollowStatus {
         this.createtime = createtime;
     }
 
-    public String getCust_user_name() {
-        return cust_user_name;
+    public String getCustUserName() {
+        return custUserName;
     }
 
-    public void setCust_user_name(String cust_user_name) {
-        this.cust_user_name = cust_user_name;
+    public void setCustUserName(String custUserName) {
+        this.custUserName = custUserName;
     }
 
     //联系人
-    private String cust_linkman;
+    private String custLinkman;
     //客户名称
-    private String cust_name;
+    private String custName;
 
     public Integer getStart() {
         return start;
@@ -61,60 +61,60 @@ public class FollowStatus {
     private Integer start;
     private Integer rows;
 
-    public String getCust_name() {
-        return cust_name;
+    public String getCustName() {
+        return custName;
     }
 
-    public void setCust_name(String cust_name) {
-        this.cust_name = cust_name;
+    public void setCustName(String custName) {
+        this.custName = custName;
     }
 
-    public String getCust_linkman() {
-        return cust_linkman;
+    public String getCustLinkman() {
+        return custLinkman;
     }
 
-    public void setCust_linkman(String cust_linkman) {
-        this.cust_linkman = cust_linkman;
+    public void setCustLinkman(String custLinkman) {
+        this.custLinkman = custLinkman;
     }
 
-    public Long getCust_id() {
-        return cust_id;
+    public Long getCustId() {
+        return custId;
     }
 
-    public void setCust_id(Long cust_id) {
-        this.cust_id = cust_id;
+    public void setCustId(Long custId) {
+        this.custId = custId;
     }
 
-    public String getCust_status() {
-        return cust_status;
+    public String getCustStatus() {
+        return custStatus;
     }
 
-    public void setCust_status(String cust_status) {
-        this.cust_status = cust_status;
+    public void setCustStatus(String custStatus) {
+        this.custStatus = custStatus;
     }
 
-    public String getBusiness_status() {
-        return business_status;
+    public String getBusinessStatus() {
+        return businessStatus;
     }
 
-    public void setBusiness_status(String business_status) {
-        this.business_status = business_status;
+    public void setBusinessStatus(String businessStatus) {
+        this.businessStatus = businessStatus;
     }
 
-    public Integer getFollow_status() {
-        return follow_status;
+    public Integer getFollowStatus() {
+        return followStatus;
     }
 
-    public void setFollow_status(Integer follow_status) {
-        this.follow_status = follow_status;
+    public void setFollowStatus(Integer followStatus) {
+        this.followStatus = followStatus;
     }
 
-    public String getCust_property() {
-        return cust_property;
+    public String getCustProperty() {
+        return custProperty;
     }
 
-    public void setCust_property(String cust_property) {
-        this.cust_property = cust_property;
+    public void setCustProperty(String custProperty) {
+        this.custProperty = custProperty;
     }
 
     public Long getTimes() {
@@ -125,11 +125,11 @@ public class FollowStatus {
         this.times = times;
     }
 
-    public Long getCust_user_id() {
-        return cust_user_id;
+    public Long getCustUserId() {
+        return custUserId;
     }
 
-    public void setCust_user_id(Long cust_user_id) {
-        this.cust_user_id = cust_user_id;
+    public void setCustUserId(Long custUserId) {
+        this.custUserId = custUserId;
     }
 }

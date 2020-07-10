@@ -12,21 +12,21 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   
-  <select id="selectByTypecode" resultType="cn.crm.bean.BaseDict" parameterType="String" >
+  <select id="selectByTypecode" resultMap="BaseResultMap" parameterType="String" >
     select *
       from base_dict
-	 where type_code = #{typecode}
+	 where type_code = #{typeCode}
 	 ORDER BY type_code ,dict_sort
   </select>
   
-  <select id="selectByPrimaryKey" resultType="cn.crm.bean.BaseDict" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select *
       from base_dict
      where id = #{dictId}
      ORDER BY type_code ,dict_sort
   </select>
 
-    <select id="selectDictList" resultType="cn.crm.bean.BaseDict" parameterType="cn.crm.bean.BaseDict">
+    <select id="selectDictList" resultMap="BaseResultMap" parameterType="cn.crm.bean.BaseDict">
         select *
         from base_dict
       <include refid="selectBaseDictListWhere"/>
@@ -37,11 +37,11 @@
     </select>
   <sql id="selectBaseDictListWhere">
     <where>
-      <if test="type_code != null" >
-        type_code like "%"#{type_code}"%"
+      <if test="typeCode != null" >
+        type_code like "%"#{typeCode}"%"
       </if>
-      <if test="type_name != null" >
-        and type_name like "%"#{type_name}"%"
+      <if test="typeName != null" >
+        and type_name like "%"#{typeName}"%"
       </if>
     </where>
   </sql>
@@ -51,7 +51,7 @@
     <include refid="selectBaseDictListWhere"/>
     ORDER BY type_code ,dict_sort
   </select>
-  <select id="selectAllTypeName" parameterType="cn.crm.bean.BaseDict" resultType="cn.crm.bean.BaseDict">
+  <select id="selectAllTypeName" parameterType="cn.crm.bean.BaseDict" resultMap="BaseResultMap">
     SELECT DISTINCT type_code,type_name
     from base_dict
   </select>
@@ -59,14 +59,14 @@
   <update id="updateBaseDictById" parameterType="cn.crm.bean.BaseDict">
     update base_dict
     <set>
-      <if test="item_name!=null and item_name!=''">
-        item_name=#{item_name},
+      <if test="itemName!=null and itemName!=''">
+        item_name=#{itemName},
       </if>
-      <if test="dict_sort!=null">
-        dict_sort=#{dict_sort},
+      <if test="dictSort!=null">
+        dict_sort=#{dictSort},
       </if>
-      <if test="dict_enable!=null">
-        dict_enable=#{dict_enable},
+      <if test="dictEnable!=null">
+        dict_enable=#{dictEnable},
       </if>
       <if test="remark!=null">
         remark=#{remark},
@@ -77,10 +77,10 @@
 
   <insert id="insertBaseDict" parameterType="cn.crm.bean.BaseDict">
 		insert into base_dict(type_code,type_name,item_name,dict_sort,dict_enable,remark)
-		values (#{type_code},
-		#{type_name},
-		#{item_name},
-		#{dict_sort},
+		values (#{typeCode},
+		#{typeName},
+		#{itemName},
+		#{dictSort},
 		1,
 		#{remark})
 	</insert>

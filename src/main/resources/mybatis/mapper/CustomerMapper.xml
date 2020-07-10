@@ -20,17 +20,17 @@
 
 	<sql id="selectCustomerListWhere">
 		<where>
-	      <if test="cust_name != null" >
-	        cust_name like "%"#{cust_name}"%"
+	      <if test="custName != null" >
+	        cust_name like "%"#{custName}"%"
 	      </if>
-	      <if test="cust_source != null" >
-	        and cust_source = #{cust_source}
+	      <if test="custSource != null" >
+	        and cust_source = #{custSource}
 	      </if>
-	      <if test="cust_industry != null" >
-	        and cust_industry = #{cust_industry}
+	      <if test="custIndustry != null" >
+	        and cust_industry = #{custIndustry}
 	      </if>
-	      <if test="cust_level != null" >
-	        and cust_level = #{cust_level}
+	      <if test="custLevel != null" >
+	        and cust_level = #{custLevel}
 	      </if>
     	</where>
 	</sql>
@@ -103,44 +103,44 @@
 	<update id="updateCustomer" parameterType="cn.crm.bean.Customer">
 		update customer
 		<set>
-			<if test="cust_name!=null and cust_name!=''">
-				cust_name=#{cust_name},
+			<if test="custName!=null and custName!=''">
+				cust_name=#{custName},
 			</if>
-			<if test="cust_user_id!=0">
-				cust_user_id=#{cust_user_id},
+			<if test="custUserId!=0">
+				cust_user_id=#{custUserId},
 			</if>
-			<if test="cust_create_id!=0">
-				cust_create_id=#{cust_create_id},
+			<if test="custCreateId!=0">
+				cust_create_id=#{custCreateId},
 			</if>
-			<if test="cust_source!=null">
-				cust_source=#{cust_source},
+			<if test="custSource!=null">
+				cust_source=#{custSource},
 			</if>
-			<if test="cust_industry!=null">
-				cust_industry=#{cust_industry},
+			<if test="custIndustry!=null">
+				cust_industry=#{custIndustry},
 			</if>
-			<if test="cust_level!=null">
-				cust_level=#{cust_level},
+			<if test="custLevel!=null">
+				cust_level=#{custLevel},
 			</if>
-			<if test="cust_linkman!=null">
-				cust_linkman=#{cust_linkman},
+			<if test="custLinkman!=null">
+				cust_linkman=#{custLinkman},
 			</if>
-			<if test="cust_phone!=null">
-				cust_phone=#{cust_phone},
+			<if test="custPhone!=null">
+				cust_phone=#{custPhone},
 			</if>
-			<if test="cust_email!=null">
-				cust_email=#{cust_email},
+			<if test="custEmail!=null">
+				cust_email=#{custEmail},
 			</if>
-			<if test="cust_zipcode!=null">
-				cust_zipcode=#{cust_zipcode},
+			<if test="custZipcode!=null">
+				cust_zipcode=#{custZipcode},
 			</if>
-			<if test="cust_address!=null">
-				cust_address=#{cust_address},
+			<if test="custAddress!=null">
+				cust_address=#{custAddress},
 			</if>
-			<if test="cust_createtime!=null">
-				cust_createtime=#{cust_createtime},
+			<if test="custCreatetime!=null">
+				cust_createtime=#{custCreatetime},
 			</if>
 		</set>
-		where cust_id=#{cust_id}
+		where cust_id=#{custId}
 	</update>
 	<delete id="deleteCustomer" parameterType="long">
 		delete from customer where cust_id=#{id}
@@ -149,18 +149,18 @@
 	<insert id="insertCustomer" parameterType="cn.crm.bean.Customer">
 		insert into customer(cust_name,cust_user_id,cust_create_id,cust_source,cust_industry,cust_level,
 		cust_linkman,cust_phone,cust_email,cust_zipcode,cust_address,cust_createtime)
-		values (#{cust_name},
-		#{cust_user_id},
-		#{cust_create_id},
-		#{cust_source},
-		#{cust_industry},
-		#{cust_level},
-		#{cust_linkman},
-		#{cust_phone},
-		#{cust_email},
-		#{cust_zipcode},
-		#{cust_address},
-		#{cust_createtime})
+		values (#{custName},
+		#{custUserId},
+		#{custCreateId},
+		#{custSource},
+		#{custIndustry},
+		#{custLevel},
+		#{custLinkman},
+		#{custPhone},
+		#{custEmail},
+		#{custZipcode},
+		#{custAddress},
+		#{custCreatetime})
 
 	</insert>
 

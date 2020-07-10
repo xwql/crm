@@ -16,22 +16,22 @@ public class CustomerAnalyseController {
     CustomerAnalyseService customerAnalyseService;
     @PostMapping("allSingleData")
     @ResponseBody
-    public Map getAllSingleData(Date start_time,Date end_time){
-        Map data = customerAnalyseService.findAllSingleData(start_time, end_time);
+    public Map getAllSingleData(Date startTime,Date endTime){
+        Map data = customerAnalyseService.findAllSingleData(startTime, endTime);
         return data;
         //return null;
     }
 
     @PostMapping("customerLineData")
     @ResponseBody
-    public Map getCustomerLineData(Date start_time,Date end_time){
-        Map data = customerAnalyseService.findCustomerLineData(start_time, end_time);
+    public Map getCustomerLineData(Date startTime,Date endTime){
+        Map data = customerAnalyseService.findCustomerLineData(startTime, endTime);
         return data;
     }
     @PostMapping("customerPieData")
     @ResponseBody
-    public Map getCustomerPieData(Date start_time,Date end_time){
-        Map data = customerAnalyseService.findCustomerPieData(start_time, end_time);
+    public Map getCustomerPieData(Date startTime,Date endTime){
+        Map data = customerAnalyseService.findCustomerPieData(startTime, endTime);
         return data;
     }
 }

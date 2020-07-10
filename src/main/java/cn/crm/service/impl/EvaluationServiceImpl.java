@@ -28,10 +28,10 @@ public class EvaluationServiceImpl implements EvaluationService {
     public Page<Evaluation> findEvaluationList(Integer page, Integer rows, String custName, String toObject, Integer visible) {
         Evaluation evaluation = new Evaluation();
         if(StringUtils.isNotBlank(custName)){
-            evaluation.setCust_name(custName);
+            evaluation.setCustName(custName);
         }
         if(StringUtils.isNotBlank(toObject)){
-            evaluation.setTo_object(toObject);
+            evaluation.setToObject(toObject);
         }
         evaluation.setVisible(visible);
         evaluation.setStart((page-1) * rows) ;
@@ -73,8 +73,8 @@ public class EvaluationServiceImpl implements EvaluationService {
     @Override
     public Evaluation getOneEvaluation(Long id) {
         Evaluation evaluation = evaluationMapper.selectByPrimaryKey(id);
-        Customer customerById = customerMapper.getCustomerById(evaluation.getCust_id());
-        evaluation.setCust_name(customerById.getCust_name());
+        Customer customerById = customerMapper.getCustomerById(evaluation.getCustId());
+        evaluation.setCustName(customerById.getCustName());
         return evaluation;
     }
 }

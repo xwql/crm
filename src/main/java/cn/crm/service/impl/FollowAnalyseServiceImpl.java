@@ -13,18 +13,18 @@ public class FollowAnalyseServiceImpl implements FollowAnalyseService {
     private FollowAnalyseMapper followAnalyseMapper;
 
     @Override
-    public Map findPieData(Date start_time, Date end_time) {
+    public Map findPieData(Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             end = new Date();
             instance.setTime(end);
             instance.add(Calendar.YEAR, -1);
             start = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
         List<Map<String, Object>> businessPie = followAnalyseMapper.selectBusinessPie(start, end);
         List<Map<String, Object>> wayPie = followAnalyseMapper.selectWayPie(start, end);
@@ -51,18 +51,18 @@ public class FollowAnalyseServiceImpl implements FollowAnalyseService {
     }
 
     @Override
-    public Map findFollowBar(Date start_time, Date end_time) {
+    public Map findFollowBar(Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             end = new Date();
             instance.setTime(end);
             instance.add(Calendar.YEAR, -1);
             start = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
         List<Map<String, Object>> followFreBar = followAnalyseMapper.selectFollowFreBar(start, end);
         TreeMap<String, Integer> followFreMap = new TreeMap<>();
@@ -75,18 +75,18 @@ public class FollowAnalyseServiceImpl implements FollowAnalyseService {
     }
 
     @Override
-    public Map findFollowNumAndNot(Date start_time, Date end_time) {
+    public Map findFollowNumAndNot(Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             end = new Date();
             instance.setTime(end);
             instance.add(Calendar.YEAR, -1);
             start = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
         Map<String, Object> numAndNot = followAnalyseMapper.selectFollowNumAndNot(start, end);
         return numAndNot;

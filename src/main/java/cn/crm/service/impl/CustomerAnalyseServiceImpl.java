@@ -18,18 +18,18 @@ public class CustomerAnalyseServiceImpl implements CustomerAnalyseService {
     @Autowired
     CustomerAnalyseMapper customerAnalyseMapper;
     @Override
-    public Map findAllSingleData(Date start_time, Date end_time) {
+    public Map findAllSingleData(Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             end = new Date();
             instance.setTime(end);
             instance.add(Calendar.YEAR, -1);
             start = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
         int contractNum = customerAnalyseMapper.selectCustomerContractNum(start, end);
         int incrCustomerNum = customerAnalyseMapper.selectCustomerCreateNum(start, end);
@@ -64,10 +64,10 @@ public class CustomerAnalyseServiceImpl implements CustomerAnalyseService {
     }
 
     @Override
-    public Map findCustomerLineData(Date start_time, Date end_time) {
+    public Map findCustomerLineData(Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             instance.setTime(new Date());
             instance.add(Calendar.YEAR, -1);
@@ -76,8 +76,8 @@ public class CustomerAnalyseServiceImpl implements CustomerAnalyseService {
             instance.add(Calendar.MONTH,1);
             end = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
         //System.out.println("end = " + end);
         List<Map<String, Object>> maps = customerAnalyseMapper.customerLineData(start, end);
@@ -96,18 +96,18 @@ public class CustomerAnalyseServiceImpl implements CustomerAnalyseService {
     }
 
     @Override
-    public Map findCustomerPieData(Date start_time, Date end_time) {
+    public Map findCustomerPieData(Date startTime, Date endTime) {
         Date start = null;
         Date end = null;
-        if(start_time == null || end_time == null) {
+        if(startTime == null || endTime == null) {
             Calendar instance = Calendar.getInstance();
             end = new Date();
             instance.setTime(end);
             instance.add(Calendar.YEAR, -1);
             start = instance.getTime();
         } else {
-            start = start_time;
-            end = end_time;
+            start = startTime;
+            end = endTime;
         }
         List<Map<String, Object>> maps = customerAnalyseMapper.selectCustomerSource(start, end);
         HashMap<String, List> map = new HashMap<>();
