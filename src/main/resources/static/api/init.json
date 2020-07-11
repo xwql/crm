@@ -215,6 +215,26 @@
           "href": "page/error.html",
           "icon": "fa fa-superpowers",
           "target": "_self"
+        },
+        {
+          "title": "代码链接",
+          "href": "",
+          "icon": "fa fa-git",
+          "target": "_self",
+          "child": [
+            {
+              "title": "GitHub",
+              "href": "https://github.com/xwql/crm",
+              "icon": "fa fa-github",
+              "target": "_self"
+            },
+            {
+              "title": "码云",
+              "href": "https://gitee.com/xwql/crm",
+              "icon": "fa fa-git-square",
+              "target": "_self"
+            }
+          ]
         }
       ]
     }
