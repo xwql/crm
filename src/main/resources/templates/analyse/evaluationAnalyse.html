@@ -151,8 +151,8 @@
                 url:"evaluationAnalyse/getEvaluationAvg",
                 success:function (result) {
                     //console.log(result);
-                    $("#companyToCustomer").html(result.companyToCustomer);
-                    $("#customerToCompany").html(result.customerToCompany);
+                    $("#companyToCustomer").html(result.companyToCustomer.toFixed(3));
+                    $("#customerToCompany").html(result.customerToCompany.toFixed(3));
                     if(result.companyToCustomer == undefined) $("#companyToCustomer").html("无");
                     if(result.customerToCompany == undefined) $("#customerToCompany").html("无");
                 }

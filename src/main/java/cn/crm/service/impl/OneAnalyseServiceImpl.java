@@ -37,7 +37,7 @@ public class OneAnalyseServiceImpl implements OneAnalyseService {
         map.put("businessStatus",status.get("businessStatus"));
         map.put("custProperty",status.get("custProperty"));
         for (Map m:maps){
-            if(m.get("toObject").equals("客户对公司")) {
+            if(m.get("to_object").equals("客户对公司")) {
                 map.put("custScoreAvg", m.get("scoreAvg"));
                 map.put("custNum",m.get("num"));
             }else {

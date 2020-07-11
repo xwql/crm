@@ -89,6 +89,6 @@ public class CrmApp {
     @GetMapping("init.json")
     @ResponseBody
     public JSONObject initJson() throws IOException {
-        return FileToJson.fileToJson("src/main/resources/static/api/init.json");
+        return FileToJson.fileToJson("static/api/init.json");
     }
 }

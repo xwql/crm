@@ -194,8 +194,8 @@
 <!--<script src="lib/layui-v2.5.5/layui.js" charset="utf-8"></script>-->
 
 <script src="lib/layui-v2.5.5/layui.all.js" charset="utf-8"></script>
-<script src="js/lay-module/tableSelect/tableSelect.js"></script>
 <script src="js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script src="js/lay-module/tableSelect/tableSelect.js"></script>
 <script>
     layui.use(['form', 'layer', 'laydate','echarts'], function () {
         var form = layui.form;
@@ -271,7 +271,7 @@
                 data:data,
                 type:"post",
                 success:function (result) {
-                    //console.log(result);
+                    console.log(result);
                     $("#custSource").html(result.custSource);
                     $("#custIndustry").html(result.custIndustry);
                     $("#custLevel").html(result.custLevel);

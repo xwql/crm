@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.crm.mapper.OneAnalyseMapper">
     <select id="selectStatus" resultType="HashMap">
-select cu.cust_source,cu.cust_industry,cu.cust_level,
-follow.cust_status,follow.business_status,follow.cust_property
+select cu.cust_source custSource,cu.cust_industry custIndustry,cu.cust_level custLevel,
+follow.cust_status custStatus,follow.business_status businessStatus,follow.cust_property custProperty
 FROM (SELECT b.item_name cust_source,c.item_name cust_industry,d.item_name cust_level
 FROM
 customer a

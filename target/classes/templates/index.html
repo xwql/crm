@@ -127,13 +127,13 @@
         layuimini.config(config); //不知为何在这里配置无效
         //layuimini.init('api/init.json');
         layuimini.init("init.json"); //直接放请求的url
-        $.ajax({
-           url:"init.json",
-           type:"get",
-           success: function (data) {
-               console.log(data)
-           }
-        });
+        // $.ajax({
+        //    url:"init.json",
+        //    type:"get",
+        //    success: function (data) {
+        //        console.log(data)
+        //    }
+        // });
 
         $('.login-out').on("click", function () {
             $.ajax({
